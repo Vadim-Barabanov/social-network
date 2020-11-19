@@ -1,0 +1,99 @@
+.wrapper {
+    background-color: lightgray;
+    font-size: 20px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: minmax(100px, 1fr) 6fr;
+}
+
+.dialogItems {
+    display: flex;
+    flex-direction: column;
+}
+
+.dialogItems > * {
+    display: flex;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin: 5px 0;
+    text-decoration: none;
+    color: black;
+    outline: none;
+    border-radius: 10px;
+    padding: 0 10px;
+}
+
+.item__img {
+    width: 40px;
+    margin: 10px 15px 10px 0;
+    border-radius: 50%;
+    background-color: darkcyan;
+}
+
+.item__name {
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+.messageItems {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    max-width: 400px;
+    border: 1px solid #014243;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.message {
+    margin: 14px 0;
+}
+
+.message__mymsg {
+    align-self: end;
+}
+
+.message__item {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.message__name {
+    color: blue;
+}
+
+.input__box {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
+.input__text {
+    margin-top: 30px;
+    font-family: Arial;
+    font-size: 14px;
+    background-color: lightcyan;
+    padding: 10px;
+    height: 30px;
+}
+
+.input__btn {
+    align-self: center;
+    width: 150px;
+    height: 40px;
+    margin-top: 20px;
+    font-size: 18px;
+    background-color: lightcyan;
+}
+
+.active span {
+    background-color: lightcyan;
+}

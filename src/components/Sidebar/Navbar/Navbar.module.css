@@ -1,0 +1,25 @@
+.navbar {
+    grid-area: navbar;
+    background-color: lightsalmon;
+    padding: 20px;
+}
+
+.item {
+    font-size: 1.4em;
+    color: white;
+    margin: 20px 0;
+}
+
+.item a {
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+.item a.active {
+    background-color: white;
+    color: black;
+}

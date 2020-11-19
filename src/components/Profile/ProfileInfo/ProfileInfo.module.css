@@ -1,0 +1,26 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 2fr 8fr;
+    grid-template-rows: 2fr 7fr;
+    grid-template-areas: "image name" "image descr";
+    margin: 20px 0 50px 0;
+}
+
+.userImage {
+    grid-area: image;
+    width: 250px;
+    border-radius: 20px;
+    background-color: lightcyan;
+}
+
+.userName {
+    grid-area: name;
+}
+
+.userDescription {
+    grid-area: descr;
+    padding: 20px 0;
+    font-size: 18px;
+    max-width: 400px;
+    border-bottom: 3px solid gray;
+}

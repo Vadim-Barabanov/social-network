@@ -1,0 +1,8 @@
+.profile {
+    background-color: lightgray;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: left;
+}

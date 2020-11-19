@@ -1,0 +1,31 @@
+.post {
+    font-size: 20px;
+    margin: 10px 0;
+    padding: 5px 15px 5px 15px;
+    border-radius: 5px;
+    background-color: lightcyan;
+}
+
+.post__userName {
+    font-size: 16px;
+    color: darkgoldenrod;
+}
+
+.post__message {
+    margin: 5px 0;
+}
+
+.post__likes {
+    font-size: 14px;
+}
+
+.post__likes button {
+    border-radius: 5px;
+    background-color: lightcyan;
+    cursor: pointer;
+}
+
+.post__likes button {
+    margin: 0 10px;
+    font-size: 14px;
+}
