@@ -1,31 +1,48 @@
 import React from "react";
-import MyPostsStyle from "./MyPosts.module.css";
+import styles from "./MyPosts.module.css";
 import Post from "./Post/Post";
+import { Field, reduxForm } from "redux-form";
+import { required, maxLenght } from "../../../utilits/validators";
+import { FormCreator } from "../../FormControls/FormControls";
+
+const maxLenghtValidator = maxLenght(30);
+const Textarea = FormCreator("textarea");
+
+const PostsForm = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit} className={styles.form}>
+            <div>
+                <Field
+                    component={Textarea}
+                    name={"postText"}
+                    validate={[required, maxLenghtValidator]}
+                    placeholder={"Post message"}
+                />
+            </div>
+            <div>
+                <button className={styles.send__btn}>Send</button>
+            </div>
+        </form>
+    );
+};
+
+const PostsReduxForm = reduxForm({
+    form: "posts",
+})(PostsForm);
 
 const MyPosts = (props) => {
-    let onAddPost = () => {
-        props.addPost();
-    };
-
-    let onPostChange = (elem) => {
-        let text = elem.target.value;
-        props.updateNewPostText(text);
+    let onSubmit = (data) => {
+        props.addPost(data.postText);
     };
 
     let postsElements = props.posts.map((item) => (
-        <Post text={item.text} likesCount={item.likesCount} />
+        <Post key={item.id} text={item.text} likesCount={item.likesCount} />
     ));
+
     return (
-        <div className={MyPostsStyle.posts}>
+        <div className={styles.posts}>
             {postsElements}
-            <textarea
-                onChange={onPostChange}
-                value={props.newPostText}
-                className={MyPostsStyle.text}
-            />
-            <button onClick={onAddPost} className={MyPostsStyle.btn}>
-                Add Post
-            </button>
+            <PostsReduxForm onSubmit={onSubmit} />
         </div>
     );
 };

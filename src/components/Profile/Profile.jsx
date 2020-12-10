@@ -2,10 +2,14 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import ProfileStyle from "./Profile.module.css";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
-const Profile = () => {
+const Profile = (props) => {
     return (
         <main className={ProfileStyle.profile}>
-            <ProfileInfo />
+            <ProfileInfo
+                profile={props.profile}
+                status={props.status}
+                updateStatus={props.updateStatus}
+            />
             <MyPostsContainer />
         </main>
     );

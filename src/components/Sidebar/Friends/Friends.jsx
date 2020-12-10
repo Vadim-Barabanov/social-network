@@ -4,8 +4,13 @@ import FriendsStyle from "./FriendsStyle.module.css";
 const Friends = (props) => {
     let friends = props.friendsList.map((item) => {
         return (
-            <NavLink className={FriendsStyle.friendNavLink} to={item.link}>
+            <NavLink
+                key={item.id}
+                className={FriendsStyle.friendNavLink}
+                to={item.link}
+            >
                 <img
+                    alt="user"
                     className={FriendsStyle.friendNavLink__img}
                     src={item.name}
                 />

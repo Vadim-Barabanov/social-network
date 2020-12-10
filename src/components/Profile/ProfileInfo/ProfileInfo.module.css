@@ -1,26 +1,46 @@
 .wrapper {
     display: grid;
     grid-template-columns: 2fr 8fr;
-    grid-template-rows: 2fr 7fr;
+    grid-template-rows: 70px 1fr;
     grid-template-areas: "image name" "image descr";
-    margin: 20px 0 50px 0;
+    grid-column-gap: 2rem;
+    grid-row-gap: 0.5rem;
+    margin-bottom: 3rem;
 }
 
 .userImage {
     grid-area: image;
     width: 250px;
-    border-radius: 20px;
     background-color: lightcyan;
+    border-radius: 50%;
+}
+
+.userTitle {
+    display: flex;
+    flex-direction: column;
 }
 
 .userName {
     grid-area: name;
+    align-self: start;
+    border-bottom: 3px solid gray;
+    padding: 0 20px;
+}
+
+.status {
+    margin-top: 10px;
+    font-size: 1rem;
+    font-style: italic;
+    letter-spacing: 1px;
 }
 
 .userDescription {
     grid-area: descr;
-    padding: 20px 0;
+    padding: 5px 0;
     font-size: 18px;
     max-width: 400px;
-    border-bottom: 3px solid gray;
+}
+
+.headers {
+    text-decoration: underline;
 }

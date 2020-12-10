@@ -1,14 +1,58 @@
 import React from "react";
-import ProfileInfoStyle from './ProfileInfo.module.css';
+import styles from "./ProfileInfo.module.css";
+import Preloader from "../../common/preloader/Preloader";
+import userMale from "../../../assets/images/userMale.png";
+import ProfileStatus from "./ProfileStatus";
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
-const ProfileInfo = () => {
+const ProfileInfo = (props) => {
+    if (!props.profile) {
+        return <Preloader />;
+    }
+
     return (
-        <div className={ProfileInfoStyle.wrapper}>
-            <img className={ProfileInfoStyle.userImage} src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fvignette2.wikia.nocookie.net%2Fadventuretime%2Fimages%2F8%2F81%2FBMO.png%2Frevision%2Flatest%3Fcb%3D20130117180234%26path-prefix%3Dde&f=1&nofb=1"/>
-            <h2 className={ProfileInfoStyle.userName}>Avraam Linkoln</h2>
-            <p className={ProfileInfoStyle.userDescription}>Hi there! I'm Linkoln, and I'm 20 years old. My hobbies: football, baseball, basketball and tenis; I very love comping and mountain so if you want to go through Karpaty, I'll go with you!</p>
+        <div className={styles.wrapper}>
+            <img
+                alt=""
+                className={styles.userImage}
+                src={
+                    props.profile.photos.large ||
+                    props.profile.photos.small ||
+                    userMale
+                }
+            />
+            <div className={styles.userTitle}>
+                <h2 className={styles.userName}>{props.profile.fullName}</h2>
+                {/*                <ProfileStatus
+                    status={props.status}
+                    updateStatus={props.updateStatus}
+                /> */}
+                <ProfileStatusWithHooks
+                    status={props.status}
+                    updateStatus={props.updateStatus}
+                />
+            </div>
+            <div className={styles.userDescription}>
+                {props.profile.aboutMe ? (
+                    <>
+                        <p className={styles.headers}>About me:</p>
+                        <p>{props.profile.aboutMe}</p>
+                    </>
+                ) : null}
+                <p className={styles.headers}>Job status:</p>
+                {props.profile.lookingForAJob
+                    ? "I'm looking for a job."
+                    : "I'm not looking for a job."}
+                <br />
+                {props.profile.lookingForAJobDescription ? (
+                    <>
+                        <p className={styles.headers}>Description:</p>
+                        <p>{props.profile.lookingForAJobDescription}</p>
+                    </>
+                ) : null}
+            </div>
         </div>
-    )
+    );
 };
 
 export default ProfileInfo;

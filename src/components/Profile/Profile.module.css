@@ -1,8 +1,7 @@
 .profile {
-    background-color: lightgray;
-    padding: 20px;
+    background-color: lightsteelblue;
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: left;
 }

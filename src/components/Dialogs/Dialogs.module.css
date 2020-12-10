@@ -1,9 +1,8 @@
 .wrapper {
-    background-color: lightgray;
-    font-size: 20px;
-    padding: 20px;
+    background-color: lightsteelblue;
+    font-size: 1.2rem;
     display: grid;
-    grid-template-columns: minmax(100px, 1fr) 6fr;
+    grid-template-columns: 1fr 6fr;
 }
 
 .dialogItems {
@@ -19,34 +18,44 @@
     display: flex;
     align-items: center;
     justify-content: left;
-    margin: 5px 0;
     text-decoration: none;
-    color: black;
     outline: none;
-    border-radius: 10px;
-    padding: 0 10px;
+    border-radius: 25px;
+    background-color: lightseagreen;
+    min-width: 120px;
+    margin-bottom: 15px;
+    font-size: 1rem;
 }
 
 .item__img {
-    width: 40px;
-    margin: 10px 15px 10px 0;
-    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
     background-color: darkcyan;
+
+    /* For <img alt="user"/> */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
 }
 
 .item__name {
-    padding: 5px 10px;
+    padding: 5px;
     border-radius: 10px;
+    color: white;
 }
 
 .messageItems {
+    justify-self: center;
     display: flex;
     flex-direction: column;
-    align-items: start;
-    max-width: 400px;
-    border: 1px solid #014243;
+    align-items: flex-start;
+    width: 500px;
+    margin-bottom: 3rem;
+    padding: 20px;
     border-radius: 20px;
-    padding: 30px;
+    background-color: lightseagreen;
 }
 
 .message {
@@ -64,6 +73,7 @@
     padding: 10px;
     border-radius: 10px;
     background-color: white;
+    max-width: 350px;
 }
 
 .message__name {
@@ -74,6 +84,7 @@
     display: flex;
     flex-direction: column;
     align-self: center;
+    width: 100%;
 }
 
 .input__text {
@@ -82,18 +93,30 @@
     font-size: 14px;
     background-color: lightcyan;
     padding: 10px;
-    height: 30px;
+    border-radius: 10px;
 }
 
 .input__btn {
     align-self: center;
     width: 150px;
-    height: 40px;
-    margin-top: 20px;
+    height: 30px;
+    margin-top: 10px;
     font-size: 18px;
     background-color: lightcyan;
+    border-radius: 10px;
+    font-weight: 500;
 }
 
-.active span {
+.active {
     background-color: lightcyan;
+}
+.active span {
+    color: black;
+}
+
+.inputForm {
+    grid-column: 2;
+    justify-self: center;
+    margin-left: 3rem;
+    text-align: center;
 }

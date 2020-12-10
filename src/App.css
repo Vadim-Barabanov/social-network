@@ -1,22 +1,29 @@
 body {
-    background-color: lightcyan;
+    background-color: lightsteelblue;
 }
 
 body h1,
 h2,
 h3,
-h4 {
+h4,
+p {
     margin: 0;
+    box-sizing: border-box;
+}
+
+input {
+    outline: none;
 }
 
 .app-wrapper {
     height: 100vh;
     font-size: 16px;
     display: grid;
-    grid-template-columns: 2fr 14fr;
+    grid-template-columns: 1fr 170px 1000px 1fr;
     grid-template-rows: 60px 1fr;
-    grid-gap: 20px;
-    grid-template-areas: "heading heading" "navbar cont";
+    grid-row-gap: 1.5rem;
+    grid-column-gap: 3rem;
+    grid-template-areas: ". heading heading ." ". navbar cont .";
 }
 .app-wrapper-content {
     grid-area: cont;

@@ -4,6 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
+Session.vim
+workspace.cmd
 
 # testing
 /coverage
