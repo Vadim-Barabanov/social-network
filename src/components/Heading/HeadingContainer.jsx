@@ -19,6 +19,7 @@ let mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
     email: state.auth.email,
 });
+
 export default connect(mapStateToProps, {
     logout,
 })(HeadinContainer);

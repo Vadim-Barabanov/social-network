@@ -1,6 +1,8 @@
 import { createSelector } from "reselect";
 
-const getUsersArray = (state) => state.usersPage.users;
+export const getUsersArray = (state) => {
+    return state.usersPage.users;
+};
 export const getUsersArraySS = createSelector(getUsersArray, (users) => {
     // Difficult calculations or functions that returns new object [map, filter, reduce etc..]
     // users takes from simple selector [getUsersArray]

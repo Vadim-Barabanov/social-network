@@ -1,21 +1,21 @@
 import React from "react";
+import { connect } from "react-redux";
+import { Route, withRouter } from "react-router-dom";
+import { compose } from "redux";
+import { initializeApp } from "./redux/app-reducer";
 import "./App.css";
-import { Route } from "react-router-dom";
-import LoginContainer from "./components/Login/LoginContainer";
-import HeadingContainer from "./components/Heading/HeadingContainer";
-import SidebarContainer from "./components/Sidebar/SidebarContainer";
+// Importing components
+import Preloader from "./components/common/preloader/Preloader";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import HeadingContainer from "./components/Heading/HeadingContainer";
+import LoginContainer from "./components/Login/LoginContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import SidebarContainer from "./components/Sidebar/SidebarContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 //import News from "./components/News/News";
 //import Music from "./components/Music/Music";
 //import Settings from "./components/Settings/Settings";
 //import FollowingContainer from "./components/Following/FollowingContainer";
-import { initializeApp } from "./redux/app-reducer";
-import { connect } from "react-redux";
-import { compose } from "redux";
-import { withRouter } from "react-router-dom";
-import Preloader from "./components/common/preloader/Preloader";
 
 class App extends React.Component {
     componentDidMount() {

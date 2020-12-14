@@ -45,44 +45,40 @@ export const toggleIsFetching = (isFetching) => ({
 });
 
 // THUNK CREATERS
-export const getAuthUserData = () => (dispatch) => {
-    dispatch(toggleIsFetching(true));
-    return authAPI.authMe().then((data) => {
-        let { id, email, login } = data.data;
-        if (data.resultCode === 0) {
-            dispatch(setAuthUserData(id, email, login, true));
-            console.log("Login");
-        }
-        dispatch(toggleIsFetching(false));
-    });
+export const getAuthUserData = () => async (dispatch) => {
+    let response = await authAPI.authMe();
+
+    if (response.resultCode === 0) {
+        let { id, email, login } = response.data;
+        dispatch(setAuthUserData(id, email, login, true));
+    }
 };
 
-export const login = (email, password, rememberMe = false) => (dispatch) => {
+export const login = (email, password, rememberMe) => async (dispatch) => {
     dispatch(toggleIsFetching(true));
-    authAPI.login(email, password, rememberMe).then((data) => {
-        if (data.resultCode === 0) {
-            dispatch(getAuthUserData());
-        } else {
-            let message =
-                data.messages.length > 0 ? data.messages[0] : "Some error";
-            dispatch(
-                stopSubmit("login", {
-                    _error: message,
-                })
-            );
-        }
-        dispatch(toggleIsFetching(false));
-    });
+    let data = await authAPI.login(email, password, rememberMe);
+
+    if (data.resultCode === 0) {
+        dispatch(getAuthUserData());
+    } else {
+        let message =
+            data.messages.length > 0 ? data.messages[0] : "Some error";
+        dispatch(
+            stopSubmit("login", {
+                _error: message,
+            })
+        );
+    }
+    dispatch(toggleIsFetching(false));
 };
 
-export const logout = () => (dispatch) => {
+export const logout = () => async (dispatch) => {
     dispatch(toggleIsFetching(true));
-    authAPI.logout().then((data) => {
-        if (data.resultCode === 0) {
-            dispatch(setAuthUserData(null, null, null, false));
-        }
-        dispatch(toggleIsFetching(false));
-    });
+    let data = await authAPI.logout();
+    if (data.resultCode === 0) {
+        dispatch(setAuthUserData(null, null, null, false));
+    }
+    dispatch(toggleIsFetching(false));
 };
 
 export default authReducer;

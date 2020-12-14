@@ -10,9 +10,9 @@ const maxLenghtForLogin = maxLenght(30);
 const maxLenghtForPass = maxLenght(30);
 const Input = FormCreator("input");
 
-const LoginForm = (props) => {
+const LoginForm = ({ handleSubmit, error }) => {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <Field
                     component={Input}
@@ -38,9 +38,7 @@ const LoginForm = (props) => {
                 />{" "}
                 Remember me
             </div>
-            {props.error ? (
-                <div className={styles.formError}>{props.error}</div>
-            ) : null}
+            {error ? <div className={styles.formError}>{error}</div> : null}
             <div>
                 <button
                     style={{

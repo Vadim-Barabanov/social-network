@@ -3,6 +3,7 @@ import { profileAPI } from "../api/api";
 const ADD_POST = "ADD_POST";
 const SET_USERS_PROFILE = "SET_USERS_PROFILE";
 const SET_STATUS = "SET_STATUS";
+const DELETE_POST = "DELETE_POST";
 
 let initialState = {
     posts: [
@@ -27,8 +28,15 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 posts: [
                     ...state.posts,
-                    { id: 5, text: action.postText, likesCount: 1000 },
+                    { id: 5, text: action.postText, likesCount: 0 },
                 ],
+            };
+        }
+
+        case DELETE_POST: {
+            return {
+                ...state,
+                posts: state.posts.filter((item) => item.id !== action.postId),
             };
         }
 
@@ -61,24 +69,25 @@ export const setStatusSuccess = (status) => ({
     type: SET_STATUS,
     status,
 });
+export const deletePost = (postId) => ({
+    type: DELETE_POST,
+    postId,
+});
 
 // THUNK CREATERS
-export const setUserProfile = (userId) => (dispatch) => {
-    profileAPI.getProfileData(userId).then((data) => {
-        dispatch(setUserProfileSuccess(data));
-    });
+export const setUserProfile = (userId) => async (dispatch) => {
+    let data = await profileAPI.getProfileData(userId);
+    dispatch(setUserProfileSuccess(data));
 };
-export const setStatus = (userId) => (dispatch) => {
-    profileAPI.getStatus(userId).then((data) => {
-        dispatch(setStatusSuccess(data));
-    });
+export const setStatus = (userId) => async (dispatch) => {
+    let data = await profileAPI.getStatus(userId);
+    dispatch(setStatusSuccess(data));
 };
-export const updateStatus = (status) => (dispatch) => {
-    profileAPI.updateStatus(status).then((data) => {
-        if (data.resultCode === 0) {
-            dispatch(setStatusSuccess(status));
-        }
-    });
+export const updateStatus = (status) => async (dispatch) => {
+    let data = await profileAPI.updateStatus(status);
+    if (data.resultCode === 0) {
+        dispatch(setStatusSuccess(status));
+    }
 };
 
 export default profileReducer;

@@ -11,7 +11,7 @@ import {
 
 // SELECTORS
 import {
-    getUsersArraySS,
+    getUsersArray,
     getPageSize,
     getCurrentPage,
     getTotalUsersCount,
@@ -21,11 +21,13 @@ import {
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        const { currentPage, pageSize } = this.props;
+        this.props.getUsers(currentPage, pageSize);
     }
 
     onPageChange = (pageNumber) => {
-        this.props.getUsers(pageNumber, this.props.pageSize);
+        let { pageSize } = this.props;
+        this.props.getUsers(pageNumber, pageSize);
     };
 
     render() {
@@ -49,7 +51,7 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        users: getUsersArraySS(state),
+        users: getUsersArray(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),

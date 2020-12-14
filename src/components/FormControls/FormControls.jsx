@@ -1,8 +1,12 @@
 import React from "react";
 import styles from "./FormControls.module.css";
 
-export const FormCreator = (Tag) => ({ input, meta, ...props }) => {
-    const hasError = meta.touched && meta.error;
+export const FormCreator = (Tag) => ({
+    input,
+    meta: { touched, error },
+    ...props
+}) => {
+    const hasError = touched && error;
     return (
         <div
             className={
@@ -12,7 +16,7 @@ export const FormCreator = (Tag) => ({ input, meta, ...props }) => {
             <div>
                 <Tag {...input} {...props} />
             </div>
-            <div>{hasError && <span>{meta.error}</span>}</div>
+            <div>{hasError && <span>{error}</span>}</div>
         </div>
     );
 };

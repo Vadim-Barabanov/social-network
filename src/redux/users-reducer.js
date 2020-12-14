@@ -1,4 +1,5 @@
 import { profileAPI, usersAPI } from "../api/api";
+import { updateObjectInArray } from "../utilits/object-helpers";
 
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
@@ -24,23 +25,29 @@ const usersReducer = (state = initialState, action) => {
         case FOLLOW:
             return {
                 ...state,
-                users: state.users.map((user) => {
-                    if (user.id === action.userId) {
-                        return { ...user, followed: true };
-                    }
-                    return user;
+                users: updateObjectInArray(state.users, action.userId, "id", {
+                    followed: true,
                 }),
+                // users: state.users.map((user) => {
+                //     if (user.id === action.userId) {
+                //         return { ...user, followed: true };
+                //     }
+                //     return user;
+                // }),
             };
 
         case UNFOLLOW:
             return {
                 ...state,
-                users: state.users.map((user) => {
-                    if (user.id === action.userId) {
-                        return { ...user, followed: false };
-                    }
-                    return user;
+                users: updateObjectInArray(state.users, action.userId, "id", {
+                    followed: false,
                 }),
+                // users: state.users.map((user) => {
+                //     if (user.id === action.userId) {
+                //         return { ...user, followed: false };
+                //     }
+                //     return user;
+                // }),
             };
 
         case SET_USERS:
@@ -115,41 +122,37 @@ export const setUserStatusSuccess = (userStatus) => ({
 });
 
 // THUNK CREATORS
-export const getUsers = (currentPage, pageSize) => (dispatch) => {
+export const getUsers = (currentPage, pageSize) => async (dispatch) => {
     dispatch(toggleIsFetching(true));
-    usersAPI.getUsers(currentPage, pageSize).then((data) => {
-        dispatch(setUsers(data.items));
-        dispatch(setTotalUsersCount(100));
-        dispatch(setCurrentPage(currentPage));
-        //dispatch(setTotalUsersCount(data.totalCount));
-        dispatch(toggleIsFetching(false));
-    });
+    let data = await usersAPI.getUsers(currentPage, pageSize);
+    dispatch(setUsers(data.items));
+    dispatch(setTotalUsersCount(100));
+    dispatch(setCurrentPage(currentPage));
+    //dispatch(setTotalUsersCount(data.totalCount));
+    dispatch(toggleIsFetching(false));
 };
 
-export const follow = (userId) => (dispatch) => {
-    dispatch(toggleIsFetching(true));
+export const follow = (userId) => async (dispatch) => {
+    // dispatch(toggleIsFetching(true));
     dispatch(toggleFollowingProgress(true, userId));
-    usersAPI.follow(userId).then((data) => {
-        if (data.resultCode === 0) dispatch(followSuccess(userId));
-        dispatch(toggleFollowingProgress(false, userId));
-        dispatch(toggleIsFetching(false));
-    });
+    let data = await usersAPI.follow(userId);
+    if (data.resultCode === 0) dispatch(followSuccess(userId));
+    dispatch(toggleFollowingProgress(false, userId));
+    // dispatch(toggleIsFetching(false));
 };
 
-export const unfollow = (userId) => (dispatch) => {
-    dispatch(toggleIsFetching(true));
+export const unfollow = (userId) => async (dispatch) => {
+    // dispatch(toggleIsFetching(true));
     dispatch(toggleFollowingProgress(true, userId));
-    usersAPI.unfollow(userId).then((data) => {
-        if (data.resultCode === 0) dispatch(unfollowSuccess(userId));
-        dispatch(toggleFollowingProgress(false, userId));
-        dispatch(toggleIsFetching(false));
-    });
+    let data = await usersAPI.unfollow(userId);
+    if (data.resultCode === 0) dispatch(unfollowSuccess(userId));
+    dispatch(toggleFollowingProgress(false, userId));
+    // dispatch(toggleIsFetching(false));
 };
 
-export const getUserStatus = (userId) => (dispatch) => {
-    profileAPI
-        .getStatus(userId)
-        .then((data) => dispatch(setUserStatusSuccess(data)));
+export const getUserStatus = (userId) => async (dispatch) => {
+    let data = await profileAPI.getStatus(userId);
+    dispatch(setUserStatusSuccess(data));
 };
 
 export default usersReducer;
