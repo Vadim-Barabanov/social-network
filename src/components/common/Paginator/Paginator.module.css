@@ -32,6 +32,9 @@
     font-size: 1.2rem;
 }
 
-.temp {
-    margin: 0 20px;
+.pages__numbers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
 }

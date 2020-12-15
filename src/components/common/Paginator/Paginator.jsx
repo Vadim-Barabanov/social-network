@@ -22,11 +22,18 @@ const Paginator = ({
     let rightPortionPageNumber = portionNumber * portionSize;
 
     const prevPage = () => {
-        setPortionNumber(portionNumber - 1);
+        if (currentPage <= leftPortionPageNumber) {
+            setPortionNumber(portionNumber - 1);
+        }
+
+        onPageChange(currentPage - 1);
     };
 
     const nextPage = () => {
-        setPortionNumber(portionNumber + 1);
+        if (currentPage >= rightPortionPageNumber) {
+            setPortionNumber(portionNumber + 1);
+        }
+        onPageChange(currentPage + 1);
     };
 
     return (
@@ -36,46 +43,45 @@ const Paginator = ({
                     className={style.pagesBtns}
                     onClick={() => {
                         prevPage();
-                        // onPageChange(currentPage - 1);
                     }}
                 >
                     <i class="fas fa-arrow-left"></i>
                 </button>
             )}
 
-            {pages
-                .filter(
-                    (item) =>
-                        item >= leftPortionPageNumber &&
-                        item <= rightPortionPageNumber
-                )
-                .map((item) => (
-                    <span
-                        key={item}
-                        onClick={() => {
-                            if (currentPage === item) return null;
-                            onPageChange(item);
-                        }}
-                        className={`${style.pageNumber} ${
-                            currentPage === item ? style.selectedPage : null
-                        }`}
-                    >
-                        {item}
-                    </span>
-                ))}
+            <div className={style.pages__numbers}>
+                {pages
+                    .filter(
+                        (item) =>
+                            item >= leftPortionPageNumber &&
+                            item <= rightPortionPageNumber
+                    )
+                    .map((item) => (
+                        <span
+                            key={item}
+                            onClick={() => {
+                                if (currentPage === item) return null;
+                                onPageChange(item);
+                            }}
+                            className={`${style.pageNumber} ${
+                                currentPage === item ? style.selectedPage : null
+                            }`}
+                        >
+                            {item}
+                        </span>
+                    ))}
+            </div>
 
             {portionCount > portionNumber && (
                 <button
                     className={style.pagesBtns}
                     onClick={() => {
                         nextPage();
-                        // onPageChange(currentPage + 1);
                     }}
                 >
                     <i class="fas fa-arrow-right"></i>
                 </button>
             )}
-            <div className={style.temp}>current page: {currentPage}</div>
         </div>
     );
 };

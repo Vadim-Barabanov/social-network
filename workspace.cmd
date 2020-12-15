@@ -1,3 +1,3 @@
 D:
-cd D:\Study\ReactSamurai\01\study-project
+cd D:\Study\ReactSamurai\study-project
 npm start
