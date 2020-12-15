@@ -22,5 +22,14 @@
 
 .item a.active {
     background-color: white;
+    color: lightseagreen;
+}
+
+.link__text {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.item a.active .link__text {
     color: black;
 }

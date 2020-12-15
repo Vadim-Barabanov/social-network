@@ -1,19 +1,27 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import NavbarStyle from "./Navbar.module.css";
+import style from "./Navbar.module.css";
 
 const Navbar = () => {
     return (
-        <div className={NavbarStyle.wrapper}>
-            <nav className={NavbarStyle.navbar}>
-                <div className={NavbarStyle.item}>
-                    <NavLink to="/profile" activeClassName={NavbarStyle.active}>
-                        Profile
+        <div className={style.wrapper}>
+            <nav className={style.navbar}>
+                <div className={style.item}>
+                    <NavLink to="/profile" activeClassName={style.active}>
+                        <i class="fas fa-user-circle"></i>
+                        <span className={style.link__text}>Profile</span>
                     </NavLink>
                 </div>
-                <div className={NavbarStyle.item}>
-                    <NavLink to="/dialogs" activeClassName={NavbarStyle.active}>
-                        Messages
+                <div className={style.item}>
+                    <NavLink to="/dialogs" activeClassName={style.active}>
+                        <i class="fas fa-envelope"></i>
+                        <span className={style.link__text}>Messages</span>
+                    </NavLink>
+                </div>
+                <div className={style.item}>
+                    <NavLink to="/users" activeClassName={style.active}>
+                        <i class="fas fa-users"></i>
+                        <span className={style.link__text}>Users</span>
                     </NavLink>
                 </div>
                 {/* <div className={NavbarStyle.item}>
@@ -42,11 +50,6 @@ const Navbar = () => {
                         Settigns
                     </NavLink>
                 </div> */}
-                <div className={NavbarStyle.item}>
-                    <NavLink to="/users" activeClassName={NavbarStyle.active}>
-                        Users
-                    </NavLink>
-                </div>
             </nav>
         </div>
     );

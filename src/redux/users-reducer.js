@@ -12,7 +12,7 @@ const SET_USER_STATUS = "SET_USER_STATUS";
 
 let initialState = {
     users: [],
-    pageSize: 5,
+    pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
@@ -99,9 +99,9 @@ const usersReducer = (state = initialState, action) => {
 export const followSuccess = (userId) => ({ type: FOLLOW, userId });
 export const unfollowSuccess = (userId) => ({ type: UNFOLLOW, userId });
 export const setUsers = (users) => ({ type: SET_USERS, users });
-export const setTotalUsersCount = (count) => ({
+export const setTotalUsersCount = (totalUsersCount) => ({
     type: SET_TOTAL_USERS_COUNT,
-    totalUsersCount: count,
+    totalUsersCount,
 });
 export const setCurrentPage = (currentPage) => ({
     type: SET_CURRENT_PAGE,
@@ -126,9 +126,8 @@ export const getUsers = (currentPage, pageSize) => async (dispatch) => {
     dispatch(toggleIsFetching(true));
     let data = await usersAPI.getUsers(currentPage, pageSize);
     dispatch(setUsers(data.items));
-    dispatch(setTotalUsersCount(100));
+    dispatch(setTotalUsersCount(data.totalCount));
     dispatch(setCurrentPage(currentPage));
-    //dispatch(setTotalUsersCount(data.totalCount));
     dispatch(toggleIsFetching(false));
 };
 

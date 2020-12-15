@@ -1,16 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import userMalePhoto from "../../assets/images/userMale.png";
-import UsersStyle from "./UsersStyle.module.css";
+import style from "./UsersStyle.module.css";
 // import userFemalePhoto from "../../assets/images/userFemale.png";
 
 const User = ({ user, followingInProgress, follow, unfollow }) => {
     return (
-        <div className={UsersStyle.item}>
+        <div className={style.item}>
             <NavLink to={"/profile/" + user.id}>
                 <img
                     alt=""
-                    className={UsersStyle.userPhoto}
+                    className={style.userPhoto}
                     src={
                         user.photos.small
                             ? user.photos.small
@@ -22,8 +22,12 @@ const User = ({ user, followingInProgress, follow, unfollow }) => {
             </NavLink>
 
             <div>
-                <div className={UsersStyle.userName}>{user.name}</div>
-                <div className={UsersStyle.status}>{user.status}</div>
+                <div className={style.userName}>{user.name}</div>
+                <div className={style.status}>
+                    {user.status && user.status.length > 50
+                        ? "Check status inside profile!"
+                        : user.status}
+                </div>
                 {user.followed ? (
                     <button
                         disabled={followingInProgress.some(
@@ -32,9 +36,10 @@ const User = ({ user, followingInProgress, follow, unfollow }) => {
                         onClick={() => {
                             unfollow(user.id);
                         }}
-                        className={UsersStyle.btn}
+                        className={style.btn}
                     >
-                        Unfollow
+                        <span className={style.button__text}>Unfollow</span>
+                        <i class="fas fa-times"></i>
                     </button>
                 ) : (
                     <button
@@ -44,9 +49,10 @@ const User = ({ user, followingInProgress, follow, unfollow }) => {
                         onClick={() => {
                             follow(user.id);
                         }}
-                        className={UsersStyle.btn}
+                        className={style.btn}
                     >
-                        Follow
+                        <span className={style.button__text}>Follow</span>
+                        <i class="fas fa-check"></i>
                     </button>
                 )}
             </div>
