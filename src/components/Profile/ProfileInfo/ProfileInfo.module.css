@@ -8,8 +8,11 @@
     margin-bottom: 3rem;
 }
 
-.userImage {
+.imageBox {
     grid-area: image;
+}
+
+.userImage {
     width: 250px;
     background-color: lightcyan;
     border-radius: 50%;

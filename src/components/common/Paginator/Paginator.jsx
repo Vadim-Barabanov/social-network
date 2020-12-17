@@ -22,18 +22,23 @@ const Paginator = ({
     let rightPortionPageNumber = portionNumber * portionSize;
 
     const prevPage = () => {
-        if (currentPage <= leftPortionPageNumber) {
-            setPortionNumber(portionNumber - 1);
-        }
+        // if (currentPage <= leftPortionPageNumber) {
+        //     setPortionNumber(portionNumber - 1);
+        // }
+        // onPageChange(currentPage - 1);
 
-        onPageChange(currentPage - 1);
+        setPortionNumber(portionNumber - 1);
+        onPageChange(leftPortionPageNumber - 1);
     };
 
     const nextPage = () => {
-        if (currentPage >= rightPortionPageNumber) {
-            setPortionNumber(portionNumber + 1);
-        }
-        onPageChange(currentPage + 1);
+        // if (currentPage >= rightPortionPageNumber) {
+        //     setPortionNumber(portionNumber + 1);
+        // }
+        // onPageChange(currentPage + 1);
+
+        setPortionNumber(portionNumber + 1);
+        onPageChange(rightPortionPageNumber + 1);
     };
 
     return (

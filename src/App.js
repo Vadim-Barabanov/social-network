@@ -77,6 +77,7 @@ const AppContainer = compose(
 const AppMain = () => {
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
+            {/*<HashRouter></HashRouter> for GitHub pages (without basename)*/}
             <Provider store={store}>
                 <AppContainer />
             </Provider>
