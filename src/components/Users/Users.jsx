@@ -8,14 +8,7 @@ import User from "./User";
 const Users = (props) => {
     return (
         <div className={style.wrapper}>
-            <Paginator
-                currentPage={props.currentPage}
-                onPageChange={props.onPageChange}
-                totalItemsCount={props.totalUsersCount}
-                pageSize={props.pageSize}
-            />
-
-            <div className={style.users__list}>
+            <div className={style.usersList}>
                 {props.users.map((user) => (
                     <User
                         user={user}
@@ -26,6 +19,12 @@ const Users = (props) => {
                     />
                 ))}
             </div>
+            <Paginator
+                currentPage={props.currentPage}
+                onPageChange={props.onPageChange}
+                totalItemsCount={props.totalUsersCount}
+                pageSize={props.pageSize}
+            />
         </div>
     );
 };

@@ -10,15 +10,26 @@ const Heading = (props) => {
     return (
         <header className={style.heading}>
             <h1>
-                <i class="far fa-heart"></i>
                 <span className={style.heading__text}>
-                    Guiz: social network.
+                    <span className={style.headingHeaderText}>{"Guiz:"}</span>
+                    <span className={style.headingSubtext}>
+                        {"social network for developers"}
+                    </span>
+                    <i class="far fa-heart"></i>
                 </span>
             </h1>
             <div className={style.loginBlock}>
                 {props.isAuth ? (
                     <>
-                        {props.email}
+                        <NavLink
+                            className={style.loginName}
+                            to={`/profile/${props.userId}`}
+                        >
+                            <i class="fas fa-user"></i>
+                            <span className={style.loginNameText}>
+                                {props.login.toUpperCase()}
+                            </span>
+                        </NavLink>
                         <span className={style.logout__box} onClick={logout}>
                             <span className={style.logout__text}>Logout</span>
                             <i class="fas fa-sign-out-alt"></i>

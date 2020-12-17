@@ -4,6 +4,7 @@ import { FormCreator } from "../FormControls/FormControls";
 import { required, maxLenght } from "../../utilits/validators";
 import { Redirect } from "react-router-dom";
 import styles from "../FormControls/FormControls.module.css";
+import style from "./Login.module.css";
 import Preloader from "../common/preloader/Preloader";
 
 const maxLenghtForLogin = maxLenght(30);
@@ -12,24 +13,20 @@ const Input = FormCreator("input");
 
 const LoginForm = ({ handleSubmit, error }) => {
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <Field
-                    component={Input}
-                    name={"login"}
-                    placeholder={"Email"}
-                    validate={[required, maxLenghtForLogin]}
-                />
-            </div>
-            <div>
-                <Field
-                    component={Input}
-                    name={"password"}
-                    placeholder={"Password"}
-                    type={"password"}
-                    validate={[required, maxLenghtForPass]}
-                />
-            </div>
+        <form className={style.formWrapper} onSubmit={handleSubmit}>
+            <Field
+                component={Input}
+                name={"login"}
+                placeholder={"Email"}
+                validate={[required, maxLenghtForLogin]}
+            />
+            <Field
+                component={Input}
+                name={"password"}
+                placeholder={"Password"}
+                type={"password"}
+                validate={[required, maxLenghtForPass]}
+            />
             <div>
                 <Field
                     component={"input"}
@@ -39,20 +36,7 @@ const LoginForm = ({ handleSubmit, error }) => {
                 Remember me
             </div>
             {error ? <div className={styles.formError}>{error}</div> : null}
-            <div>
-                <button
-                    style={{
-                        fontSize: "1.2rem",
-                        padding: "10px",
-                        border: "none",
-                        outline: "none",
-                        cursor: "pointer",
-                        marginTop: "10px",
-                    }}
-                >
-                    Sign up
-                </button>
-            </div>
+            <button className={style.submitBtn}>Sign in</button>
         </form>
     );
 };
@@ -67,11 +51,11 @@ const Login = (props) => {
     if (props.isAuth) return <Redirect to={"/profile"} />;
 
     return (
-        <>
-            <h1>Login page</h1>
+        <div className={style.loginWrapper}>
+            <h1 className={style.loginHeaderText}>Sign in</h1>
             <LoginReduxForm onSubmit={onSubmit} />
             {props.isFetching ? <Preloader /> : null}
-        </>
+        </div>
     );
 };
 

@@ -30,6 +30,10 @@
     margin-left: 15px;
 }
 
+.link__text::selection {
+    background: transparent;
+}
+
 .item a.active .link__text {
     color: black;
 }

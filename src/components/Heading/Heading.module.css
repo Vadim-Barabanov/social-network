@@ -11,33 +11,62 @@
 }
 
 .heading__text {
-    display: inline-block;
-    margin-left: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     cursor: default;
 }
 
-.heading__text::selection {
+.headingHeaderText {
+    margin-right: 15px;
+}
+.headingHeaderText::selection {
     background-color: none;
-    color: firebrick;
+}
+
+.headingSubtext {
+    font-weight: 300;
+    margin-right: 15px;
+}
+.headingSubtext::selection {
+    background-color: none;
 }
 
 .loginBlock {
     font-size: 1.1rem;
 }
 
+.loginName {
+    color: #fff;
+    text-decoration: none;
+    outline: none;
+}
+
+.loginNameText {
+    margin: 0 10px;
+}
+
 .login__box,
 .logout__box {
     cursor: pointer;
-    color: white;
     text-decoration: none;
-    border: 1px solid white;
     border-radius: 4px;
     padding: 4px 12px;
     margin-left: 25px;
     outline: none;
+    background-color: #fff;
+    color: lightseagreen;
 }
 
 .login__text,
 .logout__text {
     margin-right: 10px;
+}
+
+.login__text::selection {
+    background: transparent;
+}
+
+.logout__text::selection {
+    background: transparent;
 }

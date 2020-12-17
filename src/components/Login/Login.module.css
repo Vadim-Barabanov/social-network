@@ -1,0 +1,19 @@
+.formWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.loginHeaderText {
+    font-size: 3rem;
+    color: white;
+}
+
+.submitBtn {
+    font-size: 1.2rem;
+    padding: 5px 15px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    margin-top: 10px;
+}

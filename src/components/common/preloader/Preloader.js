@@ -1,4 +1,4 @@
-import preloader from "../../../assets/images/loading.gif";
+import preloader from "../../../assets/images/svg-loaders/three-dots.svg";
 import styles from "./Preloader.module.css";
 
 let Preloader = () => {

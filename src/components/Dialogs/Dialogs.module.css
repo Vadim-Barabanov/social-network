@@ -20,7 +20,7 @@
     text-decoration: none;
     outline: none;
     border-radius: 25px;
-    background-color: lightseagreen;
+    background-color: lightsteelblue;
     min-width: 120px;
     margin-bottom: 15px;
     font-size: 1rem;
@@ -54,7 +54,6 @@
     margin-bottom: 3rem;
     padding: 20px;
     border-radius: 20px;
-    background-color: lightseagreen;
 }
 
 .message {
@@ -68,7 +67,6 @@
 .message__item {
     display: flex;
     flex-direction: column;
-    font-size: 16px;
     padding: 10px;
     border-radius: 10px;
     background-color: white;
@@ -89,7 +87,6 @@
 .input__text {
     margin-top: 30px;
     font-family: Arial;
-    font-size: 14px;
     background-color: lightcyan;
     padding: 10px;
     border-radius: 10px;
@@ -100,7 +97,6 @@
     width: 150px;
     height: 30px;
     margin-top: 10px;
-    font-size: 18px;
     background-color: lightcyan;
     border-radius: 10px;
     font-weight: 500;

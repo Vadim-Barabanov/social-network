@@ -23,15 +23,11 @@
 .userName {
     grid-area: name;
     align-self: start;
-    border-bottom: 3px solid gray;
-    padding: 0 20px;
 }
 
 .status {
-    margin-top: 10px;
     font-size: 1rem;
-    font-style: italic;
-    letter-spacing: 1px;
+    cursor: pointer;
 }
 
 .userDescription {

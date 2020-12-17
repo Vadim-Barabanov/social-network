@@ -9,12 +9,15 @@ import store from "./redux/redux-store";
 import { Provider } from "react-redux";
 // Importing components
 import Preloader from "./components/common/preloader/Preloader";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import HeadingContainer from "./components/Heading/HeadingContainer";
 import LoginContainer from "./components/Login/LoginContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import SidebarContainer from "./components/Sidebar/SidebarContainer";
 import UsersContainer from "./components/Users/UsersContainer";
+// Lazy loading components
+const DialogsContainer = React.lazy(() =>
+    import("./components/Dialogs/DialogsContainer")
+);
 //import News from "./components/News/News";
 //import Music from "./components/Music/Music";
 //import Settings from "./components/Settings/Settings";
@@ -41,7 +44,13 @@ class App extends React.Component {
                     <Route path="/users" render={() => <UsersContainer />} />
                     <Route
                         path="/dialogs"
-                        render={() => <DialogsContainer />}
+                        render={() => {
+                            return (
+                                <React.Suspense fallback={<Preloader />}>
+                                    <DialogsContainer />
+                                </React.Suspense>
+                            );
+                        }}
                     />
                     {/*<Route path="/news" render={() => <News />} />
                     <Route path="/music" render={() => <Music />} />

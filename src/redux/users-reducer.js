@@ -12,7 +12,7 @@ const SET_USER_STATUS = "SET_USER_STATUS";
 
 let initialState = {
     users: [],
-    pageSize: 10,
+    pageSize: 8,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,

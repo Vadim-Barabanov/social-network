@@ -37,7 +37,7 @@ const Paginator = ({
     };
 
     return (
-        <div className={style.pages__box}>
+        <div className={style.pagesBox}>
             {portionNumber > 1 && (
                 <button
                     className={style.pagesBtns}
@@ -49,7 +49,7 @@ const Paginator = ({
                 </button>
             )}
 
-            <div className={style.pages__numbers}>
+            <div className={style.pagesNumbers}>
                 {pages
                     .filter(
                         (item) =>

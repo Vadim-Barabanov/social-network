@@ -36,10 +36,11 @@ const User = ({ user, followingInProgress, follow, unfollow }) => {
                         onClick={() => {
                             unfollow(user.id);
                         }}
-                        className={style.btn}
+                        className={`${style.btn} ${style.btnFollowed}`}
                     >
-                        <span className={style.button__text}>Unfollow</span>
-                        <i class="fas fa-times"></i>
+                        <span className={style.btnTextFollowed}>Followed</span>
+                        {/* <i class="fas fa-times"></i> */}
+                        <i class="fas fa-check"></i>
                     </button>
                 ) : (
                     <button
@@ -49,10 +50,10 @@ const User = ({ user, followingInProgress, follow, unfollow }) => {
                         onClick={() => {
                             follow(user.id);
                         }}
-                        className={style.btn}
+                        className={`${style.btn} ${style.btnFollow}`}
                     >
-                        <span className={style.button__text}>Follow</span>
-                        <i class="fas fa-check"></i>
+                        <span className={style.btnTextFollow}>Follow</span>
+                        {/* <i class="fas fa-check"></i> */}
                     </button>
                 )}
             </div>
