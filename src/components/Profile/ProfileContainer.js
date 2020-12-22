@@ -1,5 +1,5 @@
 import React from "react";
-import Profile from "./Profile.jsx";
+import { compose } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import {
@@ -7,18 +7,24 @@ import {
     setStatus,
     updateStatus,
     savePhoto,
+    updateProfile,
+    addPost,
 } from "../../redux/profile-reducer";
-import { compose } from "redux";
-// import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+
+// Importing components
+import Profile from "./Profile.jsx";
+import Preloader from "../common/preloader/Preloader";
 
 class ProfileContainer extends React.Component {
     refreshProfile() {
         let userId = this.props.match.params.userId;
         if (!userId) {
             userId = this.props.authorizedUserId;
-            if (!userId) {
-                this.props.history.push("/login");
-            }
+            // if (!userId) {
+            //     this.props.history.push("/login");
+            // }
         }
         this.props.setUserProfile(userId);
         this.props.setStatus(userId);
@@ -35,20 +41,29 @@ class ProfileContainer extends React.Component {
     }
 
     render() {
-        return (
-            <Profile
-                {...this.props}
-                isOwner={!this.props.match.params.userId}
-            />
-        );
+        let jsx;
+        if (this.props.isFetching) {
+            jsx = <Preloader />;
+        } else {
+            jsx = (
+                <Profile
+                    {...this.props}
+                    isOwner={!this.props.match.params.userId}
+                />
+            );
+        }
+        return jsx;
     }
 }
 
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
     isAuth: state.auth.isAuth,
+    isFetching: state.profilePage.isFetching,
     status: state.profilePage.status,
     authorizedUserId: state.auth.userId,
+    posts: state.profilePage.posts,
+    newPostText: state.profilePage.newPostText,
 });
 
 export default compose(
@@ -57,7 +72,9 @@ export default compose(
         setStatus,
         updateStatus,
         savePhoto,
+        updateProfile,
+        addPost,
     }),
-    withRouter
-    // withAuthRedirect
+    withRouter,
+    withAuthRedirect
 )(ProfileContainer);

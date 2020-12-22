@@ -15,7 +15,7 @@ const Heading = (props) => {
                     <span className={style.headingSubtext}>
                         {"social network for developers"}
                     </span>
-                    <i class="far fa-heart"></i>
+                    <i className="far fa-heart"></i>
                 </span>
             </h1>
             <div className={style.loginBlock}>
@@ -25,20 +25,20 @@ const Heading = (props) => {
                             className={style.loginName}
                             to={`/profile/${props.userId}`}
                         >
-                            <i class="fas fa-user"></i>
+                            <i className="fas fa-user"></i>
                             <span className={style.loginNameText}>
                                 {props.login.toUpperCase()}
                             </span>
                         </NavLink>
                         <span className={style.logout__box} onClick={logout}>
                             <span className={style.logout__text}>Logout</span>
-                            <i class="fas fa-sign-out-alt"></i>
+                            <i className="fas fa-sign-out-alt"></i>
                         </span>
                     </>
                 ) : (
                     <NavLink className={style.login__box} to={"/login"}>
                         <span className={style.login__text}>Login</span>
-                        <i class="fas fa-sign-in-alt"></i>
+                        <i className="fas fa-sign-in-alt"></i>
                     </NavLink>
                 )}
             </div>

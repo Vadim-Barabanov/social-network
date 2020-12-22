@@ -1,10 +1,12 @@
 import { profileAPI } from "../api/api";
+import { stopSubmit } from "redux-form";
 
 const ADD_POST = "ADD_POST";
 const SET_USERS_PROFILE = "SET_USERS_PROFILE";
 const SET_STATUS = "SET_STATUS";
 const DELETE_POST = "DELETE_POST";
 const SAVE_PHOTO = "SAVE_PHOTO";
+const TOGGLE_FETCHING = "TOGGLE_FETCHING";
 
 let initialState = {
     posts: [
@@ -17,9 +19,9 @@ let initialState = {
             likesCount: 50,
         },
     ],
-    newPostText: "",
     status: "",
     profile: null,
+    isFetching: false,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -62,6 +64,13 @@ const profileReducer = (state = initialState, action) => {
             };
         }
 
+        case TOGGLE_FETCHING: {
+            return {
+                ...state,
+                isFetching: action.fetch,
+            };
+        }
+
         default:
             return state;
     }
@@ -85,11 +94,27 @@ export const savePhotoSuccess = (photos) => ({
     type: SAVE_PHOTO,
     photos,
 });
+const toggleFetching = (fetch) => ({
+    type: TOGGLE_FETCHING,
+    fetch,
+});
 
 // THUNK CREATERS
 export const setUserProfile = (userId) => async (dispatch) => {
+    dispatch(toggleFetching(true));
     let data = await profileAPI.getProfileData(userId);
     dispatch(setUserProfileSuccess(data));
+    dispatch(toggleFetching(false));
+};
+export const updateProfile = (profile) => async (dispatch, getState) => {
+    const userId = getState().auth.userId;
+    let data = await profileAPI.updateProfile(profile);
+    if (data.resultCode === 0) {
+        dispatch(setUserProfile(userId));
+    } else {
+        dispatch(stopSubmit("profileData", { _error: data.messages[0] }));
+        return Promise.reject(data.messages[0]);
+    }
 };
 export const setStatus = (userId) => async (dispatch) => {
     let data = await profileAPI.getStatus(userId);

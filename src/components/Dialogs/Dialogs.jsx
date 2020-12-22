@@ -17,15 +17,16 @@ const MessagesForm = (props) => {
                     component={Textarea}
                     name={"messageText"}
                     validate={[required, maxLenghtValidator]}
+                    className={styles.inputFormTextarea}
+                    placeholder={"Type..."}
                 />
             </div>
             <div>
-                <button>Send</button>
+                <button className={styles.inputFormBtn}>Send</button>
             </div>
         </form>
     );
 };
-
 const MessagesReduxForm = reduxForm({ form: "messages" })(MessagesForm);
 
 const Dialogs = (props) => {

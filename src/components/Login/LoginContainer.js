@@ -13,6 +13,7 @@ let mapStateToProps = (state) => {
     return {
         isAuth: state.auth.isAuth,
         isFetching: state.auth.isFetching,
+        captchaUrl: state.auth.captchaUrl,
     };
 };
 

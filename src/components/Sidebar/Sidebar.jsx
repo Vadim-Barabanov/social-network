@@ -6,7 +6,7 @@ const Sidebar = (props) => {
     return (
         <div className={SidebarStyles.wrapper}>
             <Navbar />
-            <Friends friendsList={props.friendsList} />
+            {/* <Friends friendsList={props.friendsList} /> */}
         </div>
     );
 };

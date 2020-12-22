@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: 2fr 8fr;
     grid-template-rows: 70px 1fr;
-    grid-template-areas: "image name" "image descr";
+    grid-template-areas: "image data" "image data";
     grid-column-gap: 2rem;
     grid-row-gap: 0.5rem;
     margin-bottom: 3rem;
@@ -12,34 +12,16 @@
     grid-area: image;
 }
 
+.profileData {
+    grid-area: data;
+}
+
 .userImage {
     width: 250px;
     background-color: lightcyan;
     border-radius: 50%;
 }
 
-.userTitle {
-    display: flex;
-    flex-direction: column;
-}
-
-.userName {
-    grid-area: name;
-    align-self: start;
-}
-
-.status {
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-.userDescription {
-    grid-area: descr;
-    padding: 5px 0;
-    font-size: 18px;
-    max-width: 400px;
-}
-
-.headers {
-    text-decoration: underline;
+.inputFile {
+    content: "";
 }

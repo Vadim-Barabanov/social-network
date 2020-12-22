@@ -8,19 +8,19 @@ const Navbar = () => {
             <nav className={style.navbar}>
                 <div className={style.item}>
                     <NavLink to="/profile" activeClassName={style.active}>
-                        <i class="fas fa-user-circle"></i>
+                        <i className="fas fa-user-circle"></i>
                         <span className={style.link__text}>Profile</span>
                     </NavLink>
                 </div>
                 <div className={style.item}>
                     <NavLink to="/dialogs" activeClassName={style.active}>
-                        <i class="fas fa-envelope"></i>
+                        <i className="fas fa-envelope"></i>
                         <span className={style.link__text}>Messages</span>
                     </NavLink>
                 </div>
                 <div className={style.item}>
                     <NavLink to="/users" activeClassName={style.active}>
-                        <i class="fas fa-users"></i>
+                        <i className="fas fa-users"></i>
                         <span className={style.link__text}>Users</span>
                     </NavLink>
                 </div>

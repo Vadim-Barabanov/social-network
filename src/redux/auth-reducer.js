@@ -1,8 +1,9 @@
-import { authAPI } from "../api/api";
+import { authAPI, securityAPI } from "../api/api";
 import { stopSubmit } from "redux-form";
 
 const SET_AUTH_USER_DATA = "SET_AUTH_USER_DATA";
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
+const SET_CAPTCHA_URL = "SET_CAPTCHA_URL";
 
 let initialState = {
     userId: null,
@@ -10,6 +11,7 @@ let initialState = {
     login: null,
     isFetching: false,
     isAuth: false,
+    captchaUrl: null, // if captcha, then captcha is not required
 };
 
 const authReducer = (state = initialState, action) => {
@@ -23,6 +25,11 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: action.isFetching,
+            };
+        case SET_CAPTCHA_URL:
+            return {
+                ...state,
+                captchaUrl: action.captchaUrl,
             };
         default:
             return state;
@@ -43,6 +50,10 @@ export const toggleIsFetching = (isFetching) => ({
     type: TOGGLE_IS_FETCHING,
     isFetching,
 });
+const setCaptchaUrl = (captchaUrl) => ({
+    type: SET_CAPTCHA_URL,
+    captchaUrl,
+});
 
 // THUNK CREATERS
 export const getAuthUserData = () => async (dispatch) => {
@@ -54,13 +65,21 @@ export const getAuthUserData = () => async (dispatch) => {
     }
 };
 
-export const login = (email, password, rememberMe) => async (dispatch) => {
+export const login = (
+    email,
+    password,
+    rememberMe = false,
+    captcha = null
+) => async (dispatch) => {
     dispatch(toggleIsFetching(true));
-    let data = await authAPI.login(email, password, rememberMe);
+    let data = await authAPI.login(email, password, rememberMe, captcha);
 
     if (data.resultCode === 0) {
         dispatch(getAuthUserData());
     } else {
+        if (data.resultCode === 10) {
+            dispatch(getCaptchaUrl());
+        }
         let message =
             data.messages.length > 0 ? data.messages[0] : "Some error";
         dispatch(
@@ -74,11 +93,17 @@ export const login = (email, password, rememberMe) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
     dispatch(toggleIsFetching(true));
-    let data = await authAPI.logout();
+    const data = await authAPI.logout();
     if (data.resultCode === 0) {
         dispatch(setAuthUserData(null, null, null, false));
     }
     dispatch(toggleIsFetching(false));
+};
+
+const getCaptchaUrl = () => async (dispatch) => {
+    const data = await securityAPI.getCaptchaUrl();
+    dispatch(setCaptchaUrl(data.url));
+    // dispatch(stopSubmit("login", { _error: message }));
 };
 
 export default authReducer;

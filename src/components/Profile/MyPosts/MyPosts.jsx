@@ -41,6 +41,7 @@ const MyPosts = React.memo((props) => {
 
     return (
         <div className={styles.posts}>
+            <h3 className={styles.postsHeader}>Posts:</h3>
             {postsElements}
             <PostsReduxForm onSubmit={onSubmit} />
         </div>

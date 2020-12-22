@@ -74,4 +74,18 @@ export const profileAPI = {
             })
             .then((response) => response.data);
     },
+
+    updateProfile(profile) {
+        return instance
+            .put(`profile`, profile)
+            .then((response) => response.data);
+    },
+};
+
+export const securityAPI = {
+    getCaptchaUrl() {
+        return instance
+            .get(`security/get-captcha-url`)
+            .then((response) => response.data);
+    },
 };

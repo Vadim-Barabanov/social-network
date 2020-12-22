@@ -1,10 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Route, withRouter } from "react-router-dom";
 import { compose } from "redux";
 import { initializeApp } from "./redux/app-reducer";
 import "./App.css";
-import { BrowserRouter } from "react-router-dom";
+import {
+    Route,
+    withRouter,
+    BrowserRouter,
+    Switch,
+    Redirect,
+} from "react-router-dom";
 import store from "./redux/redux-store";
 import { Provider } from "react-redux";
 // Importing components
@@ -36,29 +41,46 @@ class App extends React.Component {
                 <HeadingContainer />
                 <SidebarContainer />
                 <div className="app-wrapper-content">
-                    <Route path="/login" render={() => <LoginContainer />} />
-                    <Route
-                        path="/profile/:userId?"
-                        render={() => <ProfileContainer />}
-                    />
-                    <Route path="/users" render={() => <UsersContainer />} />
-                    <Route
-                        path="/dialogs"
-                        render={() => {
-                            return (
-                                <React.Suspense fallback={<Preloader />}>
-                                    <DialogsContainer />
-                                </React.Suspense>
-                            );
-                        }}
-                    />
-                    {/*<Route path="/news" render={() => <News />} />
+                    <Switch>
+                        <Route
+                            exact
+                            path="/"
+                            redner={() => <Redirect to="/profile" />}
+                        />
+                        <Route
+                            path="/login"
+                            render={() => <LoginContainer />}
+                        />
+                        <Route
+                            path="/profile/:userId?"
+                            render={() => <ProfileContainer />}
+                        />
+                        <Route
+                            path="/users"
+                            render={() => <UsersContainer />}
+                        />
+                        <Route
+                            path="/dialogs"
+                            render={() => {
+                                return (
+                                    <React.Suspense fallback={<Preloader />}>
+                                        <DialogsContainer />
+                                    </React.Suspense>
+                                );
+                            }}
+                        />
+                        <Route
+                            path="*"
+                            render={() => <div>404 NOT FOUND</div>}
+                        />
+                        {/*<Route path="/news" render={() => <News />} />
                     <Route path="/music" render={() => <Music />} />
                     <Route path="/settings" render={() => <Settings />} />
                     <Route
                         path="/following"
                         render={() => <FollowingContainer />}
                 />*/}
+                    </Switch>
                 </div>
             </div>
         );

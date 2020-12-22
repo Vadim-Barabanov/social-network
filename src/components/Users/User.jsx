@@ -39,8 +39,8 @@ const User = ({ user, followingInProgress, follow, unfollow }) => {
                         className={`${style.btn} ${style.btnFollowed}`}
                     >
                         <span className={style.btnTextFollowed}>Followed</span>
-                        {/* <i class="fas fa-times"></i> */}
-                        <i class="fas fa-check"></i>
+                        {/* <i className="fas fa-times"></i> */}
+                        <i className="fas fa-check"></i>
                     </button>
                 ) : (
                     <button
@@ -53,7 +53,7 @@ const User = ({ user, followingInProgress, follow, unfollow }) => {
                         className={`${style.btn} ${style.btnFollow}`}
                     >
                         <span className={style.btnTextFollow}>Follow</span>
-                        {/* <i class="fas fa-check"></i> */}
+                        {/* <i className="fas fa-check"></i> */}
                     </button>
                 )}
             </div>

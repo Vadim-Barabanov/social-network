@@ -1,0 +1,23 @@
+.userTitle {
+    display: flex;
+    flex-direction: column;
+}
+
+.userInfo {
+    padding-top: 20px;
+}
+
+.userName {
+    align-self: start;
+}
+
+.userDescription {
+    padding: 5px 0;
+    font-size: 18px;
+    max-width: 400px;
+}
+
+.status {
+    font-size: 1rem;
+    cursor: pointer;
+}

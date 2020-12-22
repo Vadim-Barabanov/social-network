@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import styles from "./ProfileInfo.module.css";
+import styles from "../ProfileInfo.module.css";
 
-const ProfileStatusWithHooks = (props) => {
+const ProfileStatus = (props) => {
     let [editMode, setEditMode] = useState(false);
     let [localStatus, setLocalStatus] = useState(props.status);
 
@@ -10,6 +10,7 @@ const ProfileStatusWithHooks = (props) => {
     }, [props.status]);
 
     const toggleEditMode = () => {
+        if (!props.isOwner) return null;
         if (editMode) {
             setEditMode(false);
             props.updateStatus(localStatus);
@@ -44,4 +45,4 @@ const ProfileStatusWithHooks = (props) => {
     );
 };
 
-export default ProfileStatusWithHooks;
+export default ProfileStatus;

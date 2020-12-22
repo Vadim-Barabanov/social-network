@@ -1,19 +1,17 @@
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import MyPosts from "./MyPosts/MyPosts";
 import ProfileStyle from "./Profile.module.css";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 const Profile = (props) => {
     return (
-        <main className={ProfileStyle.profile}>
-            <ProfileInfo
+        <div className={ProfileStyle.profile}>
+            <ProfileInfo {...props} />
+            <MyPosts
                 profile={props.profile}
-                status={props.status}
-                updateStatus={props.updateStatus}
-                isOwner={props.isOwner}
-                savePhoto={props.savePhoto}
+                addPost={props.addPost}
+                posts={props.posts}
             />
-            <MyPostsContainer />
-        </main>
+        </div>
     );
 };
 export default Profile;
