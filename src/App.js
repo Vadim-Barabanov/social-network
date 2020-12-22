@@ -45,7 +45,7 @@ class App extends React.Component {
                         <Route
                             exact
                             path="/"
-                            redner={() => <Redirect to="/profile" />}
+                            render={() => <Redirect to="/profile" />}
                         />
                         <Route
                             path="/login"
