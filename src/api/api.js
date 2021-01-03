@@ -10,21 +10,15 @@ const instance = axios.create({
 
 export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
-        return instance
-            .get(`users?page=${currentPage}&count=${pageSize}`)
-            .then((response) => response.data);
+        return instance.get(`users?page=${currentPage}&count=${pageSize}`).then((response) => response.data);
     },
 
     follow(userId) {
-        return instance
-            .post(`follow/${userId}`, {})
-            .then((response) => response.data);
+        return instance.post(`follow/${userId}`, {}).then((response) => response.data);
     },
 
     unfollow(userId) {
-        return instance
-            .delete(`follow/${userId}`)
-            .then((response) => response.data);
+        return instance.delete(`follow/${userId}`).then((response) => response.data);
     },
 };
 
@@ -33,10 +27,8 @@ export const authAPI = {
         return instance.get(`auth/me`).then((response) => response.data);
     },
 
-    login(email, password, rememberMe = false) {
-        return instance
-            .post(`auth/login`, { email, password, rememberMe })
-            .then((response) => response.data);
+    login(email, password, rememberMe = false, captcha = null) {
+        return instance.post(`auth/login`, { email, password, rememberMe, captcha }).then((response) => response.data);
     },
 
     logout() {
@@ -46,21 +38,15 @@ export const authAPI = {
 
 export const profileAPI = {
     getProfileData(userId) {
-        return instance
-            .get(`profile/${userId}`)
-            .then((response) => response.data);
+        return instance.get(`profile/${userId}`).then((response) => response.data);
     },
 
     getStatus(userId) {
-        return instance
-            .get(`profile/status/${userId}`)
-            .then((response) => response.data);
+        return instance.get(`profile/status/${userId}`).then((response) => response.data);
     },
 
     updateStatus(status) {
-        return instance
-            .put(`profile/status`, { status })
-            .then((response) => response.data);
+        return instance.put(`profile/status`, { status }).then((response) => response.data);
     },
 
     savePhoto(file) {
@@ -76,16 +62,12 @@ export const profileAPI = {
     },
 
     updateProfile(profile) {
-        return instance
-            .put(`profile`, profile)
-            .then((response) => response.data);
+        return instance.put(`profile`, profile).then((response) => response.data);
     },
 };
 
 export const securityAPI = {
     getCaptchaUrl() {
-        return instance
-            .get(`security/get-captcha-url`)
-            .then((response) => response.data);
+        return instance.get(`security/get-captcha-url`).then((response) => response.data);
     },
 };

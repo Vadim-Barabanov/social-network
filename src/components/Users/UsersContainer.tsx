@@ -8,6 +8,8 @@ import {
     setCurrentPage,
     getUsers,
 } from "./../../redux/users-reducer";
+import { UserType } from "../../types/types";
+import { AppStateType } from "../../redux/redux-store";
 
 // SELECTORS
 import {
@@ -19,13 +21,26 @@ import {
     getFollowingInProgress,
 } from "../../redux/selectors/users-selectores";
 
-class UsersContainer extends React.Component {
+type PropsType = {
+    currentPage: number;
+    pageSize: number;
+    totalUsersCount: number;
+    isFetching: boolean;
+    users: Array<UserType>;
+    followingInProgress: Array<number>;
+
+    getUsers: (currentPage: number, pageSize: number) => void;
+    follow: (userId: number) => void;
+    unfollow: (userId: number) => void;
+};
+
+class UsersContainer extends React.Component<PropsType> {
     componentDidMount() {
         const { currentPage, pageSize } = this.props;
         this.props.getUsers(currentPage, pageSize);
     }
 
-    onPageChange = (pageNumber) => {
+    onPageChange = (pageNumber: number) => {
         let { pageSize } = this.props;
         this.props.getUsers(pageNumber, pageSize);
     };
@@ -49,7 +64,25 @@ class UsersContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+type OwnPropsType = {};
+
+type MapDispatchPropsType = {
+    follow: (userId: number) => void;
+    unfollow: (userId: number) => void;
+    setCurrentPage: (pageNumber: number) => void;
+    getUsers: (currentPage: number, pageSize: number) => void;
+};
+
+type MapStatePropsType = {
+    users: Array<UserType>;
+    pageSize: number;
+    totalUsersCount: number;
+    currentPage: number;
+    isFetching: boolean;
+    followingInProgress: Array<number>;
+};
+
+let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         users: getUsersArray(state),
         pageSize: getPageSize(state),
@@ -60,7 +93,12 @@ let mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, {
+export default connect<
+    MapStatePropsType,
+    MapDispatchPropsType,
+    OwnPropsType,
+    AppStateType
+>(mapStateToProps, {
     follow,
     unfollow,
     setCurrentPage,

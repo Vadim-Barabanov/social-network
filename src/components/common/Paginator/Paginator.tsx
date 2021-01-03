@@ -2,7 +2,15 @@ import React, { useState } from "react";
 import style from "./Paginator.module.css";
 // import userFemalePhoto from "../../assets/images/userFemale.png";
 
-const Paginator = ({
+type PropsType = {
+    pageSize: number;
+    totalItemsCount: number;
+    currentPage: number;
+    onPageChange: Function;
+    portionSize?: number;
+};
+
+const Paginator: React.FC<PropsType> = ({
     pageSize,
     totalItemsCount,
     currentPage,
@@ -11,7 +19,7 @@ const Paginator = ({
 }) => {
     let pagesCount = Math.ceil(totalItemsCount / pageSize);
 
-    let pages = [];
+    let pages: Array<number> = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
@@ -51,8 +59,7 @@ const Paginator = ({
                     className={style.pagesBtns}
                     onClick={() => {
                         prevPage();
-                    }}
-                >
+                    }}>
                     <i className="fas fa-arrow-left"></i>
                 </button>
             )}
@@ -73,8 +80,7 @@ const Paginator = ({
                             }}
                             className={`${style.pageNumber} ${
                                 currentPage === item ? style.selectedPage : null
-                            }`}
-                        >
+                            }`}>
                             {item}
                         </span>
                     ))}
@@ -85,8 +91,7 @@ const Paginator = ({
                     className={style.pagesBtns}
                     onClick={() => {
                         nextPage();
-                    }}
-                >
+                    }}>
                     <i className="fas fa-arrow-right"></i>
                 </button>
             )}

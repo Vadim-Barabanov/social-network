@@ -29,8 +29,23 @@ const DialogsContainer = React.lazy(() =>
 //import FollowingContainer from "./components/Following/FollowingContainer";
 
 class App extends React.Component {
+    catchAllUnhandledErrors = (promiseRejectionEvent) => {
+        console.error(promiseRejectionEvent);
+    };
+
     componentDidMount() {
         this.props.initializeApp();
+        window.addEventListener(
+            "unhandledrejection",
+            this.catchAllUnhandledErrors
+        );
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener(
+            "unhandledrejection",
+            this.catchAllUnhandledErrors
+        );
     }
 
     render() {

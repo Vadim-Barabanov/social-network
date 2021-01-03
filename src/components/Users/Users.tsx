@@ -1,11 +1,23 @@
-import React from "react";
+import React, { FC } from "react";
 import style from "./UsersStyle.module.css";
 // import userFemalePhoto from "../../assets/images/userFemale.png";
 // Importing components
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
+import { UserType } from "../../types/types";
 
-const Users = (props) => {
+type PropsType = {
+    pageSize: number;
+    totalUsersCount: number;
+    currentPage: number;
+    onPageChange: (pageNumber: number) => void;
+    users: Array<UserType>;
+    follow: Function;
+    unfollow: Function;
+    followingInProgress: Array<number>;
+};
+
+const Users: FC<PropsType> = (props) => {
     return (
         <div className={style.wrapper}>
             <div className={style.usersList}>

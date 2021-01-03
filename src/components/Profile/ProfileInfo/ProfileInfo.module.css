@@ -25,3 +25,14 @@
 .inputFile {
     content: "";
 }
+
+.profileEditBtn {
+    all: unset;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.profileEditBtn:hover {
+    color: #eee;
+}

@@ -4,9 +4,10 @@ import styles from "./ProfileData.module.css";
 
 const Contact = (props) => {
     return (
-        <p>
+        <p className={styles.contactLink}>
             <a href={props.contactValue} title={props.contactValue}>
-                {props.contactTitle}
+                {props.contactTitle}{" "}
+                <i className="fas fa-external-link-alt"></i>
             </a>
         </p>
     );
@@ -24,27 +25,27 @@ const ProfileData = (props) => {
                 />
             </div>
             <div className={styles.userInfo}>
-                <div>
-                    <b>About me:</b>
-                    <p>{props.profile.aboutMe || "No data"}</p>
-                </div>
-                <div>
-                    <b>Looking for a job: </b>
-                    <p>{props.profile.lookingForAJob ? "Yes" : "No"}</p>
-                </div>
-                <div>
-                    <b>My skills: </b>
-                    <p>
-                        {props.profile.lookingForAJobDescription || "No data"}
-                    </p>
-                </div>
                 <p>
+                    <b>About me: </b>
+                    {props.profile.aboutMe || "No data"}
+                </p>
+
+                <p>
+                    <b>Looking for a job: </b>
+                    {props.profile.lookingForAJob ? "Yes" : "No"}
+                </p>
+
+                <p>
+                    <b>My skills: </b>
+                    {props.profile.lookingForAJobDescription || "No data"}
+                </p>
+                <p className={styles.contactBox}>
                     <b>Contacts:</b>
                     {props.profile.contacts &&
                         Object.keys(props.profile.contacts).map((key) => {
                             if (props.profile.contacts[key]) {
                                 return (
-                                    <div>
+                                    <div key={key}>
                                         <Contact
                                             contactTitle={key}
                                             contactValue={

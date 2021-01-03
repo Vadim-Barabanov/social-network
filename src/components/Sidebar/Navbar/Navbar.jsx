@@ -7,7 +7,7 @@ const Navbar = () => {
         <div className={style.wrapper}>
             <nav className={style.navbar}>
                 <div className={style.item}>
-                    <NavLink to="/profile" activeClassName={style.active}>
+                    <NavLink exact to="/profile" activeClassName={style.active}>
                         <i className="fas fa-user-circle"></i>
                         <span className={style.link__text}>Profile</span>
                     </NavLink>

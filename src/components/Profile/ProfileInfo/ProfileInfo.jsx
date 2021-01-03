@@ -61,8 +61,11 @@ const ProfileInfo = (props) => {
                     />
                 )}
                 {props.isOwner && !editMode ? (
-                    <button onClick={() => setEditMode(true)}>
-                        Edit profile
+                    <button
+                        className={styles.profileEditBtn}
+                        onClick={() => setEditMode(true)}
+                    >
+                        <i className="fas fa-user-edit"></i>
                     </button>
                 ) : null}
             </div>

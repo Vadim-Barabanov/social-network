@@ -23,7 +23,7 @@ button {
 }
 
 .app-wrapper {
-    height: 100vh;
+    min-height: 100vh;
     font-size: 18px;
     display: grid;
     grid-template-columns: 1fr 170px 1000px 1fr;
