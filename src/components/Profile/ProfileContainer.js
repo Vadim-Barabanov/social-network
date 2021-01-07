@@ -2,6 +2,9 @@ import React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+// Importing HOCs
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+// Importing ACs
 import {
     setUserProfile,
     setStatus,
@@ -10,11 +13,8 @@ import {
     updateProfile,
     addPost,
 } from "../../redux/profile-reducer";
-
-import { withAuthRedirect } from "../../hoc/withAuthRedirect";
-
 // Importing components
-import Profile from "./Profile.jsx";
+import Profile from "./Profile";
 import Preloader from "../common/preloader/Preloader";
 
 class ProfileContainer extends React.Component {
@@ -22,9 +22,6 @@ class ProfileContainer extends React.Component {
         let userId = this.props.match.params.userId;
         if (!userId) {
             userId = this.props.authorizedUserId;
-            // if (!userId) {
-            //     this.props.history.push("/login");
-            // }
         }
         this.props.setUserProfile(userId);
         this.props.setStatus(userId);
@@ -41,18 +38,18 @@ class ProfileContainer extends React.Component {
     }
 
     render() {
-        let jsx;
-        if (this.props.isFetching) {
-            jsx = <Preloader />;
-        } else {
-            jsx = (
-                <Profile
-                    {...this.props}
-                    isOwner={!this.props.match.params.userId}
-                />
-            );
-        }
-        return jsx;
+        return (
+            <div>
+                {this.props.isFetching ? (
+                    <Preloader />
+                ) : (
+                    <Profile
+                        {...this.props}
+                        isOwner={!this.props.match.params.userId}
+                    />
+                )}
+            </div>
+        );
     }
 }
 

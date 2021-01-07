@@ -7,16 +7,15 @@ const Friends = (props) => {
             <NavLink
                 key={item.id}
                 className={FriendsStyle.friendNavLink}
-                to={item.link}
-            >
+                to={item.link}>
                 <img
-                    alt="user"
+                    alt={item.name}
                     className={FriendsStyle.friendNavLink__img}
                     src={item.name}
                 />
-                <div className={FriendsStyle.friendNavLink__name}>
-                    {item.name}
-                </div>
+                {/* <div className={FriendsStyle.friendNavLink__name}> */}
+                {/*     {item.name} */}
+                {/* </div> */}
             </NavLink>
         );
     });

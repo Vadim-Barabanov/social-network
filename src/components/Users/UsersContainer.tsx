@@ -2,12 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Preloader from "../common/preloader/Preloader";
 import Users from "./Users";
-import {
-    follow,
-    unfollow,
-    setCurrentPage,
-    getUsers,
-} from "./../../redux/users-reducer";
+import { follow, unfollow, getUsers } from "./../../redux/users-reducer";
 import { UserType } from "../../types/types";
 import { AppStateType } from "../../redux/redux-store";
 
@@ -21,18 +16,24 @@ import {
     getFollowingInProgress,
 } from "../../redux/selectors/users-selectores";
 
-type PropsType = {
-    currentPage: number;
-    pageSize: number;
-    totalUsersCount: number;
-    isFetching: boolean;
-    users: Array<UserType>;
-    followingInProgress: Array<number>;
+type OwnPropsType = {};
 
-    getUsers: (currentPage: number, pageSize: number) => void;
+type MapDispatchPropsType = {
     follow: (userId: number) => void;
     unfollow: (userId: number) => void;
+    getUsers: (currentPage: number, pageSize: number) => void;
 };
+
+type MapStatePropsType = {
+    users: Array<UserType>;
+    pageSize: number;
+    totalUsersCount: number;
+    currentPage: number;
+    isFetching: boolean;
+    followingInProgress: Array<number>;
+};
+
+type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType;
 
 class UsersContainer extends React.Component<PropsType> {
     componentDidMount() {
@@ -64,24 +65,6 @@ class UsersContainer extends React.Component<PropsType> {
     }
 }
 
-type OwnPropsType = {};
-
-type MapDispatchPropsType = {
-    follow: (userId: number) => void;
-    unfollow: (userId: number) => void;
-    setCurrentPage: (pageNumber: number) => void;
-    getUsers: (currentPage: number, pageSize: number) => void;
-};
-
-type MapStatePropsType = {
-    users: Array<UserType>;
-    pageSize: number;
-    totalUsersCount: number;
-    currentPage: number;
-    isFetching: boolean;
-    followingInProgress: Array<number>;
-};
-
 let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         users: getUsersArray(state),
@@ -101,6 +84,5 @@ export default connect<
 >(mapStateToProps, {
     follow,
     unfollow,
-    setCurrentPage,
     getUsers,
 })(UsersContainer);

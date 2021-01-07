@@ -1,10 +1,23 @@
-import React from "react";
+import React, { FC } from "react";
 import { NavLink } from "react-router-dom";
 import userMalePhoto from "../../assets/images/userMale.png";
 import style from "./UsersStyle.module.css";
 // import userFemalePhoto from "../../assets/images/userFemale.png";
+import { UserType } from "../../types/types";
 
-const User = ({ user, followingInProgress, follow, unfollow }) => {
+type PropsType = {
+    user: UserType;
+    followingInProgress: Array<number>;
+    follow: (userId: number) => void;
+    unfollow: (userId: number) => void;
+};
+
+const User: FC<PropsType> = ({
+    user,
+    followingInProgress,
+    follow,
+    unfollow,
+}) => {
     return (
         <div className={style.item}>
             <NavLink to={"/profile/" + user.id}>
@@ -36,8 +49,7 @@ const User = ({ user, followingInProgress, follow, unfollow }) => {
                         onClick={() => {
                             unfollow(user.id);
                         }}
-                        className={`${style.btn} ${style.btnFollowed}`}
-                    >
+                        className={`${style.btn} ${style.btnFollowed}`}>
                         <span className={style.btnTextFollowed}>Followed</span>
                         {/* <i className="fas fa-times"></i> */}
                         <i className="fas fa-check"></i>
@@ -50,8 +62,7 @@ const User = ({ user, followingInProgress, follow, unfollow }) => {
                         onClick={() => {
                             follow(user.id);
                         }}
-                        className={`${style.btn} ${style.btnFollow}`}
-                    >
+                        className={`${style.btn} ${style.btnFollow}`}>
                         <span className={style.btnTextFollow}>Follow</span>
                         {/* <i className="fas fa-check"></i> */}
                     </button>

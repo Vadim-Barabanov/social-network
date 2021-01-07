@@ -1,8 +1,15 @@
-import React from "react";
+import React, { FC } from "react";
 import style from "./Heading.module.css";
 import { NavLink } from "react-router-dom";
 
-const Heading = (props) => {
+type PropsType = {
+    isAuth: boolean;
+    userId: number | null;
+    login: string;
+    logout: () => void;
+};
+
+const Heading: FC<PropsType> = (props) => {
     const logout = () => {
         props.logout();
     };
@@ -23,8 +30,7 @@ const Heading = (props) => {
                     <>
                         <NavLink
                             className={style.loginName}
-                            to={`/profile/${props.userId}`}
-                        >
+                            to={`/profile/${props.userId}`}>
                             <i className="fas fa-user"></i>
                             <span className={style.loginNameText}>
                                 {props.login.toUpperCase()}

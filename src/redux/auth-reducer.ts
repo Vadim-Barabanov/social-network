@@ -1,5 +1,6 @@
 import { authAPI, securityAPI } from "../api/api";
 import { stopSubmit } from "redux-form";
+import { ResultCodes, CaptchaResultCode } from "../types/types";
 
 const SET_AUTH_USER_DATA = "SET_AUTH_USER_DATA";
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
@@ -86,7 +87,7 @@ const setCaptchaUrl = (captchaUrl: string): SetCaptchaUrlType => ({
 export const getAuthUserData = () => async (dispatch: any) => {
     let response = await authAPI.authMe();
 
-    if (response.resultCode === 0) {
+    if (response.resultCode === ResultCodes.Success) {
         let { id, email, login } = response.data;
         dispatch(setAuthUserData(id, email, login, true));
     }
@@ -101,10 +102,10 @@ export const login = (
     dispatch(toggleIsFetching(true));
     let data = await authAPI.login(email, password, rememberMe, captcha);
 
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodes.Success) {
         dispatch(getAuthUserData());
     } else {
-        if (data.resultCode === 10) {
+        if (data.resultCode === CaptchaResultCode.CaptchaIsRequired) {
             dispatch(getCaptchaUrl());
         }
         let message =
