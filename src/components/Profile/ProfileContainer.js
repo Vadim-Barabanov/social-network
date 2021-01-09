@@ -6,12 +6,12 @@ import { withRouter } from "react-router-dom";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 // Importing ACs
 import {
+    actions,
     setUserProfile,
     setStatus,
     updateStatus,
-    savePhoto,
     updateProfile,
-    addPost,
+    savePhoto,
 } from "../../redux/profile-reducer";
 // Importing components
 import Profile from "./Profile";
@@ -63,15 +63,25 @@ let mapStateToProps = (state) => ({
     newPostText: state.profilePage.newPostText,
 });
 
+/****************************
+        TEMP CHANGES
+ ***************************/
+const mapDispatchToProp = (dispatch) => {
+    return {
+        setUserProfile: (userId) => dispatch(setUserProfile(userId)),
+        setStatus: (userId) => dispatch(setStatus(userId)),
+        updateStatus: (status) => dispatch(updateStatus(status)),
+        savePhoto: (file) => dispatch(savePhoto(file)),
+        updateProfile: (profile) => dispatch(updateProfile(profile)),
+        addPost: (postText) => dispatch(actions.addPost(postText)),
+    };
+};
+/****************************
+        TEMP CHANGES
+ ***************************/
+
 export default compose(
-    connect(mapStateToProps, {
-        setUserProfile,
-        setStatus,
-        updateStatus,
-        savePhoto,
-        updateProfile,
-        addPost,
-    }),
+    connect(mapStateToProps, mapDispatchToProp),
     withRouter,
     withAuthRedirect
 )(ProfileContainer);

@@ -60,11 +60,11 @@ const Paginator: React.FC<PropsType> = ({
                     onClick={() => {
                         prevPage();
                     }}>
-                    <i className="fas fa-arrow-left"></i>
+                    <i className="fas fa-chevron-left"></i>
                 </button>
             )}
 
-            <div className={style.pagesNumbers}>
+            <div className={style.pagesNumberBox}>
                 {pages
                     .filter(
                         (item) =>
@@ -92,7 +92,7 @@ const Paginator: React.FC<PropsType> = ({
                     onClick={() => {
                         nextPage();
                     }}>
-                    <i className="fas fa-arrow-right"></i>
+                    <i className="fas fa-chevron-right"></i>
                 </button>
             )}
         </div>
