@@ -1,4 +1,5 @@
-import { authAPI, securityAPI } from "../api/api";
+import { authAPI } from "../api/auth-api";
+import { securityAPI } from "../api/security-api";
 import { stopSubmit } from "redux-form";
 import { ResultCodes, CaptchaResultCode } from "../types/types";
 

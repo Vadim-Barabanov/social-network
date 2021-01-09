@@ -7,19 +7,20 @@
 .pageNumber {
     display: block;
     text-align: center;
-    padding: 4px 6px;
+    padding: 4px;
     margin: 0 4px;
     cursor: pointer;
     width: 28px;
-    color: #fff;
-    border: 1px solid #fff;
-    border-radius: 10px;
-    /* border-radius: 5px; */
+    color: #002f34;
+    border-radius: 50%;
+}
+
+.pageNumber:hover {
+    background-color: #dcdcdb;
 }
 
 .selectedPage {
-    background-color: #fff;
-    color: #333;
+    border: 1px solid #002f34;
 }
 
 .pageNumber::selection {

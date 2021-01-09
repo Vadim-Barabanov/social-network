@@ -1,4 +1,5 @@
-import { profileAPI, usersAPI } from "../api/api";
+import { profileAPI } from "../api/profile-api";
+import { usersAPI } from "../api/users-api";
 import { updateObjectInArray } from "../utilits/object-helpers";
 import { UserType } from "../types/types";
 import { ThunkAction } from "redux-thunk";
