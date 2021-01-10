@@ -1,10 +1,20 @@
 import { instance } from "./api";
-import { ProfileType } from "../types/types";
-import { ResponseType } from "./api";
+import { ProfileType, PhotosType } from "../types/types";
+import { APIResponseType } from "./api";
+
+type ResponsePhotosType = {
+    photos: PhotosType;
+};
 
 export const profileAPI = {
-    getProfileData(userId: number) {
+    getProfileData(userId: number | null) {
         return instance.get(`profile/${userId}`).then((res) => res.data);
+    },
+
+    updateProfile(profile: ProfileType) {
+        return instance
+            .put<APIResponseType>(`profile`, profile)
+            .then((res) => res.data);
     },
 
     getStatus(userId: number) {
@@ -15,25 +25,24 @@ export const profileAPI = {
 
     updateStatus(status: string) {
         return instance
-            .put(`profile/status`, { status })
-            .then((res) => res.data) as Promise<ResponseType>;
+            .put<APIResponseType>(`profile/status`, { status })
+            .then((res) => res.data);
     },
 
     savePhoto(file: any) {
         const formData = new FormData();
         formData.append("image", file);
-        return instance
-            .put(`profile/photo`, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            })
-            .then((res) => res.data);
-    },
 
-    updateProfile(profile: ProfileType) {
         return instance
-            .put(`profile`, profile)
-            .then((res) => res.data) as Promise<ResponseType>;
+            .put<APIResponseType<ResponsePhotosType>>(
+                `profile/photo`,
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            )
+            .then((res) => res.data);
     },
 };

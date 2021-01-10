@@ -1,10 +1,10 @@
 import React from "react";
 import ProfileStatus from "./ProfileStatus";
-import styles from "./ProfileData.module.css";
+import s from "./ProfileData.module.css";
 
 const Contact = (props) => {
     return (
-        <p className={styles.contactLink}>
+        <p className={s.contactLink}>
             <a href={props.contactValue} title={props.contactValue}>
                 {props.contactTitle}{" "}
                 <i className="fas fa-external-link-alt"></i>
@@ -28,31 +28,31 @@ const ProfileData = (props) => {
     });
 
     return (
-        <div className={styles.userDescription}>
-            <div className={styles.userTitle}>
-                <h2 className={styles.userName}>{props.profile.fullName}</h2>
+        <div className={s.userDescription}>
+            <div className={s.userTitle}>
+                <h2 className={s.userName}>{props.profile.fullName}</h2>
                 <ProfileStatus
                     status={props.status}
                     updateStatus={props.updateStatus}
                     isOwner={props.isOwner}
                 />
             </div>
-            <div className={styles.userInfo}>
-                <p>
+            <div className={s.userInfo}>
+                <p className={s.userInfoItem}>
                     <b>About me: </b>
                     {props.profile.aboutMe || "No data"}
                 </p>
 
-                <p>
+                <p className={s.userInfoItem}>
                     <b>Looking for a job: </b>
                     {props.profile.lookingForAJob ? "Yes" : "No"}
                 </p>
 
-                <p>
+                <p className={s.userInfoItem}>
                     <b>My skills: </b>
                     {props.profile.lookingForAJobDescription || "No data"}
                 </p>
-                <p className={styles.contactBox}>
+                <p className={s.contactBox}>
                     <b>Contacts:</b>
                     {props.profile.contacts && contactsArr}
                 </p>

@@ -2,8 +2,7 @@ import { profileAPI } from "../api/profile-api";
 import { usersAPI } from "../api/users-api";
 import { updateObjectInArray } from "../utilits/object-helpers";
 import { UserType } from "../types/types";
-import { ThunkAction } from "redux-thunk";
-import { AppStateType, InferActionsType } from "./redux-store";
+import { InferActionsType, BaseThunkType } from "./redux-store";
 
 let initialState = {
     users: [] as Array<UserType>,
@@ -22,7 +21,7 @@ const usersReducer = (
     action: ActionsType
 ): InitialStateType => {
     switch (action.type) {
-        case "FOLLOW":
+        case "USERS/FOLLOW":
             return {
                 ...state,
                 users: updateObjectInArray(state.users, action.userId, "id", {
@@ -36,7 +35,7 @@ const usersReducer = (
                 // }),
             };
 
-        case "UNFOLLOW":
+        case "USERS/UNFOLLOW":
             return {
                 ...state,
                 users: updateObjectInArray(state.users, action.userId, "id", {
@@ -50,31 +49,31 @@ const usersReducer = (
                 // }),
             };
 
-        case "SET_USERS":
+        case "USERS/SET_USERS":
             return {
                 ...state,
                 users: [...action.users],
             };
 
-        case "SET_TOTAL_USERS_COUNT":
+        case "USERS/SET_TOTAL_USERS_COUNT":
             return {
                 ...state,
                 totalUsersCount: action.totalUsersCount,
             };
 
-        case "SET_CURRENT_PAGE":
+        case "USERS/SET_CURRENT_PAGE":
             return {
                 ...state,
                 currentPage: action.currentPage,
             };
 
-        case "TOGGLE_IS_FETCHING":
+        case "USERS/TOGGLE_IS_FETCHING":
             return {
                 ...state,
                 isFetching: action.isFetching,
             };
 
-        case "TOGGLE_FOLLOWING_PROGRESS":
+        case "USERS/TOGGLE_FOLLOWING_PROGRESS":
             return {
                 ...state,
                 followingInProgress: action.isFollowingInProgress
@@ -84,7 +83,7 @@ const usersReducer = (
                       ),
             };
 
-        case "SET_USER_STATUS":
+        case "USERS/SET_USER_STATUS":
             return {
                 ...state,
                 userStatus: action.userStatus,
@@ -101,49 +100,56 @@ type ActionsType = InferActionsType<typeof actions>;
 export const actions = {
     followSuccess: (userId: number) =>
         ({
-            type: "FOLLOW",
+            type: "USERS/FOLLOW",
             userId,
         } as const),
+
     unfollowSuccess: (userId: number) =>
         ({
-            type: "UNFOLLOW",
+            type: "USERS/UNFOLLOW",
             userId,
         } as const),
+
     setUsers: (users: Array<UserType>) =>
         ({
-            type: "SET_USERS",
+            type: "USERS/SET_USERS",
             users,
         } as const),
+
     setTotalUsersCount: (totalUsersCount: number) =>
         ({
-            type: "SET_TOTAL_USERS_COUNT",
+            type: "USERS/SET_TOTAL_USERS_COUNT",
             totalUsersCount,
         } as const),
+
     setCurrentPage: (currentPage: number) =>
         ({
-            type: "SET_CURRENT_PAGE",
-            currentPage, // currentPage: currentPage === currentPage
+            type: "USERS/SET_CURRENT_PAGE",
+            currentPage,
         } as const),
+
     toggleIsFetching: (isFetching: boolean) =>
         ({
-            type: "TOGGLE_IS_FETCHING",
+            type: "USERS/TOGGLE_IS_FETCHING",
             isFetching,
         } as const),
+
     toggleFollowingProgress: (isFollowingInProgress: boolean, userId: number) =>
         ({
-            type: "TOGGLE_FOLLOWING_PROGRESS",
+            type: "USERS/TOGGLE_FOLLOWING_PROGRESS",
             isFollowingInProgress,
             userId,
         } as const),
+
     setUserStatusSuccess: (userStatus: string) =>
         ({
-            type: "SET_USER_STATUS",
+            type: "USERS/SET_USER_STATUS",
             userStatus,
         } as const),
 };
 
 // THUNK CREATORS
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>;
+type ThunkType = BaseThunkType<ActionsType>;
 
 export const getUsers = (
     currentPage: number,

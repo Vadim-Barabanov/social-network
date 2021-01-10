@@ -11,6 +11,9 @@ let initialState = {
             likesCount: 50,
         },
     ],
+    status: "s",
+    isFetching: false,
+    profile: null,
 };
 let addPostAction = actions.addPost("Test text");
 

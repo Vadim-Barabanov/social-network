@@ -1,4 +1,4 @@
-import usersReducer, { setTotalUsersCount } from "./users-reducer";
+import usersReducer, { actions } from "./users-reducer";
 
 let initialState = {
     users: [],
@@ -12,7 +12,10 @@ let initialState = {
 
 describe("Users reducer test", () => {
     test("Setting total users count should be correct", () => {
-        let newState = usersReducer(initialState, setTotalUsersCount(10));
+        let newState = usersReducer(
+            initialState,
+            actions.setTotalUsersCount(10)
+        );
         expect(newState.totalUsersCount).toBe(10);
     });
 });

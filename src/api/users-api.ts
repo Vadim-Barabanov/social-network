@@ -1,5 +1,5 @@
 import { instance } from "./api";
-import { GetItemsType, ResponseType } from "./api";
+import { GetItemsType, APIResponseType } from "./api";
 import { UserType } from "../types/types";
 
 export const usersAPI = {
@@ -13,13 +13,13 @@ export const usersAPI = {
 
     follow(userId: number) {
         return instance
-            .post<ResponseType>(`follow/${userId}`, {})
-            .then((res) => res.data) as Promise<ResponseType>;
+            .post<APIResponseType>(`follow/${userId}`, {})
+            .then((res) => res.data) as Promise<APIResponseType>;
     },
 
     unfollow(userId: number) {
         return instance
             .delete(`follow/${userId}`)
-            .then((res) => res.data) as Promise<ResponseType>;
+            .then((res) => res.data) as Promise<APIResponseType>;
     },
 };

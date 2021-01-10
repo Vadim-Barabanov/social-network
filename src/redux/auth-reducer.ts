@@ -2,10 +2,7 @@ import { authAPI } from "../api/auth-api";
 import { securityAPI } from "../api/security-api";
 import { stopSubmit } from "redux-form";
 import { ResultCodes, CaptchaResultCode } from "../types/types";
-
-const SET_AUTH_USER_DATA = "SET_AUTH_USER_DATA";
-const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
-const SET_CAPTCHA_URL = "SET_CAPTCHA_URL";
+import { InferActionsType, BaseThunkType } from "./redux-store";
 
 let initialState = {
     userId: null as number | null,
@@ -17,19 +14,22 @@ let initialState = {
 };
 export type InitialStateType = typeof initialState;
 
-const authReducer = (state = initialState, action: any): InitialStateType => {
+const authReducer = (
+    state = initialState,
+    action: ActionsType
+): InitialStateType => {
     switch (action.type) {
-        case SET_AUTH_USER_DATA:
+        case "AUTH/SET_AUTH_USER_DATA":
             return {
                 ...state,
                 ...action.payload,
             };
-        case TOGGLE_IS_FETCHING:
+        case "AUTH/TOGGLE_IS_FETCHING":
             return {
                 ...state,
                 isFetching: action.isFetching,
             };
-        case SET_CAPTCHA_URL:
+        case "AUTH/SET_CAPTCHA_URL":
             return {
                 ...state,
                 captchaUrl: action.captchaUrl,
@@ -40,57 +40,42 @@ const authReducer = (state = initialState, action: any): InitialStateType => {
 };
 
 // ACTION CREATERS
-type SetAuthUserDataType = {
-    type: typeof SET_AUTH_USER_DATA;
-    payload: {
-        userId: number | null;
-        email: string | null;
-        login: string | null;
-        isAuth: boolean | null;
-    };
-};
-export const setAuthUserData = (
-    userId: number | null,
-    email: string | null,
-    login: string | null,
-    isAuth: boolean
-): SetAuthUserDataType => ({
-    type: SET_AUTH_USER_DATA,
-    payload: {
-        userId,
-        email,
-        login,
-        isAuth,
-    },
-});
+type ActionsType = InferActionsType<typeof actions>;
 
-type ToggleIsFetchingType = {
-    type: typeof TOGGLE_IS_FETCHING;
-    isFetching: boolean;
-};
-export const toggleIsFetching = (
-    isFetching: boolean
-): ToggleIsFetchingType => ({
-    type: TOGGLE_IS_FETCHING,
-    isFetching,
-});
+export const actions = {
+    setAuthUserData: (
+        userId: number | null,
+        email: string | null,
+        login: string | null,
+        isAuth: boolean
+    ) =>
+        ({
+            type: "AUTH/SET_AUTH_USER_DATA",
+            payload: { userId, email, login, isAuth },
+        } as const),
 
-type SetCaptchaUrlType = {
-    type: typeof SET_CAPTCHA_URL;
-    captchaUrl: string;
+    toggleIsFetching: (isFetching: boolean) =>
+        ({
+            type: "AUTH/TOGGLE_IS_FETCHING",
+            isFetching,
+        } as const),
+
+    setCaptchaUrl: (captchaUrl: string) =>
+        ({
+            type: "AUTH/SET_CAPTCHA_URL",
+            captchaUrl,
+        } as const),
 };
-const setCaptchaUrl = (captchaUrl: string): SetCaptchaUrlType => ({
-    type: SET_CAPTCHA_URL,
-    captchaUrl,
-});
 
 // THUNK CREATERS
-export const getAuthUserData = () => async (dispatch: any) => {
+type ThunkType = BaseThunkType<ActionsType | ReturnType<typeof stopSubmit>>;
+
+export const getAuthUserData = (): ThunkType => async (dispatch) => {
     let response = await authAPI.authMe();
 
     if (response.resultCode === ResultCodes.Success) {
         let { id, email, login } = response.data;
-        dispatch(setAuthUserData(id, email, login, true));
+        dispatch(actions.setAuthUserData(id, email, login, true));
     }
 };
 
@@ -99,8 +84,8 @@ export const login = (
     password: string,
     rememberMe: boolean = false,
     captcha: string | null = null
-) => async (dispatch: any) => {
-    dispatch(toggleIsFetching(true));
+): ThunkType => async (dispatch) => {
+    dispatch(actions.toggleIsFetching(true));
     let data = await authAPI.login(email, password, rememberMe, captcha);
 
     if (data.resultCode === ResultCodes.Success) {
@@ -111,27 +96,23 @@ export const login = (
         }
         let message =
             data.messages.length > 0 ? data.messages[0] : "Some error";
-        dispatch(
-            stopSubmit("login", {
-                _error: message,
-            })
-        );
+        dispatch(stopSubmit("login", { _error: message }));
     }
-    dispatch(toggleIsFetching(false));
+    dispatch(actions.toggleIsFetching(false));
 };
 
-export const logout = () => async (dispatch: any) => {
-    dispatch(toggleIsFetching(true));
+export const logout = (): ThunkType => async (dispatch) => {
+    dispatch(actions.toggleIsFetching(true));
     const data = await authAPI.logout();
     if (data.resultCode === 0) {
-        dispatch(setAuthUserData(null, null, null, false));
+        dispatch(actions.setAuthUserData(null, null, null, false));
     }
-    dispatch(toggleIsFetching(false));
+    dispatch(actions.toggleIsFetching(false));
 };
 
-const getCaptchaUrl = () => async (dispatch: any) => {
+const getCaptchaUrl = (): ThunkType => async (dispatch) => {
     const data = await securityAPI.getCaptchaUrl();
-    dispatch(setCaptchaUrl(data.url));
+    dispatch(actions.setCaptchaUrl(data.url));
     // dispatch(stopSubmit("login", { _error: message }));
 };
 

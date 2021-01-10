@@ -1,6 +1,6 @@
 import { instance } from "./api";
 import { ResultCodes, CaptchaResultCode } from "../types/types";
-import { ResponseType } from "./api";
+import { APIResponseType } from "./api";
 
 type AuthMeDataType = {
     id: number;
@@ -20,7 +20,9 @@ export const authAPI = {
     // },
 
     async authMe() {
-        let res = await instance.get<ResponseType<AuthMeDataType>>(`auth/me`);
+        let res = await instance.get<APIResponseType<AuthMeDataType>>(
+            `auth/me`
+        );
         return res.data;
     },
 
@@ -50,7 +52,7 @@ export const authAPI = {
         captcha: string | null = null
     ) {
         let res = await instance.post<
-            ResponseType<LoginDataType, ResultCodes | CaptchaResultCode>
+            APIResponseType<LoginDataType, ResultCodes | CaptchaResultCode>
         >(`auth/login`, {
             email,
             password,
