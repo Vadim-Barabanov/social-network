@@ -10,6 +10,12 @@
     margin: 0.5rem 0;
 }
 
+.formControl input[type="checkbox"] {
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
+}
+
 .formControl textarea {
     height: 50px;
     font-size: 1.2rem;

@@ -36,7 +36,9 @@ const ProfileStatus = (props) => {
                 </div>
             ) : (
                 <div className={styles.status}>
-                    <span onDoubleClick={toggleEditMode}>
+                    <span
+                        className={styles.statusText}
+                        onDoubleClick={toggleEditMode}>
                         {props.status || "No status"}
                     </span>
                 </div>

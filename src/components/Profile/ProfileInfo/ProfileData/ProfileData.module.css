@@ -18,6 +18,9 @@
 
 .status {
     font-size: 1rem;
+}
+
+.statusText {
     cursor: pointer;
 }
 

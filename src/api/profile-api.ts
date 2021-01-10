@@ -1,23 +1,22 @@
 import { instance } from "./api";
 import { ProfileType } from "../types/types";
+import { ResponseType } from "./api";
 
 export const profileAPI = {
     getProfileData(userId: number) {
-        return instance
-            .get(`profile/${userId}`)
-            .then((response) => response.data);
+        return instance.get(`profile/${userId}`).then((res) => res.data);
     },
 
     getStatus(userId: number) {
         return instance
-            .get(`profile/status/${userId}`)
-            .then((response) => response.data);
+            .get<string>(`profile/status/${userId}`)
+            .then((res) => res.data);
     },
 
     updateStatus(status: string) {
         return instance
             .put(`profile/status`, { status })
-            .then((response) => response.data);
+            .then((res) => res.data) as Promise<ResponseType>;
     },
 
     savePhoto(file: any) {
@@ -29,12 +28,12 @@ export const profileAPI = {
                     "Content-Type": "multipart/form-data",
                 },
             })
-            .then((response) => response.data);
+            .then((res) => res.data);
     },
 
     updateProfile(profile: ProfileType) {
         return instance
             .put(`profile`, profile)
-            .then((response) => response.data);
+            .then((res) => res.data) as Promise<ResponseType>;
     },
 };

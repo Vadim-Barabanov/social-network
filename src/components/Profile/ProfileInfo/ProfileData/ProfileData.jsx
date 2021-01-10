@@ -14,6 +14,19 @@ const Contact = (props) => {
 };
 
 const ProfileData = (props) => {
+    const contactsArr = Object.keys(props.profile.contacts).map((key) => {
+        if (props.profile.contacts[key]) {
+            return (
+                <div key={key}>
+                    <Contact
+                        contactTitle={key}
+                        contactValue={props.profile.contacts[key]}
+                    />
+                </div>
+            );
+        } else return null;
+    });
+
     return (
         <div className={styles.userDescription}>
             <div className={styles.userTitle}>
@@ -41,21 +54,7 @@ const ProfileData = (props) => {
                 </p>
                 <p className={styles.contactBox}>
                     <b>Contacts:</b>
-                    {props.profile.contacts &&
-                        Object.keys(props.profile.contacts).map((key) => {
-                            if (props.profile.contacts[key]) {
-                                return (
-                                    <div key={key}>
-                                        <Contact
-                                            contactTitle={key}
-                                            contactValue={
-                                                props.profile.contacts[key]
-                                            }
-                                        />
-                                    </div>
-                                );
-                            }
-                        })}
+                    {props.profile.contacts && contactsArr}
                 </p>
             </div>
         </div>

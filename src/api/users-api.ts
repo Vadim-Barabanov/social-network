@@ -8,20 +8,18 @@ export const usersAPI = {
             .get<GetItemsType<UserType>>(
                 `users?page=${currentPage}&count=${pageSize}`
             )
-            .then((response) => response.data) as Promise<
-            GetItemsType<UserType>
-        >;
+            .then((res) => res.data) as Promise<GetItemsType<UserType>>;
     },
 
     follow(userId: number) {
         return instance
             .post<ResponseType>(`follow/${userId}`, {})
-            .then((response) => response.data) as Promise<ResponseType>;
+            .then((res) => res.data) as Promise<ResponseType>;
     },
 
     unfollow(userId: number) {
         return instance
             .delete(`follow/${userId}`)
-            .then((response) => response.data) as Promise<ResponseType>;
+            .then((res) => res.data) as Promise<ResponseType>;
     },
 };

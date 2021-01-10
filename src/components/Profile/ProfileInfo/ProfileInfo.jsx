@@ -21,9 +21,18 @@ const ProfileInfo = (props) => {
     };
 
     const onSubmit = (formData) => {
+        console.log(formData);
         props.updateProfile(formData).then(() => {
             setEditMode(false);
         });
+    };
+
+    const initialFormValues = {
+        fullName: props.profile.fullName,
+        aboutMe: props.profile.aboutMe,
+        lookingForAJob: props.profile.lookingForAJob,
+        lookingForAJobDescription: props.profile.lookingForAJobDescription,
+        contacts: { ...props.profile.contacts },
     };
 
     return (
@@ -51,6 +60,7 @@ const ProfileInfo = (props) => {
                     <ProfileDataForm
                         profile={props.profile}
                         onSubmit={onSubmit}
+                        initialValues={initialFormValues}
                     />
                 ) : (
                     <ProfileData
@@ -63,8 +73,7 @@ const ProfileInfo = (props) => {
                 {props.isOwner && !editMode ? (
                     <button
                         className={styles.profileEditBtn}
-                        onClick={() => setEditMode(true)}
-                    >
+                        onClick={() => setEditMode(true)}>
                         <i className="fas fa-user-edit"></i>
                     </button>
                 ) : null}

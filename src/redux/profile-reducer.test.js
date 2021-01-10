@@ -1,4 +1,4 @@
-import profileReducer, { addPost, deletePost } from "./profile-reducer";
+import profileReducer, { actions } from "./profile-reducer";
 
 let initialState = {
     posts: [
@@ -12,7 +12,7 @@ let initialState = {
         },
     ],
 };
-let addPostAction = addPost("Test text");
+let addPostAction = actions.addPost("Test text");
 
 test("length of posts should be incremented", () => {
     let newState = profileReducer(initialState, addPostAction);
@@ -33,7 +33,7 @@ test("likesCount should be 0", () => {
 });
 
 test("after deleting length of array should be decremented", () => {
-    let action = deletePost(1);
+    let action = actions.deletePost(1);
     let newState = profileReducer(initialState, action);
 
     expect(newState.posts.length).toBe(2);

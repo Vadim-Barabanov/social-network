@@ -14,7 +14,7 @@ const ProfileDataForm = ({ handleSubmit, profile, error }) => {
                 <b>Full name:</b>
                 <Field
                     component={Input}
-                    placeholder={"John Snow"}
+                    placeholder={"New name"}
                     name={"fullName"}
                 />
             </p>
@@ -22,7 +22,7 @@ const ProfileDataForm = ({ handleSubmit, profile, error }) => {
                 <b>About me:</b>
                 <Field
                     component={Input}
-                    placeholder={"Love dogs"}
+                    placeholder={"New text"}
                     name={"aboutMe"}
                 />
             </p>
@@ -39,7 +39,7 @@ const ProfileDataForm = ({ handleSubmit, profile, error }) => {
                 <Field
                     component={Textarea}
                     name={"lookingForAJobDescription"}
-                    placeholder={"Html and Css"}
+                    placeholder={"New description"}
                 />
             </p>
             <p>

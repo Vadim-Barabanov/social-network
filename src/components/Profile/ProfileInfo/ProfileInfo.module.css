@@ -10,10 +10,12 @@
 
 .imageBox {
     grid-area: image;
+    position: relative;
 }
 
 .profileData {
     grid-area: data;
+    max-width: 500px;
 }
 
 .userImage {
@@ -23,7 +25,14 @@
 }
 
 .inputFile {
-    content: "";
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    cursor: pointer;
 }
 
 .profileEditBtn {
