@@ -12,7 +12,7 @@ let initialState = {
     isAuth: false as boolean,
     captchaUrl: null as string | null,
 };
-export type InitialStateType = typeof initialState;
+type InitialStateType = typeof initialState;
 
 const authReducer = (
     state = initialState,
@@ -68,7 +68,9 @@ export const actions = {
 };
 
 // THUNK CREATERS
-type ThunkType = BaseThunkType<ActionsType | ReturnType<typeof stopSubmit>>;
+export type ThunkType = BaseThunkType<
+    ActionsType | ReturnType<typeof stopSubmit>
+>;
 
 export const getAuthUserData = (): ThunkType => async (dispatch) => {
     let response = await authAPI.authMe();

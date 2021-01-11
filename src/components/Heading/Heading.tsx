@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 type PropsType = {
     isAuth: boolean;
     userId: number | null;
-    login: string;
+    login: string | null;
     logout: () => void;
 };
 
@@ -33,7 +33,7 @@ const Heading: FC<PropsType> = (props) => {
                             to={`/profile/${props.userId}`}>
                             <i className="fas fa-user"></i>
                             <span className={style.loginNameText}>
-                                {props.login.toUpperCase()}
+                                {props.login && props.login.toUpperCase()}
                             </span>
                         </NavLink>
                         <span className={style.logout__box} onClick={logout}>

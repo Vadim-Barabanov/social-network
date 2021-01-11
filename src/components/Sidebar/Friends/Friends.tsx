@@ -1,7 +1,13 @@
+import React, { FC } from "react";
 import { NavLink } from "react-router-dom";
 import FriendsStyle from "./FriendsStyle.module.css";
+import { FriendType } from "../../../types/types";
 
-const Friends = (props) => {
+type PropsType = {
+    friendsList: Array<FriendType>;
+};
+
+const Friends: FC<PropsType> = (props) => {
     let friends = props.friendsList.map((item) => {
         return (
             <NavLink

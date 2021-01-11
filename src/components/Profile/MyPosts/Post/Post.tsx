@@ -1,7 +1,12 @@
-import React from "react";
+import React, { FC } from "react";
 import PostStyle from "./Post.module.css";
 
-const Post = (props) => {
+type PropsType = {
+    likesCount: number;
+    text: string;
+};
+
+const Post: FC<PropsType> = (props) => {
     return (
         <div className={PostStyle.post}>
             <div className={PostStyle.post__message}>{props.text}</div>

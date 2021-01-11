@@ -1,8 +1,8 @@
-import React from "react";
+import React, { FC } from "react";
 import { NavLink } from "react-router-dom";
 import style from "./Navigation.module.css";
 
-const Navigation = () => {
+const Navigation: FC = () => {
     return (
         <div className={style.wrapper}>
             <nav className={style.navbar}>
