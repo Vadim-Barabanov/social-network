@@ -63,25 +63,15 @@ let mapStateToProps = (state) => ({
     newPostText: state.profilePage.newPostText,
 });
 
-/****************************
-        TEMP CHANGES
- ***************************/
-const mapDispatchToProp = (dispatch) => {
-    return {
-        setUserProfile: (userId) => dispatch(setUserProfile(userId)),
-        setStatus: (userId) => dispatch(setStatus(userId)),
-        updateStatus: (status) => dispatch(updateStatus(status)),
-        savePhoto: (file) => dispatch(savePhoto(file)),
-        updateProfile: (profile) => dispatch(updateProfile(profile)),
-        addPost: (postText) => dispatch(actions.addPost(postText)),
-    };
-};
-/****************************
-        TEMP CHANGES
- ***************************/
-
 export default compose(
-    connect(mapStateToProps, mapDispatchToProp),
+    connect(mapStateToProps, {
+        setUserProfile,
+        setStatus,
+        updateStatus,
+        updateProfile,
+        savePhoto,
+        addPost: actions.addPost,
+    }),
     withRouter,
     withAuthRedirect
 )(ProfileContainer);

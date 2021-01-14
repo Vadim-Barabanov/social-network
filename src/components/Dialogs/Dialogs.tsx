@@ -1,15 +1,16 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import { Field, reduxForm } from "redux-form";
 import { FormCreator } from "../FormControls/FormControls";
 import { required, maxLenght } from "../../utilits/validators";
+import { InitialStateType } from "../../redux/dialogs-reducer";
 
 const maxLenghtValidator = maxLenght(3000);
 const Textarea = FormCreator("textarea");
 
-const MessagesForm = (props) => {
+const MessagesForm = (props: any) => {
     return (
         <form className={styles.inputForm} onSubmit={props.handleSubmit}>
             <div>
@@ -29,12 +30,17 @@ const MessagesForm = (props) => {
 };
 const MessagesReduxForm = reduxForm({ form: "messages" })(MessagesForm);
 
-const Dialogs = (props) => {
-    let dialogElements = props.dialogsPage.dialogs.map((item) => (
+type PropsType = {
+    dialogsPage: InitialStateType;
+    addMessage: (messageText: string) => void;
+};
+
+const Dialogs: FC<PropsType> = (props) => {
+    let dialogElements = props.dialogsPage.dialogs.map((item: any) => (
         <DialogItem name={item.name} id={item.id} key={item.id} />
     ));
 
-    let messagesElements = props.dialogsPage.messages.map((item) => (
+    let messagesElements = props.dialogsPage.messages.map((item: any) => (
         <Message
             from={item.from}
             isMine={item.isMine}
@@ -43,7 +49,7 @@ const Dialogs = (props) => {
         />
     ));
 
-    const onSubmit = (data) => {
+    const onSubmit = (data: any) => {
         props.addMessage(data.messageText);
     };
 

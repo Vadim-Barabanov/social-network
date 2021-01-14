@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { Field, reduxForm } from "redux-form";
 import { FormCreator } from "../../../FormControls/FormControls";
 import styles from "../ProfileInfo.module.css";
@@ -6,7 +6,7 @@ import styles from "../ProfileInfo.module.css";
 const Input = FormCreator("input");
 const Textarea = FormCreator("textarea");
 
-const ProfileDataForm = ({ handleSubmit, profile, error }) => {
+const ProfileDataForm: FC<any> = ({ handleSubmit, profile, error }) => {
     return (
         <form className={styles.userDescription} onSubmit={handleSubmit}>
             {error && <div>{error}</div>}
@@ -44,7 +44,7 @@ const ProfileDataForm = ({ handleSubmit, profile, error }) => {
             </p>
             <p>
                 <b>Contacts:</b>
-                {Object.keys(profile.contacts).map((key) => {
+                {Object.keys(profile.contacts!).map((key) => {
                     return (
                         <div key={key}>
                             {/* <b>{key}: </b> */}

@@ -11,6 +11,7 @@ import {
     Redirect,
 } from "react-router-dom";
 import store from "./redux/redux-store";
+import { AppStateType } from "./redux/redux-store";
 import { Provider } from "react-redux";
 // Importing components
 import Preloader from "./components/common/preloader/Preloader";
@@ -20,16 +21,21 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import SidebarContainer from "./components/Sidebar/SidebarContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 // Lazy loading components
-const DialogsContainer = React.lazy(() =>
-    import("./components/Dialogs/DialogsContainer")
+const DialogsContainer = React.lazy(
+    () => import("./components/Dialogs/DialogsContainer")
 );
 //import News from "./components/News/News";
 //import Music from "./components/Music/Music";
 //import Settings from "./components/Settings/Settings";
 //import FollowingContainer from "./components/Following/FollowingContainer";
 
-class App extends React.Component {
-    catchAllUnhandledErrors = (promiseRejectionEvent) => {
+type StatePropsType = ReturnType<typeof mapStateToProps>;
+type DispatchPropsType = {
+    initializeApp: () => void;
+};
+
+class App extends React.Component<StatePropsType & DispatchPropsType> {
+    catchAllUnhandledErrors = (promiseRejectionEvent: any) => {
         console.error(promiseRejectionEvent);
     };
 
@@ -88,13 +94,6 @@ class App extends React.Component {
                             path="*"
                             render={() => <div>404 NOT FOUND</div>}
                         />
-                        {/*<Route path="/news" render={() => <News />} />
-                    <Route path="/music" render={() => <Music />} />
-                    <Route path="/settings" render={() => <Settings />} />
-                    <Route
-                        path="/following"
-                        render={() => <FollowingContainer />}
-                />*/}
                     </Switch>
                 </div>
             </div>
@@ -102,11 +101,11 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
     initialized: state.app.initialized,
 });
 
-const AppContainer = compose(
+const AppContainer = compose<React.ComponentType>(
     withRouter,
     connect(mapStateToProps, { initializeApp })
 )(App);

@@ -1,8 +1,13 @@
-import React from "react";
+import React, { FC } from "react";
 import ProfileStatus from "./ProfileStatus";
 import s from "./ProfileData.module.css";
 
-const Contact = (props) => {
+type ContactPropsType = {
+    contactTitle: string;
+    contactValue: string;
+};
+
+const Contact: FC<ContactPropsType> = (props) => {
     return (
         <p className={s.contactLink}>
             <a href={props.contactValue} title={props.contactValue}>
@@ -13,7 +18,14 @@ const Contact = (props) => {
     );
 };
 
-const ProfileData = (props) => {
+type ProfileDataType = {
+    profile: any;
+    status: string;
+    updateStatus: (status: string) => Promise<void>;
+    isOwner: boolean;
+};
+
+const ProfileData: FC<ProfileDataType> = (props) => {
     const contactsArr = Object.keys(props.profile.contacts).map((key) => {
         if (props.profile.contacts[key]) {
             return (
