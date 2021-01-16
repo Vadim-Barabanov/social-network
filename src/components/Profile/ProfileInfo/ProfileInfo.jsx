@@ -1,36 +1,36 @@
-import React, { useState, FC } from "react";
+import React, { useState } from "react";
 import styles from "./ProfileInfo.module.css";
 import userMale from "../../../assets/images/userMale.png";
-import { ProfileType } from "../../../types/types";
+// import { ProfileType } from "../../../types/types";
 
 // Importing components
 import Preloader from "../../common/preloader/Preloader";
 import ProfileData from "./ProfileData/ProfileData";
 import ProfileDataForm from "./ProfileData/ProfileDataForm";
 
-type PropsType = {
-    profile: any;
-    savePhoto: (file: any) => void;
-    updateProfile: (profile: ProfileType) => Promise<void>;
-    isOwner: boolean;
-    status: string;
-    updateStatus: (status: string) => void;
-};
+// type PropsType = {
+//     profile: any;
+//     savePhoto: (file: any) => Promise<void>;
+//     updateProfile: (profile: ProfileType) => Promise<void>;
+//     isOwner: boolean;
+//     status: string;
+//     updateStatus: (status: string) => Promise<void>;
+// };
 
-const ProfileInfo: FC<PropsType> = (props) => {
+const ProfileInfo = (props) => {
     const [editMode, setEditMode] = useState(false);
 
     if (!props.profile) {
         return <Preloader />;
     }
 
-    const onMainPhotoSelected = (e: any) => {
+    const onMainPhotoSelected = (e) => {
         if (e.target.files.length) {
             props.savePhoto(e.target.files[0]);
         }
     };
 
-    const onSubmit = (formData: any) => {
+    const onSubmit = (formData) => {
         console.log(formData);
         props.updateProfile(formData).then(() => {
             setEditMode(false);

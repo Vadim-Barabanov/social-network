@@ -12,9 +12,13 @@ let initialState = {
     isFetching: false as boolean,
     followingInProgress: [] as Array<number>,
     userStatus: null as string | null,
+    filter: {
+        term: "",
+    },
 };
 
 type InitialStateType = typeof initialState;
+export type FilterType = typeof initialState.filter;
 
 const usersReducer = (
     state = initialState,
@@ -89,6 +93,12 @@ const usersReducer = (
                 userStatus: action.userStatus,
             };
 
+        case "USERS/SET_FILTER":
+            return {
+                ...state,
+                filter: action.payload,
+            };
+
         default:
             return state;
     }
@@ -146,6 +156,8 @@ export const actions = {
             type: "USERS/SET_USER_STATUS",
             userStatus,
         } as const),
+    setFilter: (term: string) =>
+        ({ type: "USERS/SET_FILTER", payload: { term } } as const),
 };
 
 // THUNK CREATORS
@@ -153,13 +165,15 @@ type ThunkType = BaseThunkType<ActionsType>;
 
 export const getUsers = (
     currentPage: number,
-    pageSize: number
+    pageSize: number,
+    term: string
 ): ThunkType => async (dispatch) => {
     dispatch(actions.toggleIsFetching(true));
-    let data = await usersAPI.getUsers(currentPage, pageSize);
+    let data = await usersAPI.getUsers(currentPage, pageSize, term);
     dispatch(actions.setUsers(data.items));
     dispatch(actions.setTotalUsersCount(data.totalCount));
     dispatch(actions.setCurrentPage(currentPage));
+    dispatch(actions.setFilter(term));
     dispatch(actions.toggleIsFetching(false));
 };
 

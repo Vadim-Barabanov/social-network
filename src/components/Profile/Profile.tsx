@@ -5,7 +5,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import { ProfileType, PostType } from "../../types/types";
 
 type PropsType = {
-    profile: ProfileType;
+    profile: any;
     addPost: (postText: string) => void;
     posts: PostType;
     isAuth: boolean;
@@ -13,6 +13,10 @@ type PropsType = {
     status: string;
     authorizedUserId: number;
     newPostText: string;
+    isOwner: boolean;
+    savePhoto: (file: any) => Promise<void>;
+    updateProfile: (profile: ProfileType) => Promise<void>;
+    updateStatus: (status: string) => Promise<void>;
 };
 
 const Profile: FC<PropsType> = (props) => {

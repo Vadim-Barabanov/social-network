@@ -5,12 +5,15 @@ import style from "./UsersStyle.module.css";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
 import { UserType } from "../../types/types";
+import UsersSearchForm from "./UsersSearchForm";
+import { FilterType } from "../../redux/users-reducer";
 
 type PropsType = {
     pageSize: number;
     totalUsersCount: number;
     currentPage: number;
     onPageChange: (pageNumber: number) => void;
+    onFilterChange: (filter: FilterType) => void;
     users: Array<UserType>;
     follow: (userId: number) => void;
     unfollow: (userId: number) => void;
@@ -20,6 +23,7 @@ type PropsType = {
 const Users: FC<PropsType> = (props) => {
     return (
         <div className={style.wrapper}>
+            <UsersSearchForm onFilterChange={props.onFilterChange} />
             <div className={style.usersList}>
                 {props.users.map((user) => (
                     <User
