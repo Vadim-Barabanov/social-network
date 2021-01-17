@@ -1,20 +1,13 @@
+import { ErrorMessage, Field, Form, Formik, FormikErrors } from "formik";
 import React, { FC } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage, FormikErrors } from "formik";
+import { login } from "../../redux/auth-reducer";
+import { AppStateType } from "../../redux/redux-store";
 import Preloader from "../common/preloader/Preloader";
 import s from "./Login.module.css";
 
-type PropsType = {
-    isAuth: boolean;
-    isFetching: boolean;
-    captchaUrl: string | null;
-    login: (
-        email: string,
-        password: string,
-        rememberMe: boolean,
-        captchaUrl: string | null
-    ) => void;
-};
+type PropsType = {};
 
 type FormValues = {
     email: string;
@@ -23,7 +16,7 @@ type FormValues = {
     captcha?: string;
 };
 
-const validation = (values: any) => {
+const validation = (values: FormValues) => {
     let errors: FormikErrors<FormValues> = {};
     if (!values.email) {
         errors.email = "Required";
@@ -40,17 +33,26 @@ const validation = (values: any) => {
     return errors;
 };
 
-const Login: FC<PropsType> = (props) => {
+export const Login: FC<PropsType> = () => {
+    const captchaUrl = useSelector(
+        (state: AppStateType) => state.auth.captchaUrl
+    );
+    const isAuth = useSelector((state: AppStateType) => state.auth.isAuth);
+    const isFetching = useSelector(
+        (state: AppStateType) => state.auth.isFetching
+    );
+
+    const dispatch = useDispatch();
+
     const submit = (values: any, { setSubmitting }: any) => {
-        console.log(values);
         const { email, password, rememberMe, captcha } = values;
-        props.login(email, password, rememberMe, captcha);
+        dispatch(login(email, password, rememberMe, captcha));
         setSubmitting(false);
     };
 
-    if (props.isAuth) {
+    if (isAuth) {
         return <Redirect to={"/profile"} />;
-    } else if (props.isFetching) {
+    } else if (isFetching) {
         return <Preloader />;
     }
 
@@ -84,10 +86,10 @@ const Login: FC<PropsType> = (props) => {
                         />
                         <ErrorMessage name="rememberMe" component="div" />
 
-                        {props.captchaUrl ? (
+                        {captchaUrl ? (
                             <>
                                 <img
-                                    src={props.captchaUrl}
+                                    src={captchaUrl}
                                     alt="captcha loading..."
                                 />
                                 <Field
@@ -111,5 +113,3 @@ const Login: FC<PropsType> = (props) => {
         </div>
     );
 };
-
-export default Login;

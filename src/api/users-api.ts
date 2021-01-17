@@ -11,9 +11,9 @@ export const usersAPI = {
     ) {
         return instance
             .get<GetItemsType<UserType>>(
-                `users?page=${currentPage}&count=${pageSize}&term=${term}${
-                    friend ? `&friend=${friend}` : ""
-                }`
+                `users?page=${currentPage}&count=${pageSize}${
+                    term ? `&term=${term}` : ""
+                }${friend ? `&friend=${friend}` : ""}`
             )
             .then((res) => res.data) as Promise<GetItemsType<UserType>>;
     },

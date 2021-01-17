@@ -15,11 +15,11 @@ import { AppStateType } from "./redux/redux-store";
 import { Provider } from "react-redux";
 // Importing components
 import Preloader from "./components/common/preloader/Preloader";
-import HeadingContainer from "./components/Heading/HeadingContainer";
-import LoginContainer from "./components/Login/LoginContainer";
+import { Heading } from "./components/Heading/Heading";
+import { Login } from "./components/Login/Login";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import SidebarContainer from "./components/Sidebar/SidebarContainer";
-import UsersContainer from "./components/Users/UsersContainer";
+import { UsersPage } from "./components/Users/UsersPage";
 // Lazy loading components
 const DialogsContainer = React.lazy(
     () => import("./components/Dialogs/DialogsContainer")
@@ -59,7 +59,7 @@ class App extends React.Component<StatePropsType & DispatchPropsType> {
 
         return (
             <div className="app-wrapper">
-                <HeadingContainer />
+                <Heading />
                 <SidebarContainer />
                 <div className="app-wrapper-content">
                     <Switch>
@@ -68,18 +68,12 @@ class App extends React.Component<StatePropsType & DispatchPropsType> {
                             path="/"
                             render={() => <Redirect to="/profile" />}
                         />
-                        <Route
-                            path="/login"
-                            render={() => <LoginContainer />}
-                        />
+                        <Route path="/login" render={() => <Login />} />
                         <Route
                             path="/profile/:userId?"
                             render={() => <ProfileContainer />}
                         />
-                        <Route
-                            path="/users"
-                            render={() => <UsersContainer />}
-                        />
+                        <Route path="/users" render={() => <UsersPage />} />
                         <Route
                             path="/dialogs"
                             render={() => {
