@@ -30,13 +30,6 @@ const ProfileInfo = (props) => {
         }
     };
 
-    const onSubmit = (formData) => {
-        console.log(formData);
-        props.updateProfile(formData).then(() => {
-            setEditMode(false);
-        });
-    };
-
     const initialFormValues = {
         fullName: props.profile.fullName,
         aboutMe: props.profile.aboutMe,
@@ -69,7 +62,8 @@ const ProfileInfo = (props) => {
                 {editMode ? (
                     <ProfileDataForm
                         profile={props.profile}
-                        onSubmit={onSubmit}
+                        updateProfile={props.updateProfile}
+                        setEditMode={setEditMode}
                         initialValues={initialFormValues}
                     />
                 ) : (

@@ -1,6 +1,5 @@
 import { authAPI } from "../api/auth-api";
 import { securityAPI } from "../api/security-api";
-import { stopSubmit } from "redux-form";
 import { ResultCodes, CaptchaResultCode } from "../types/types";
 import { InferActionsType, BaseThunkType } from "./redux-store";
 
@@ -68,9 +67,7 @@ export const actions = {
 };
 
 // THUNK CREATERS
-export type ThunkType = BaseThunkType<
-    ActionsType | ReturnType<typeof stopSubmit>
->;
+export type ThunkType = BaseThunkType<ActionsType>;
 
 export const getAuthUserData = (): ThunkType => async (dispatch) => {
     let response = await authAPI.authMe();
@@ -96,9 +93,6 @@ export const login = (
         if (data.resultCode === CaptchaResultCode.CaptchaIsRequired) {
             dispatch(getCaptchaUrl());
         }
-        let message =
-            data.messages.length > 0 ? data.messages[0] : "Some error";
-        dispatch(stopSubmit("login", { _error: message }));
     }
     dispatch(actions.toggleIsFetching(false));
 };
@@ -115,7 +109,6 @@ export const logout = (): ThunkType => async (dispatch) => {
 const getCaptchaUrl = (): ThunkType => async (dispatch) => {
     const data = await securityAPI.getCaptchaUrl();
     dispatch(actions.setCaptchaUrl(data.url));
-    // dispatch(stopSubmit("login", { _error: message }));
 };
 
 export default authReducer;

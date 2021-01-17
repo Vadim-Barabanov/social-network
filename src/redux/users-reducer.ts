@@ -14,6 +14,7 @@ let initialState = {
     userStatus: null as string | null,
     filter: {
         term: "",
+        friend: null as null | boolean,
     },
 };
 
@@ -156,8 +157,8 @@ export const actions = {
             type: "USERS/SET_USER_STATUS",
             userStatus,
         } as const),
-    setFilter: (term: string) =>
-        ({ type: "USERS/SET_FILTER", payload: { term } } as const),
+    setFilter: (filter: FilterType) =>
+        ({ type: "USERS/SET_FILTER", payload: filter } as const),
 };
 
 // THUNK CREATORS
@@ -166,14 +167,19 @@ type ThunkType = BaseThunkType<ActionsType>;
 export const getUsers = (
     currentPage: number,
     pageSize: number,
-    term: string
+    filter: FilterType
 ): ThunkType => async (dispatch) => {
     dispatch(actions.toggleIsFetching(true));
-    let data = await usersAPI.getUsers(currentPage, pageSize, term);
+    let data = await usersAPI.getUsers(
+        currentPage,
+        pageSize,
+        filter.term,
+        filter.friend
+    );
     dispatch(actions.setUsers(data.items));
     dispatch(actions.setTotalUsersCount(data.totalCount));
     dispatch(actions.setCurrentPage(currentPage));
-    dispatch(actions.setFilter(term));
+    dispatch(actions.setFilter(filter));
     dispatch(actions.toggleIsFetching(false));
 };
 

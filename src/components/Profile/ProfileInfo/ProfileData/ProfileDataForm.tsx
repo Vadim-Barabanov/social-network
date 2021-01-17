@@ -1,69 +1,104 @@
 import React, { FC } from "react";
-import { Field, reduxForm } from "redux-form";
-import { FormCreator } from "../../../FormControls/FormControls";
-import styles from "../ProfileInfo.module.css";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import s from "../ProfileInfo.module.css";
+import Preloader from "../../../common/preloader/Preloader";
 
-const Input = FormCreator("input");
-const Textarea = FormCreator("textarea");
+const ProfileDataForm: FC<any> = ({
+    profile,
+    initialValues,
+    updateProfile,
+    setEditMode,
+}) => {
+    const submit = (values: any, { setSubmitting }: any) => {
+        updateProfile(values).then(() => {
+            setEditMode(false);
+            setSubmitting(false);
+        });
+    };
 
-const ProfileDataForm: FC<any> = ({ handleSubmit, profile, error }) => {
     return (
-        <form className={styles.userDescription} onSubmit={handleSubmit}>
-            {error && <div>{error}</div>}
-            <p>
-                <b>Full name:</b>
-                <Field
-                    component={Input}
-                    placeholder={"New name"}
-                    name={"fullName"}
-                />
-            </p>
-            <p>
-                <b>About me:</b>
-                <Field
-                    component={Input}
-                    placeholder={"New text"}
-                    name={"aboutMe"}
-                />
-            </p>
-            <p>
-                <b>Looking for a job: </b>
-                <Field
-                    component={Input}
-                    type="checkbox"
-                    name={"lookingForAJob"}
-                />
-            </p>
-            <p>
-                <b>My skills: </b>
-                <Field
-                    component={Textarea}
-                    name={"lookingForAJobDescription"}
-                    placeholder={"New description"}
-                />
-            </p>
-            <p>
-                <b>Contacts:</b>
-                {Object.keys(profile.contacts!).map((key) => {
-                    return (
-                        <div key={key}>
-                            {/* <b>{key}: </b> */}
+        <div>
+            <Formik initialValues={initialValues} onSubmit={submit}>
+                {({ isSubmitting }) => (
+                    <Form className={s.userDataForm}>
+                        <div>
+                            <h4>Full name:</h4>
                             <Field
-                                component={Input}
-                                placeholder={`https://${key}.com`}
-                                name={`contacts.${key}`}
+                                type="text"
+                                name="fullName"
+                                className={s.inputText}
+                            />
+                            <ErrorMessage name="fullName" component="div" />
+
+                            <h4 className={s.inputHeader}>About me:</h4>
+                            <Field
+                                type="text"
+                                component="textarea"
+                                name="aboutMe"
+                                className={s.inputTextarea}
+                                style={{ height: "100px" }}
+                            />
+                            <ErrorMessage name="aboutMe" component="div" />
+
+                            <h4 className={s.inputHeader}>
+                                Looking for a job?
+                            </h4>
+
+                            <Field type="checkbox" name="lookingForAJob" />
+                            <ErrorMessage
+                                name="lookingForAJob"
+                                component="div"
+                            />
+
+                            <h4 className={s.inputHeader}>My skills:</h4>
+                            <Field
+                                type="text"
+                                component="textarea"
+                                name="lookingForAJobDescription"
+                                className={s.inputTextarea}
+                                style={{ height: "150px" }}
+                            />
+                            <ErrorMessage
+                                name="lookingForAJobDescription"
+                                component="div"
                             />
                         </div>
-                    );
-                })}
-            </p>
-            <button>Save</button>
-        </form>
+
+                        <div className={s.contactsBox}>
+                            <h4>Contacts:</h4>
+
+                            {Object.keys(profile.contacts!).map((key) => {
+                                return (
+                                    <div key={key}>
+                                        {/* <b>{key}: </b> */}
+                                        <Field
+                                            type="text"
+                                            className={s.inputText}
+                                            placeholder={`https://${key}.com`}
+                                            name={`contacts.${key}`}
+                                        />
+                                    </div>
+                                );
+                            })}
+                        </div>
+
+                        {isSubmitting ? <Preloader /> : null}
+                        <button
+                            className={s.submitBtn + " " + s.formBtn}
+                            type="submit"
+                            disabled={isSubmitting}>
+                            <i className="fas fa-check"></i>
+                        </button>
+                        <button
+                            className={s.exitBtn + " " + s.formBtn}
+                            onClick={() => setEditMode(false)}>
+                            <i className="fas fa-times"></i>
+                        </button>
+                    </Form>
+                )}
+            </Formik>
+        </div>
     );
 };
 
-const ProfileDataReduxForm = reduxForm({
-    form: "profileData",
-})(ProfileDataForm);
-
-export default ProfileDataReduxForm;
+export default ProfileDataForm;
