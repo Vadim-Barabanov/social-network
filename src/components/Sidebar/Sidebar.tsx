@@ -1,21 +1,13 @@
 import React, { FC } from "react";
 import Navigation from "./Navigation/Navigation";
-import Friends from "./Friends/Friends";
-// import Friends from "./Friends/Friends";
-import SidebarStyles from "./Sidebar.module.css";
-import { FriendType } from "../../types/types";
+import s from "./Sidebar.module.css";
 
-type PropsType = {
-    friendsList: Array<FriendType>;
-};
+type PropsType = {};
 
-const Sidebar: FC<PropsType> = (props) => {
+export const Sidebar: FC<PropsType> = () => {
     return (
-        <div className={SidebarStyles.wrapper}>
+        <div className={s.wrapper}>
             <Navigation />
-            <Friends friendsList={props.friendsList} />
         </div>
     );
 };
-
-export default Sidebar;

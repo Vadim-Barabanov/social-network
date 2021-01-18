@@ -19,37 +19,17 @@ const Navigation: FC = () => {
                     </NavLink>
                 </div>
                 <div className={style.item}>
+                    <NavLink to="/friends" activeClassName={style.active}>
+                        <i className="fas fa-user-friends"></i>
+                        <span className={style.link__text}>Friends</span>
+                    </NavLink>
+                </div>
+                <div className={style.item}>
                     <NavLink to="/users" activeClassName={style.active}>
-                        <i className="fas fa-users"></i>
-                        <span className={style.link__text}>Users</span>
+                        <i className="fas fa-search"></i>
+                        <span className={style.link__text}>Search</span>
                     </NavLink>
                 </div>
-                {/* <div className={NavbarStyle.item}>
-                    <NavLink
-                        to="/following"
-                        activeClassName={NavbarStyle.active}
-                    >
-                        Following
-                    </NavLink>
-                </div>
-                                <div className={NavbarStyle.item}>
-                    <NavLink to="/news" activeClassName={NavbarStyle.active}>
-                        News
-                    </NavLink>
-                </div>
-                <div className={NavbarStyle.item}>
-                    <NavLink to="/music" activeClassName={NavbarStyle.active}>
-                        Music
-                    </NavLink>
-                </div>
-                <div className={NavbarStyle.item}>
-                    <NavLink
-                        to="/settings"
-                        activeClassName={NavbarStyle.active}
-                    >
-                        Settigns
-                    </NavLink>
-                </div> */}
             </nav>
         </div>
     );

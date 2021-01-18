@@ -4,6 +4,7 @@ import userMalePhoto from "../../assets/images/userMale.png";
 import style from "./UsersStyle.module.css";
 // import userFemalePhoto from "../../assets/images/userFemale.png";
 import { UserType } from "../../types/types";
+import loader from "../../assets/images/svg-loaders/three-dots.svg";
 
 type PropsType = {
     user: UserType;
@@ -20,7 +21,7 @@ const User: FC<PropsType> = ({
 }) => {
     return (
         <div className={style.item}>
-            <NavLink to={"/profile/" + user.id}>
+            <NavLink to={"/profile/" + user.id} className={style.userNavLink}>
                 <img
                     alt=""
                     className={style.userPhoto}
@@ -35,7 +36,10 @@ const User: FC<PropsType> = ({
             </NavLink>
 
             <div>
-                <div className={style.userName}>{user.name}</div>
+                <div>
+                    <span className={style.userName}>{user.name} </span>
+                    <span style={{ fontSize: "14px" }}>#{user.id}</span>
+                </div>
                 <div className={style.status}>
                     {user.status && user.status.length > 50
                         ? "Check status inside profile!"
@@ -50,9 +54,23 @@ const User: FC<PropsType> = ({
                             unfollow(user.id);
                         }}
                         className={`${style.btn} ${style.btnFollowed}`}>
-                        <span className={style.btnTextFollowed}>Followed</span>
                         {/* <i className="fas fa-times"></i> */}
-                        <i className="fas fa-check"></i>
+                        {followingInProgress.some(
+                            (item) => item === user.id
+                        ) ? (
+                            <img
+                                src={loader}
+                                alt="loading..."
+                                style={{ width: "50px" }}
+                            />
+                        ) : (
+                            <>
+                                <span className={style.btnTextFollowed}>
+                                    Followed
+                                </span>
+                                <i className="fas fa-check"></i>
+                            </>
+                        )}
                     </button>
                 ) : (
                     <button
@@ -63,7 +81,17 @@ const User: FC<PropsType> = ({
                             follow(user.id);
                         }}
                         className={`${style.btn} ${style.btnFollow}`}>
-                        <span className={style.btnTextFollow}>Follow</span>
+                        {followingInProgress.some(
+                            (item) => item === user.id
+                        ) ? (
+                            <img
+                                src={loader}
+                                alt="loading..."
+                                style={{ width: "50px" }}
+                            />
+                        ) : (
+                            <span className={style.btnTextFollow}>Follow</span>
+                        )}
                         {/* <i className="fas fa-check"></i> */}
                     </button>
                 )}

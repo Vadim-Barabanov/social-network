@@ -1,0 +1,42 @@
+.friendNavLink {
+    text-decoration: none;
+    color: inherit;
+    outline: none;
+}
+
+.friendWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.friendItem {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    background-color: lightseagreen;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+}
+
+.friendNavLink__img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    background-color: lightseagreen;
+    margin-bottom: 10px;
+}
+
+.friendName {
+    font-weight: bold;
+}
+
+.friendStatus {
+    color: #555;
+}

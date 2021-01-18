@@ -24,6 +24,10 @@
     /* box-shadow: 2px 2px 5px #444; */
 }
 
+.userNavLink {
+    outline: none;
+}
+
 .userName {
     font-size: 18px;
     font-weight: bold;
@@ -58,19 +62,31 @@
     margin-left: 8px;
 }
 
-/* .btnFollow i { */
-/*     color: lightgreen; */
-/* } */
-
 .btnFollowed i {
     color: green;
 }
 
+.btnFollow {
+    transition: 0.2s;
+}
+
 .btnFollowed {
     opacity: 0.65;
+    transition: 0.2s;
+}
+
+.btnFollow:hover {
+    background-color: green;
+    color: #fff;
+}
+
+.btnFollowed:hover {
+    background-color: red;
+    color: #fff;
 }
 
 .btnTextFollow,
 .btnTextFollowed {
     display: inline-block;
+    transition: 0.2s;
 }

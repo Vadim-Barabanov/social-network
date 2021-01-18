@@ -10,7 +10,7 @@ type PropsType = {
 const DialogItem: FC<PropsType> = (props) => {
     let path = "/dialogs/" + props.id;
     return (
-        <div className={s.item}>
+        <div>
             <NavLink to={path} className={s.item} activeClassName={s.active}>
                 <img alt="user" className={s.item__img} src="#" />
                 <span className={s.item__name}>{props.name}</span>
