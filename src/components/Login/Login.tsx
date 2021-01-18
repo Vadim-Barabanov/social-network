@@ -57,59 +57,54 @@ export const Login: FC<PropsType> = () => {
     }
 
     return (
-        <div>
-            <Formik
-                initialValues={{ email: "", password: "", rememberMe: false }}
-                validate={validation}
-                onSubmit={submit}>
-                {({ isSubmitting }) => (
-                    <Form className={s.loginForm}>
-                        <Field
-                            type="text"
-                            name="email"
-                            placeholder="Email"
-                            className={s.inputText}
-                        />
-                        <ErrorMessage name="email" component="div" />
-                        <Field
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            className={s.inputText}
-                        />
-                        <ErrorMessage name="password" component="div" />
-                        <h4>Remeber me: </h4>
-                        <Field
-                            type="checkbox"
-                            name="rememberMe"
-                            className={s.inputCheckbox}
-                        />
-                        <ErrorMessage name="rememberMe" component="div" />
+        <Formik
+            initialValues={{ email: "", password: "", rememberMe: false }}
+            validate={validation}
+            onSubmit={submit}>
+            {({ isSubmitting }) => (
+                <Form className={s.loginForm}>
+                    <Field
+                        type="text"
+                        name="email"
+                        placeholder="Email"
+                        className={s.inputText}
+                    />
+                    <ErrorMessage name="email" component="div" />
+                    <Field
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        className={s.inputText}
+                    />
+                    <ErrorMessage name="password" component="div" />
+                    <h4>Remeber me: </h4>
+                    <Field
+                        type="checkbox"
+                        name="rememberMe"
+                        className={s.inputCheckbox}
+                    />
+                    <ErrorMessage name="rememberMe" component="div" />
 
-                        {captchaUrl ? (
-                            <>
-                                <img
-                                    src={captchaUrl}
-                                    alt="captcha loading..."
-                                />
-                                <Field
-                                    type="text"
-                                    name="captcha"
-                                    className={s.inputText}
-                                    placeholder={"captcha symbols"}
-                                />
-                            </>
-                        ) : null}
+                    {captchaUrl ? (
+                        <>
+                            <img src={captchaUrl} alt="captcha loading..." />
+                            <Field
+                                type="text"
+                                name="captcha"
+                                className={s.inputText}
+                                placeholder={"captcha symbols"}
+                            />
+                        </>
+                    ) : null}
 
-                        <button
-                            type="submit"
-                            disabled={isSubmitting}
-                            className={s.submitBtn}>
-                            Sign in
-                        </button>
-                    </Form>
-                )}
-            </Formik>
-        </div>
+                    <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className={s.submitBtn}>
+                        Sign in
+                    </button>
+                </Form>
+            )}
+        </Formik>
     );
 };

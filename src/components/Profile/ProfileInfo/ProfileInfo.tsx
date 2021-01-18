@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 import styles from "./ProfileInfo.module.css";
 import userMale from "../../../assets/images/userMale.png";
 // import { ProfileType } from "../../../types/types";
@@ -6,47 +6,55 @@ import userMale from "../../../assets/images/userMale.png";
 // Importing components
 import Preloader from "../../common/preloader/Preloader";
 import ProfileData from "./ProfileData/ProfileData";
-import ProfileDataForm from "./ProfileData/ProfileDataForm";
+import { ProfileDataForm } from "./ProfileData/ProfileDataForm";
+import { useSelector, useDispatch } from "react-redux";
+import { AppStateType } from "../../../redux/redux-store";
+import {
+    updateStatus,
+    updateProfile,
+    savePhoto,
+} from "../../../redux/profile-reducer";
+import { ProfileType } from "../../../types/types";
 
-// type PropsType = {
-//     profile: any;
-//     savePhoto: (file: any) => Promise<void>;
-//     updateProfile: (profile: ProfileType) => Promise<void>;
-//     isOwner: boolean;
-//     status: string;
-//     updateStatus: (status: string) => Promise<void>;
-// };
+type PropsType = {
+    isOwner: boolean;
+};
 
-const ProfileInfo = (props) => {
+const ProfileInfo: FC<PropsType> = (props) => {
     const [editMode, setEditMode] = useState(false);
+    const dispatch = useDispatch();
 
-    if (!props.profile) {
-        return <Preloader />;
-    }
+    const status = useSelector(
+        (state: AppStateType) => state.profilePage.status
+    );
+    const profile = useSelector(
+        (state: AppStateType) => state.profilePage.profile
+    );
 
-    const onMainPhotoSelected = (e) => {
+    const updateStatusF = (status: string) => {
+        dispatch(updateStatus(status));
+    };
+    const updateProfileF = (profile: ProfileType) => {
+        dispatch(updateProfile(profile));
+    };
+
+    const onMainPhotoSelected = (e: any) => {
         if (e.target.files.length) {
-            props.savePhoto(e.target.files[0]);
+            dispatch(savePhoto(e.target.files[0]));
         }
     };
 
-    const initialFormValues = {
-        fullName: props.profile.fullName,
-        aboutMe: props.profile.aboutMe,
-        lookingForAJob: props.profile.lookingForAJob,
-        lookingForAJobDescription: props.profile.lookingForAJobDescription,
-        contacts: { ...props.profile.contacts },
-    };
-
-    return (
+    return !profile ? (
+        <Preloader />
+    ) : (
         <div className={styles.wrapper}>
             <div className={styles.imageBox}>
                 <img
                     alt="Alt text"
                     className={styles.userImage}
                     src={
-                        props.profile.photos.large ||
-                        props.profile.photos.small ||
+                        profile.photos!.large ||
+                        profile.photos!.small ||
                         userMale
                     }
                 />
@@ -61,17 +69,16 @@ const ProfileInfo = (props) => {
             <div className={styles.profileData}>
                 {editMode ? (
                     <ProfileDataForm
-                        profile={props.profile}
-                        updateProfile={props.updateProfile}
+                        profile={profile}
+                        updateProfile={updateProfileF}
                         setEditMode={setEditMode}
-                        initialValues={initialFormValues}
                     />
                 ) : (
                     <ProfileData
-                        profile={props.profile}
+                        profile={profile}
                         isOwner={props.isOwner}
-                        updateStatus={props.updateStatus}
-                        status={props.status}
+                        updateStatus={updateStatusF}
+                        status={status}
                     />
                 )}
                 {props.isOwner && !editMode ? (

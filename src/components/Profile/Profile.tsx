@@ -2,34 +2,17 @@ import React, { FC } from "react";
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileStyle from "./Profile.module.css";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import { ProfileType, PostType } from "../../types/types";
+import { actions } from "../../redux/profile-reducer";
 
 type PropsType = {
-    profile: any;
-    addPost: (postText: string) => void;
-    posts: PostType;
-    isAuth: boolean;
-    isFetching: boolean;
-    status: string;
-    authorizedUserId: number;
-    newPostText: string;
     isOwner: boolean;
-    savePhoto: (file: any) => Promise<void>;
-    updateProfile: (profile: ProfileType) => Promise<void>;
-    updateStatus: (status: string) => Promise<void>;
 };
 
 const Profile: FC<PropsType> = (props) => {
-    const myPostsProps = {
-        profile: props.profile,
-        addPost: props.addPost,
-        posts: props.posts,
-    };
-
     return (
         <div className={ProfileStyle.profile}>
-            <ProfileInfo {...props} />
-            <MyPosts {...myPostsProps} />
+            <ProfileInfo isOwner={props.isOwner} />
+            <MyPosts addPost={actions.addPost} />
         </div>
     );
 };

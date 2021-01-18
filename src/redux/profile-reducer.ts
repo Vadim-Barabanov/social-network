@@ -1,5 +1,4 @@
 import { profileAPI } from "../api/profile-api";
-import { stopSubmit } from "redux-form";
 import { PostType, ProfileType, PhotosType } from "../types/types";
 import { InferActionsType, BaseThunkType } from "./redux-store";
 
@@ -116,7 +115,7 @@ export const actions = {
 };
 
 // THUNK CREATERS
-type ThunkType = BaseThunkType<ActionsType | ReturnType<typeof stopSubmit>>;
+type ThunkType = BaseThunkType<ActionsType>;
 
 export const setUserProfile = (userId: number): ThunkType => async (
     dispatch
@@ -136,9 +135,6 @@ export const updateProfile = (profile: ProfileType): ThunkType => async (
     if (userId !== null) {
         if (data.resultCode === 0) {
             dispatch(setUserProfile(userId));
-        } else {
-            dispatch(stopSubmit("profileData", { _error: data.messages[0] }));
-            return Promise.reject(data.messages[0]);
         }
     } else throw new Error("User id can't be null");
 };

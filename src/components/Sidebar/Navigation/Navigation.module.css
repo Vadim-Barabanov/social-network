@@ -7,21 +7,26 @@
 
 .item {
     font-size: 1.2rem;
-    color: white;
     margin: 0.2rem 0;
 }
 
 .item a {
     display: block;
-    color: white;
+    color: #fff;
     text-decoration: none;
     cursor: pointer;
     outline: none;
     padding: 5px 20px;
 }
 
+.item a:hover {
+    margin: -1px 0;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+}
+
 .item a.active {
-    background-color: white;
+    background-color: #fff;
     color: lightseagreen;
 }
 

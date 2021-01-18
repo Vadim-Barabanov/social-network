@@ -3,7 +3,7 @@ import s from "./ProfileData.module.css";
 
 type PropsType = {
     status: string;
-    updateStatus: (status: string) => Promise<void>;
+    updateStatus: (status: string) => void;
     isOwner: boolean;
 };
 

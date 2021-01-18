@@ -21,7 +21,7 @@ const Contact: FC<ContactPropsType> = (props) => {
 type ProfileDataType = {
     profile: any;
     status: string;
-    updateStatus: (status: string) => Promise<void>;
+    updateStatus: (status: string) => void;
     isOwner: boolean;
 };
 
