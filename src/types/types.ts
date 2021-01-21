@@ -1,13 +1,3 @@
-// Enums
-export enum ResultCodes {
-    Success = 0,
-    Error = 1,
-}
-
-export enum CaptchaResultCode {
-    CaptchaIsRequired = 10,
-}
-
 // Types
 export type PostType = {
     id: number;

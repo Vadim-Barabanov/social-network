@@ -1,36 +1,43 @@
 import React, { FC } from "react";
 import styles from "./MyPosts.module.css";
 import Post from "./Post/Post";
-import { Field, Formik, Form } from "formik";
+import { Field, Formik, Form, FormikHelpers } from "formik";
 import { PostType } from "../../../types/types";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { AppStateType } from "../../../redux/redux-store";
+import { actions } from "../../../redux/profile-reducer";
 
-const PostsForm = (props: any) => {
-    const submit = (values: any) => {
-        props.addPost(values.postText);
+type PropsType = {};
+type FormValues = {
+    postText: string;
+};
+
+const PostsForm: FC<PropsType> = () => {
+    const dispatch = useDispatch();
+    const submit = (
+        values: FormValues,
+        formikHelpers: FormikHelpers<FormValues>
+    ): void | Promise<any> => {
+        dispatch(actions.addPost(values.postText));
+        formikHelpers.setFieldValue("postText", "");
     };
+
     return (
         <Formik
             initialValues={{ postText: "" }}
             onSubmit={submit}
             className={styles.form}>
-            {({ isSubmitting }) => (
-                <Form>
-                    <Field component="textarea" name={"postText"} />
-                    <button
-                        disabled={isSubmitting}
-                        type="submit"
-                        className={styles.send__btn}>
-                        Send
-                    </button>
-                </Form>
-            )}
+            <Form>
+                <Field component="textarea" name={"postText"} />
+                <button type="submit" className={styles.send__btn}>
+                    Send
+                </button>
+            </Form>
         </Formik>
     );
 };
 
-const MyPosts: FC<any> = React.memo((props) => {
+const MyPosts: FC<any> = React.memo(() => {
     const posts = useSelector((state: AppStateType) => state.profilePage.posts);
 
     let postsElements = posts.map((item: PostType) => (
@@ -41,7 +48,7 @@ const MyPosts: FC<any> = React.memo((props) => {
         <div className={styles.posts}>
             <h3 className={styles.postsHeader}>Posts:</h3>
             {postsElements}
-            <PostsForm addPost={props.addPost} />
+            <PostsForm />
         </div>
     );
 });

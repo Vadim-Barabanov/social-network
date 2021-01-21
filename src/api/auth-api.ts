@@ -1,5 +1,5 @@
 import { instance } from "./api";
-import { ResultCodes, CaptchaResultCode } from "../types/types";
+import { ResultCodes, CaptchaResultCode } from "../api/api";
 import { APIResponseType } from "./api";
 
 type AuthMeDataType = {

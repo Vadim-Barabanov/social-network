@@ -1,6 +1,6 @@
 import { authAPI } from "../api/auth-api";
 import { securityAPI } from "../api/security-api";
-import { ResultCodes, CaptchaResultCode } from "../types/types";
+import { ResultCodes, CaptchaResultCode } from "../api/api";
 import { InferActionsType, BaseThunkType } from "./redux-store";
 
 let initialState = {

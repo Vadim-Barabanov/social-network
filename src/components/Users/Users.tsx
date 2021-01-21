@@ -1,5 +1,6 @@
 import React, { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 // SELECTORS
 import {
     getCurrentPage,
@@ -31,6 +32,14 @@ export const Users: FC<PropsType> = () => {
     const followingInProgress = useSelector(getFollowingInProgress);
 
     const dispatch = useDispatch();
+    const history = useHistory();
+
+    useEffect(() => {
+        history.push({
+            pathname: "/users",
+            search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`,
+        });
+    }, [filter, currentPage]);
 
     useEffect(() => {
         dispatch(getUsers(currentPage, pageSize, filter));

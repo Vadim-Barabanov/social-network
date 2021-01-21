@@ -18,7 +18,7 @@ let initialState = {
     },
 };
 
-type InitialStateType = typeof initialState;
+export type InitialStateType = typeof initialState;
 export type FilterType = typeof initialState.filter;
 
 const usersReducer = (

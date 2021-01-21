@@ -7,7 +7,7 @@
 
 .item {
     font-size: 1.2rem;
-    margin: 0.2rem 0;
+    margin: 0.6rem 0;
 }
 
 .item a {
@@ -20,14 +20,19 @@
 }
 
 .item a:hover {
-    margin: -1px 0;
-    border-top: 1px solid #fff;
-    border-bottom: 1px solid #fff;
+    margin-bottom: -2px;
+    border-bottom: 2px solid #fff;
 }
 
 .item a.active {
     background-color: #fff;
     color: lightseagreen;
+}
+
+.item a.active:hover {
+    cursor: default;
+    border: none;
+    margin: inherit;
 }
 
 .link__text {

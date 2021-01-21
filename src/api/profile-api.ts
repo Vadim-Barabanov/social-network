@@ -8,7 +8,9 @@ type ResponsePhotosType = {
 
 export const profileAPI = {
     getProfileData(userId: number | null) {
-        return instance.get(`profile/${userId}`).then((res) => res.data);
+        return instance
+            .get<ProfileType>(`profile/${userId}`)
+            .then((res) => res.data);
     },
 
     updateProfile(profile: ProfileType) {
