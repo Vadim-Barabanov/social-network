@@ -31,3 +31,18 @@
     border-bottom: 2px solid #fff;
     padding: 5px 15px;
 }
+
+.formPostWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 4rem;
+}
+
+.formPostTextarea {
+    resize: none;
+    padding: 5px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}

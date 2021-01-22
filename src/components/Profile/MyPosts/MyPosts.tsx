@@ -27,8 +27,12 @@ const PostsForm: FC<PropsType> = () => {
             initialValues={{ postText: "" }}
             onSubmit={submit}
             className={styles.form}>
-            <Form>
-                <Field component="textarea" name={"postText"} />
+            <Form className={styles.formPostWrapper}>
+                <Field
+                    component="textarea"
+                    name={"postText"}
+                    className={styles.formPostTextarea}
+                />
                 <button type="submit" className={styles.send__btn}>
                     Send
                 </button>

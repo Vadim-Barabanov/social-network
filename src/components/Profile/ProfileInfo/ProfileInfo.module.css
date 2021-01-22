@@ -5,7 +5,6 @@
     grid-template-areas: "image data" "image data";
     grid-column-gap: 2rem;
     grid-row-gap: 0.5rem;
-    margin-bottom: 3rem;
 }
 
 .imageBox {
@@ -50,8 +49,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 20px;
-    background-color: lightseagreen;
-    border-radius: 10px;
 }
 
 .contactsBox {
