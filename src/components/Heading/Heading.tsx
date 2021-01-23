@@ -1,15 +1,16 @@
 import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { logout } from "../../redux/auth-reducer";
 import { AppStateType } from "../../redux/redux-store";
 import style from "./Heading.module.css";
+import { Button } from "@material-ui/core";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 type PropsType = {};
 
 export const Heading: FC<PropsType> = () => {
     const isAuth = useSelector((state: AppStateType) => state.auth.isAuth);
-    const userId = useSelector((state: AppStateType) => state.auth.userId);
     const login = useSelector((state: AppStateType) => state.auth.login);
 
     const dispatch = useDispatch();
@@ -28,26 +29,29 @@ export const Heading: FC<PropsType> = () => {
             <div className={style.loginBlock}>
                 {isAuth ? (
                     <>
-                        <NavLink
-                            className={style.loginName}
-                            to={`/profile/${userId}`}>
+                        <span className={style.loginName}>
                             <i className="fas fa-user"></i>
                             <span className={style.loginNameText}>
                                 {login && login.toUpperCase()}
                             </span>
-                        </NavLink>
-                        <span
-                            className={style.logout__box}
-                            onClick={() => dispatch(logout())}>
-                            <span className={style.logout__text}>Logout</span>
-                            <i className="fas fa-sign-out-alt"></i>
                         </span>
+                        <Button
+                            size="small"
+                            color="secondary"
+                            style={{ marginLeft: "10px" }}
+                            variant="contained"
+                            onClick={() => dispatch(logout())}>
+                            Logout{" "}
+                        </Button>
                     </>
                 ) : (
-                    <NavLink className={style.login__box} to={"/login"}>
-                        <span className={style.login__text}>Login</span>
-                        <i className="fas fa-sign-in-alt"></i>
-                    </NavLink>
+                    <Button variant="contained" endIcon={<ExitToAppIcon />}>
+                        <Link
+                            style={{ textDecoration: "none", color: "inherit" }}
+                            to={"/login"}>
+                            Login
+                        </Link>
+                    </Button>
                 )}
             </div>
         </header>

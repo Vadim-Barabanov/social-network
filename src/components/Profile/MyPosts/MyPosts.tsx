@@ -1,11 +1,13 @@
 import React, { FC } from "react";
 import styles from "./MyPosts.module.css";
 import Post from "./Post/Post";
-import { Field, Formik, Form, FormikHelpers } from "formik";
+import { Formik, Form } from "formik";
 import { PostType } from "../../../types/types";
 import { useSelector, useDispatch } from "react-redux";
 import { AppStateType } from "../../../redux/redux-store";
 import { actions } from "../../../redux/profile-reducer";
+import { Button } from "@material-ui/core";
+import { CustomTextField } from "../../common/Forms/Forms";
 
 type PropsType = {};
 type FormValues = {
@@ -14,29 +16,43 @@ type FormValues = {
 
 const PostsForm: FC<PropsType> = () => {
     const dispatch = useDispatch();
-    const submit = (
-        values: FormValues,
-        formikHelpers: FormikHelpers<FormValues>
-    ): void | Promise<any> => {
-        dispatch(actions.addPost(values.postText));
-        formikHelpers.setFieldValue("postText", "");
-    };
 
     return (
         <Formik
             initialValues={{ postText: "" }}
-            onSubmit={submit}
-            className={styles.form}>
-            <Form className={styles.formPostWrapper}>
-                <Field
-                    component="textarea"
-                    name={"postText"}
-                    className={styles.formPostTextarea}
-                />
-                <button type="submit" className={styles.send__btn}>
-                    Send
-                </button>
-            </Form>
+            validate={(values) => {
+                const errors: Record<string, string> = {};
+                if (values.postText.length === 0)
+                    errors.postText = "Should fill it";
+                return errors;
+            }}
+            onSubmit={(
+                values: FormValues,
+                { setSubmitting, resetForm }: any
+            ) => {
+                setSubmitting(true);
+                dispatch(actions.addPost(values.postText));
+                setSubmitting(false);
+                resetForm();
+            }}>
+            {({ isSubmitting }) => (
+                <Form>
+                    <CustomTextField
+                        multiline
+                        variant="outlined"
+                        type="input"
+                        name="postText"
+                    />
+                    <div style={{ margin: "15px 0" }}>
+                        <Button
+                            variant="contained"
+                            type="submit"
+                            disabled={isSubmitting}>
+                            Post
+                        </Button>
+                    </div>
+                </Form>
+            )}
         </Formik>
     );
 };
@@ -50,9 +66,8 @@ const MyPosts: FC<any> = React.memo(() => {
 
     return (
         <div className={styles.posts}>
-            <h3 className={styles.postsHeader}>Posts:</h3>
-            {postsElements}
             <PostsForm />
+            {postsElements}
         </div>
     );
 });

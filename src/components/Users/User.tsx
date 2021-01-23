@@ -5,6 +5,9 @@ import style from "./UsersStyle.module.css";
 // import userFemalePhoto from "../../assets/images/userFemale.png";
 import { UserType } from "../../types/types";
 import loader from "../../assets/images/svg-loaders/three-dots.svg";
+import { Button } from "@material-ui/core";
+import PersonAddIcon from "@material-ui/icons/PersonAdd";
+import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
 
 type PropsType = {
     user: UserType;
@@ -46,14 +49,16 @@ const User: FC<PropsType> = ({
                         : user.status}
                 </div>
                 {user.followed ? (
-                    <button
+                    <Button
+                        style={{ marginTop: "10px" }}
+                        size="small"
                         disabled={followingInProgress.some(
                             (item) => item === user.id
                         )}
                         onClick={() => {
                             unfollow(user.id);
-                        }}
-                        className={`${style.btn} ${style.btnFollowed}`}>
+                        }}>
+                        {/* className={`${style.btn} ${style.btnFollowed}`} */}
                         {/* <i className="fas fa-times"></i> */}
                         {followingInProgress.some(
                             (item) => item === user.id
@@ -64,23 +69,20 @@ const User: FC<PropsType> = ({
                                 style={{ width: "50px" }}
                             />
                         ) : (
-                            <>
-                                <span className={style.btnTextFollowed}>
-                                    Followed
-                                </span>
-                                <i className="fas fa-check"></i>
-                            </>
+                            <PersonAddDisabledIcon />
                         )}
-                    </button>
+                    </Button>
                 ) : (
-                    <button
+                    <Button
+                        style={{ marginTop: "10px" }}
+                        variant="contained"
+                        size="small"
                         disabled={followingInProgress.some(
                             (item) => item === user.id
                         )}
                         onClick={() => {
                             follow(user.id);
-                        }}
-                        className={`${style.btn} ${style.btnFollow}`}>
+                        }}>
                         {followingInProgress.some(
                             (item) => item === user.id
                         ) ? (
@@ -90,10 +92,10 @@ const User: FC<PropsType> = ({
                                 style={{ width: "50px" }}
                             />
                         ) : (
-                            <span className={style.btnTextFollow}>Follow</span>
+                            <PersonAddIcon />
                         )}
                         {/* <i className="fas fa-check"></i> */}
-                    </button>
+                    </Button>
                 )}
             </div>
         </div>

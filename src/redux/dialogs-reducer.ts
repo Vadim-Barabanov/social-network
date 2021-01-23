@@ -19,13 +19,6 @@ let initialState = {
     messages: [
         { id: 1, text: "Hi", isMine: true },
         { id: 2, text: "How are you?", isMine: false, from: "Vadim" },
-        { id: 3, text: "I'm waiting for you rigth now.", isMine: true },
-        {
-            id: 4,
-            text: "Some Special Text",
-            isMine: false,
-            from: "Vadim",
-        },
     ] as Array<MessageType>,
 };
 

@@ -1,7 +1,11 @@
 import React, { FC } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import s from "../ProfileInfo.module.css";
 import Preloader from "../../../common/preloader/Preloader";
+import { CustomTextField, CustomCheckbox } from "../../../common/Forms/Forms";
+import { Button } from "@material-ui/core";
+import SaveIcon from "@material-ui/icons/Save";
+import CloseIcon from "@material-ui/icons/Close";
 
 export const ProfileDataForm: FC<any> = ({
     profile,
@@ -29,39 +33,25 @@ export const ProfileDataForm: FC<any> = ({
                 <Form className={s.userDataForm}>
                     <div>
                         <h4>Full name:</h4>
-                        <Field
-                            type="text"
-                            name="fullName"
-                            className={s.inputText}
+                        <CustomTextField name="fullName" />
+
+                        <CustomCheckbox
+                            name="lookingForAJob"
+                            label="Looking for a job?"
                         />
-                        <ErrorMessage name="fullName" component="div" />
 
                         <h4 className={s.inputHeader}>About me:</h4>
-                        <Field
-                            type="text"
-                            component="textarea"
+                        <CustomTextField
+                            variant="outlined"
                             name="aboutMe"
-                            className={s.inputTextarea}
-                            style={{ height: "100px" }}
+                            multiline
                         />
-                        <ErrorMessage name="aboutMe" component="div" />
-
-                        <h4 className={s.inputHeader}>Looking for a job?</h4>
-
-                        <Field type="checkbox" name="lookingForAJob" />
-                        <ErrorMessage name="lookingForAJob" component="div" />
 
                         <h4 className={s.inputHeader}>My skills:</h4>
-                        <Field
-                            type="text"
-                            component="textarea"
+                        <CustomTextField
                             name="lookingForAJobDescription"
-                            className={s.inputTextarea}
-                            style={{ height: "150px" }}
-                        />
-                        <ErrorMessage
-                            name="lookingForAJobDescription"
-                            component="div"
+                            variant="outlined"
+                            multiline
                         />
                     </div>
 
@@ -71,12 +61,10 @@ export const ProfileDataForm: FC<any> = ({
                         {Object.keys(profile.contacts!).map((key) => {
                             return (
                                 <div key={key}>
-                                    {/* <b>{key}: </b> */}
-                                    <Field
-                                        type="text"
-                                        className={s.inputText}
-                                        placeholder={`https://${key}.com`}
+                                    <CustomTextField
+                                        style={{ marginBottom: "10px" }}
                                         name={`contacts.${key}`}
+                                        placeholder={`https://${key}.com`}
                                     />
                                 </div>
                             );
@@ -84,17 +72,24 @@ export const ProfileDataForm: FC<any> = ({
                     </div>
 
                     {isSubmitting ? <Preloader /> : null}
-                    <button
-                        className={s.submitBtn + " " + s.formBtn}
+                    <Button
+                        size="small"
+                        variant="contained"
                         type="submit"
+                        endIcon={<SaveIcon />}
+                        style={{ justifySelf: "center", marginTop: "15px" }}
                         disabled={isSubmitting}>
-                        <i className="fas fa-check"></i>
-                    </button>
-                    <button
-                        className={s.exitBtn + " " + s.formBtn}
+                        Save
+                    </Button>
+                    <Button
+                        size="small"
+                        variant="contained"
+                        style={{ justifySelf: "center", marginTop: "15px" }}
+                        disabled={isSubmitting}
+                        endIcon={<CloseIcon />}
                         onClick={() => setEditMode(false)}>
-                        <i className="fas fa-times"></i>
-                    </button>
+                        Discard
+                    </Button>
                 </Form>
             )}
         </Formik>

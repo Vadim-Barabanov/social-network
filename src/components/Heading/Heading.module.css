@@ -46,6 +46,10 @@
     margin: 0 10px;
 }
 
+.loginNameText::selection {
+    background-color: none;
+}
+
 .login__box,
 .logout__box {
     cursor: pointer;

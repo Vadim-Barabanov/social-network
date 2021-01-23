@@ -15,6 +15,8 @@ import {
     savePhoto,
 } from "../../../redux/profile-reducer";
 import { ProfileType } from "../../../types/types";
+import EditIcon from "@material-ui/icons/Edit";
+import { Button } from "@material-ui/core";
 
 type PropsType = {
     isOwner: boolean;
@@ -82,11 +84,12 @@ const ProfileInfo: FC<PropsType> = (props) => {
                     />
                 )}
                 {props.isOwner && !editMode ? (
-                    <button
-                        className={styles.profileEditBtn}
+                    <Button
+                        size="small"
+                        endIcon={<EditIcon />}
                         onClick={() => setEditMode(true)}>
-                        <i className="fas fa-user-edit"></i>
-                    </button>
+                        Edit
+                    </Button>
                 ) : null}
             </div>
         </div>

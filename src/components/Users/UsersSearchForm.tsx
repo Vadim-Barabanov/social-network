@@ -1,8 +1,10 @@
 import React, { FC, memo } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import { FilterType } from "../../redux/users-reducer";
 import { useSelector } from "react-redux";
 import { getUsersFilter } from "../../redux/selectors/users-selectores";
+import { CustomTextField } from "../common/Forms/Forms";
+import { Button, Select, MenuItem } from "@material-ui/core";
 
 const usersSearchFormValidate = () => {
     const errors = {};
@@ -51,19 +53,30 @@ const UsersSearchForm: FC<PropsType> = memo((props) => {
                 validate={usersSearchFormValidate}
                 onSubmit={submit}>
                 {({ isSubmitting }) => (
-                    <Form>
-                        <Field type="text" name="term" />
-                        <ErrorMessage name="term" component="div" />
+                    <Form
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                        }}>
+                        <div>
+                            <CustomTextField placeholder="Dimych" name="term" />
 
-                        <Field name="friend" as="select">
-                            <option value="null">All</option>
-                            <option value="true">Only followed</option>
-                            <option value="false">Only unfollowed</option>
-                        </Field>
+                            <Field name="friend" as={Select}>
+                                <option value="null">All</option>
+                                <option value="true">Only followed</option>
+                                <option value="false">Only unfollowed</option>
+                            </Field>
+                        </div>
 
-                        <button type="submit" disabled={isSubmitting}>
+                        <Button
+                            size="small"
+                            variant="contained"
+                            type="submit"
+                            disabled={isSubmitting}
+                            style={{ margin: "20px 0 12px 0" }}>
                             Find
-                        </button>
+                        </Button>
                     </Form>
                 )}
             </Formik>

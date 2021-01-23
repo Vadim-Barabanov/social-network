@@ -2,9 +2,12 @@
     font-size: 1.2rem;
     display: grid;
     grid-template-columns: 1fr 6fr;
+    grid-template-rows: 500px 1fr;
+    grid-template-areas: "dialogs messages" "form form";
 }
 
 .dialogItems {
+    grid-area: dialogs;
     display: flex;
     flex-direction: column;
 }
@@ -44,6 +47,7 @@
 }
 
 .messageItems {
+    grid-area: messages;
     display: flex;
     flex-direction: column;
     justify-self: flex-start;
@@ -52,9 +56,14 @@
     padding: 20px;
     border-radius: 10px;
     margin: 0 2rem;
-    max-height: 300px;
+    max-height: 400px;
     overflow-y: auto;
     background-color: #fff;
+}
+
+.messageForm {
+    grid-area: form;
+    justify-self: center;
 }
 
 .message {

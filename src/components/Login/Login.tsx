@@ -1,4 +1,4 @@
-import { ErrorMessage, Field, Form, Formik, FormikErrors } from "formik";
+import { Form, Formik, FormikErrors } from "formik";
 import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
@@ -6,6 +6,8 @@ import { login } from "../../redux/auth-reducer";
 import { AppStateType } from "../../redux/redux-store";
 import Preloader from "../common/preloader/Preloader";
 import s from "./Login.module.css";
+import { CustomTextField, CustomCheckbox } from "../common/Forms/Forms";
+import { Button } from "@material-ui/core";
 
 type PropsType = {};
 
@@ -63,46 +65,36 @@ export const Login: FC<PropsType> = () => {
             onSubmit={submit}>
             {({ isSubmitting }) => (
                 <Form className={s.loginForm}>
-                    <Field
-                        type="text"
+                    <CustomTextField
                         name="email"
                         placeholder="Email"
-                        className={s.inputText}
+                        type="text"
+                        variant="outlined"
+                        style={{ marginBottom: "20px" }}
                     />
-                    <ErrorMessage name="email" component="div" />
-                    <Field
+                    <CustomTextField
                         type="password"
                         name="password"
                         placeholder="Password"
-                        className={s.inputText}
+                        variant="outlined"
                     />
-                    <ErrorMessage name="password" component="div" />
-                    <h4>Remeber me: </h4>
-                    <Field
-                        type="checkbox"
-                        name="rememberMe"
-                        className={s.inputCheckbox}
+                    <CustomCheckbox
+                        name={"rememberMe"}
+                        label="Remeber me"
+                        style={{ margin: "20px 0" }}
                     />
-                    <ErrorMessage name="rememberMe" component="div" />
-
                     {captchaUrl ? (
                         <>
                             <img src={captchaUrl} alt="captcha loading..." />
-                            <Field
-                                type="text"
-                                name="captcha"
-                                className={s.inputText}
-                                placeholder={"captcha symbols"}
-                            />
+                            <CustomTextField type="text" name="captcha" />
                         </>
                     ) : null}
-
-                    <button
+                    <Button
+                        variant="contained"
                         type="submit"
-                        disabled={isSubmitting}
-                        className={s.submitBtn}>
+                        disabled={isSubmitting}>
                         Sign in
-                    </button>
+                    </Button>
                 </Form>
             )}
         </Formik>

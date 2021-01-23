@@ -21,6 +21,7 @@ import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
 import UsersSearchForm from "./UsersSearchForm";
 import style from "./UsersStyle.module.css";
+import Pagination from "@material-ui/lab/Pagination";
 
 type PropsType = {};
 type QueryParamsType = { term?: string; page?: string; friend?: string };
@@ -73,12 +74,13 @@ export const Users: FC<PropsType> = () => {
         });
     }, [filter, currentPage]);
 
-    const onPageChange = (pageNumber: number) => {
-        dispatch(getUsers(pageNumber, pageSize, filter));
+    const handlePageChange = (event: any, page: number) => {
+        dispatch(getUsers(page, pageSize, filter));
     };
     const onFilterChange = (filter: FilterType) => {
         dispatch(getUsers(1, pageSize, filter));
     };
+
     const followUser = (userId: number) => {
         dispatch(follow(userId));
     };
@@ -100,11 +102,17 @@ export const Users: FC<PropsType> = () => {
                     />
                 ))}
             </div>
-            <Paginator
-                currentPage={currentPage}
-                onPageChange={onPageChange}
-                totalItemsCount={totalUsersCount}
-                pageSize={pageSize}
+            {/* <Paginator */}
+            {/*     currentPage={currentPage} */}
+            {/*     onPageChange={onPageChange} */}
+            {/*     totalItemsCount={totalUsersCount} */}
+            {/*     pageSize={pageSize} */}
+            {/* /> */}
+            <Pagination
+                style={{ marginTop: "20px" }}
+                onChange={handlePageChange}
+                count={Math.ceil(totalUsersCount / pageSize)}
+                page={currentPage}
             />
         </div>
     );

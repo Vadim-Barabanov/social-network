@@ -17,7 +17,6 @@ import { Provider } from "react-redux";
 import Preloader from "./components/common/preloader/Preloader";
 import { Heading } from "./components/Heading/Heading";
 import { Login } from "./components/Login/Login";
-import { Friends } from "./components/Friends/Friends";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import { Sidebar } from "./components/Sidebar/Sidebar";
 import { UsersPage } from "./components/Users/UsersPage";
@@ -69,7 +68,6 @@ class App extends React.Component<StatePropsType & DispatchPropsType> {
                             render={() => <ProfileContainer />}
                         />
                         <Route path="/users" render={() => <UsersPage />} />
-                        <Route path="/friends" render={() => <Friends />} />
                         <Route
                             path="/dialogs"
                             render={() => {

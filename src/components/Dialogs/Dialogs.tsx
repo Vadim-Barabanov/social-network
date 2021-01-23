@@ -1,11 +1,13 @@
 import React, { FC } from "react";
-import styles from "./Dialogs.module.css";
+import s from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import { Formik, Field, Form, FormikErrors, ErrorMessage } from "formik";
+import { Formik, Form, FormikErrors } from "formik";
 import { AppStateType } from "../../redux/redux-store";
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "./../../redux/dialogs-reducer";
+import { Button } from "@material-ui/core";
+import { CustomTextField } from "../common/Forms/Forms";
 
 type FormValues = {
     messageText: string;
@@ -26,9 +28,11 @@ const validation = (values: FormValues) => {
 const MessagesForm = () => {
     const dispatch = useDispatch();
 
-    const submit = (values: FormValues, act: any) => {
+    const submit = (values: FormValues, { resetForm, setSubmitting }: any) => {
+        setSubmitting(true);
         dispatch(actions.addMessage(values.messageText));
-        act.setFieldValue("messageText", "");
+        resetForm();
+        setSubmitting(false);
     };
 
     return (
@@ -36,28 +40,24 @@ const MessagesForm = () => {
             initialValues={{ messageText: "" }}
             validate={validation}
             onSubmit={submit}>
-            <Form className={styles.inputForm}>
-                <Field
-                    component="textarea"
-                    type="text"
-                    name={"messageText"}
-                    className={styles.inputFormTextarea}
-                    style={{
-                        resize: "none",
-                        borderRadius: "10px",
-                        border: "none",
-                        alignSelf: "center",
-                        width: "300px",
-                        height: "50px",
-                        padding: "5px",
-                        marginBottom: "15px",
-                    }}
-                />
-                <ErrorMessage name="messageText" component="div" />
-                <button type="submit" className={styles.inputFormBtn}>
-                    Send
-                </button>
-            </Form>
+            {({ isSubmitting }) => (
+                <Form className={s.messageForm}>
+                    <CustomTextField
+                        multiline
+                        variant="outlined"
+                        name="messageText"
+                        style={{ width: "300px" }}
+                    />
+                    <div style={{ margin: "15px 0" }}>
+                        <Button
+                            variant="contained"
+                            type="submit"
+                            disabled={isSubmitting}>
+                            Send
+                        </Button>
+                    </div>
+                </Form>
+            )}
         </Formik>
     );
 };
@@ -80,9 +80,9 @@ const Dialogs: FC<PropsType> = () => {
         />
     ));
     return (
-        <div className={styles.wrapper}>
-            <div className={styles.dialogItems}>{dialogElements}</div>
-            <div className={styles.messageItems}>{messagesElements}</div>
+        <div className={s.wrapper}>
+            <div className={s.dialogItems}>{dialogElements}</div>
+            <div className={s.messageItems}>{messagesElements}</div>
             <MessagesForm />
         </div>
     );

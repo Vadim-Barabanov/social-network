@@ -19,12 +19,6 @@ const Navigation: FC = () => {
                     </NavLink>
                 </div>
                 <div className={style.item}>
-                    <NavLink to="/friends" activeClassName={style.active}>
-                        <i className="fas fa-user-friends"></i>
-                        <span className={style.link__text}>Friends</span>
-                    </NavLink>
-                </div>
-                <div className={style.item}>
                     <NavLink to="/users" activeClassName={style.active}>
                         <i className="fas fa-search"></i>
                         <span className={style.link__text}>Search</span>
