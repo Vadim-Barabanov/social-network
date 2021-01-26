@@ -66,8 +66,8 @@ const MyPosts: FC<any> = React.memo(() => {
 
     return (
         <div className={styles.posts}>
-            <PostsForm />
             {postsElements}
+            <PostsForm />
         </div>
     );
 });

@@ -60,7 +60,10 @@ const UsersSearchForm: FC<PropsType> = memo((props) => {
                             alignItems: "center",
                         }}>
                         <div>
-                            <CustomTextField placeholder="Dimych" name="term" />
+                            <CustomTextField
+                                placeholder="User name..."
+                                name="term"
+                            />
 
                             <Field name="friend" as={Select}>
                                 <option value="null">All</option>

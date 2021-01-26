@@ -1,7 +1,7 @@
-body {
-    background-image: linear-gradient(120deg, #d481ff, #c0d5f2);
-    /* background-image: linear-gradient(120deg, #0040ff, #c0d5f2); */
-    color: #333;
+:root {
+    --primary-font-color: #fff;
+    --primary-bg-color: #212121;
+    --secondary-bg-color: #333;
 }
 
 body h1,
@@ -13,25 +13,26 @@ p {
     box-sizing: border-box;
 }
 
-input {
-    outline: none;
+body {
+    background-color: var(--primary-bg-color);
 }
 
-textarea,
-button {
-    font-family: "Jost", sans-serif;
+body > * {
+    color: var(--primary-font-color);
 }
 
 .app-wrapper {
     min-height: 100vh;
-    font-size: 18px;
+    font-size: 16px;
     display: grid;
-    grid-template-columns: 1fr 170px 1000px 1fr;
-    grid-template-rows: 60px 1fr;
-    grid-row-gap: 1.5rem;
-    grid-column-gap: 3rem;
-    grid-template-areas: ". heading heading ." ". navbar cont .";
+    grid-template-columns: 1fr 900px 1fr;
+    grid-template-rows: 100px 1fr;
+    grid-template-areas: ". heading ." ".  cont .";
 }
 .app-wrapper-content {
     grid-area: cont;
+}
+
+a {
+    outline: none;
 }

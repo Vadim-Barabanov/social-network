@@ -8,11 +8,13 @@ type CustomTextFieldPropsType = {
     placeholder?: string;
     type?: string;
     style?: Object;
-    autoComplete?: boolean;
+    label?: string;
 };
 
 export const CustomTextField: FC<FieldAttributes<CustomTextFieldPropsType>> = ({
     variant,
+    color,
+    label,
     multiline,
     type,
     placeholder,
@@ -25,6 +27,7 @@ export const CustomTextField: FC<FieldAttributes<CustomTextFieldPropsType>> = ({
         <TextField
             {...field}
             style={style}
+            label={label}
             type={type}
             variant={variant}
             multiline={multiline}

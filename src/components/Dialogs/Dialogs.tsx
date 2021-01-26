@@ -8,6 +8,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { actions } from "./../../redux/dialogs-reducer";
 import { Button } from "@material-ui/core";
 import { CustomTextField } from "../common/Forms/Forms";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import SendIcon from "@material-ui/icons/Send";
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 
 type FormValues = {
     messageText: string;
@@ -30,7 +33,9 @@ const MessagesForm = () => {
 
     const submit = (values: FormValues, { resetForm, setSubmitting }: any) => {
         setSubmitting(true);
-        dispatch(actions.addMessage(values.messageText));
+        if (values.messageText.length !== 0) {
+            dispatch(actions.addMessage(values.messageText));
+        }
         resetForm();
         setSubmitting(false);
     };
@@ -44,18 +49,16 @@ const MessagesForm = () => {
                 <Form className={s.messageForm}>
                     <CustomTextField
                         multiline
-                        variant="outlined"
                         name="messageText"
                         style={{ width: "300px" }}
                     />
-                    <div style={{ margin: "15px 0" }}>
-                        <Button
-                            variant="contained"
-                            type="submit"
-                            disabled={isSubmitting}>
-                            Send
-                        </Button>
-                    </div>
+                    <Button
+                        variant="contained"
+                        type="submit"
+                        endIcon={<SendIcon />}
+                        disabled={isSubmitting}>
+                        Send
+                    </Button>
                 </Form>
             )}
         </Formik>
@@ -82,9 +85,20 @@ const Dialogs: FC<PropsType> = () => {
     return (
         <div className={s.wrapper}>
             <div className={s.dialogItems}>{dialogElements}</div>
-            <div className={s.messageItems}>{messagesElements}</div>
+            <div className={s.messageItemsWrapper}>
+                <div className={s.messageItems}>{messagesElements}</div>
+                <p
+                    style={{
+                        textAlign: "center",
+                        marginTop: "20px",
+                        fontSize: "14px",
+                    }}>
+                    Scroll down
+                </p>
+                <KeyboardArrowDownIcon style={{ alignSelf: "center" }} />
+            </div>
             <MessagesForm />
         </div>
     );
 };
-export default Dialogs;
+export default withAuthRedirect(Dialogs);

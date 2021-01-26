@@ -1,5 +1,6 @@
 import React, { FC } from "react";
-import PostStyle from "./Post.module.css";
+import s from "./Post.module.css";
+import { Button } from "@material-ui/core";
 
 type PropsType = {
     likesCount: number;
@@ -8,11 +9,11 @@ type PropsType = {
 
 const Post: FC<PropsType> = (props) => {
     return (
-        <div className={PostStyle.post}>
-            <div className={PostStyle.post__message}>{props.text}</div>
-            <div className={PostStyle.post__likes}>
+        <div className={s.post}>
+            <div className={s.post__message}>{props.text}</div>
+            <div className={s.post__likes}>
                 {props.likesCount}
-                <button>Like!</button>
+                <Button size="small">Like!</Button>
             </div>
         </div>
     );

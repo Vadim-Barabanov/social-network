@@ -6,26 +6,6 @@
     max-width: 500px;
 }
 
-.form textarea {
-    border-radius: 8px;
-    margin-top: 20px;
-    height: 30px;
-    min-width: 200px;
-    outline: none;
-    font-size: 16px;
-    padding: 4px;
-    background-color: lightcyan;
-}
-
-.send__btn {
-    margin-top: 20px;
-    font-size: 16px;
-    padding: 5px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    outline: none;
-}
-
 .postsHeader {
     color: #333;
     border-bottom: 2px solid #fff;

@@ -38,19 +38,23 @@ const User: FC<PropsType> = ({
                 />
             </NavLink>
 
-            <div>
+            <div className={style.userInfo}>
                 <div>
-                    <span className={style.userName}>{user.name} </span>
-                    <span style={{ fontSize: "14px" }}>#{user.id}</span>
-                </div>
-                <div className={style.status}>
-                    {user.status && user.status.length > 50
-                        ? "Check status inside profile!"
-                        : user.status}
+                    <div>
+                        <span className={style.userName}>{user.name} </span>
+                    </div>
+                    {/* <div> */}
+                    {/*     <span style={{ fontSize: "14px" }}>#{user.id}</span> */}
+                    {/* </div> */}
+                    <div className={style.status}>
+                        {user.status && user.status.length > 50
+                            ? "Check status inside profile!"
+                            : user.status}
+                    </div>
                 </div>
                 {user.followed ? (
                     <Button
-                        style={{ marginTop: "10px" }}
+                        style={{ marginTop: "10px", justifySelf: "flex-end" }}
                         size="small"
                         disabled={followingInProgress.some(
                             (item) => item === user.id
@@ -74,8 +78,7 @@ const User: FC<PropsType> = ({
                     </Button>
                 ) : (
                     <Button
-                        style={{ marginTop: "10px" }}
-                        variant="contained"
+                        style={{ marginTop: "10px", justifySelf: "flex-end" }}
                         size="small"
                         disabled={followingInProgress.some(
                             (item) => item === user.id

@@ -65,9 +65,10 @@ export const Login: FC<PropsType> = () => {
             onSubmit={submit}>
             {({ isSubmitting }) => (
                 <Form className={s.loginForm}>
+                    <h1 style={{ marginBottom: "25px" }}>Sign In</h1>
                     <CustomTextField
                         name="email"
-                        placeholder="Email"
+                        label="Email"
                         type="text"
                         variant="outlined"
                         style={{ marginBottom: "20px" }}
@@ -75,13 +76,13 @@ export const Login: FC<PropsType> = () => {
                     <CustomTextField
                         type="password"
                         name="password"
-                        placeholder="Password"
+                        label="Password"
                         variant="outlined"
                     />
                     <CustomCheckbox
                         name={"rememberMe"}
                         label="Remeber me"
-                        style={{ margin: "20px 0" }}
+                        style={{ alignSelf: "flex-start", margin: "20px 0" }}
                     />
                     {captchaUrl ? (
                         <>

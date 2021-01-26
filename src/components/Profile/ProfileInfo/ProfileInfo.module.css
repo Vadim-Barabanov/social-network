@@ -1,14 +1,8 @@
 .wrapper {
-    display: grid;
-    grid-template-columns: 2fr 8fr;
-    grid-template-rows: 70px 1fr;
-    grid-template-areas: "image data" "image data";
-    grid-column-gap: 2rem;
-    grid-row-gap: 0.5rem;
+    background-color: #212121;
 }
 
 .imageBox {
-    grid-area: image;
     position: relative;
 }
 

@@ -1,6 +1,8 @@
 import React, { FC } from "react";
 import ProfileStatus from "./ProfileStatus";
 import s from "./ProfileData.module.css";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import CancelIcon from "@material-ui/icons/Cancel";
 
 type ContactPropsType = {
     contactTitle: string;
@@ -55,9 +57,15 @@ const ProfileData: FC<ProfileDataType> = (props) => {
                     {props.profile.aboutMe || "No data"}
                 </p>
 
-                <p className={s.userInfoItem}>
-                    <b>Looking for a job: </b>
-                    {props.profile.lookingForAJob ? "Yes" : "No"}
+                <p
+                    style={{ display: "flex", alignItems: "center" }}
+                    className={s.userInfoItem}>
+                    <b style={{ marginRight: "10px" }}>Looking for a job: </b>
+                    {props.profile.lookingForAJob ? (
+                        <CheckCircleIcon />
+                    ) : (
+                        <CancelIcon />
+                    )}
                 </p>
 
                 <p className={s.userInfoItem}>

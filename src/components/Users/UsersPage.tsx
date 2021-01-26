@@ -3,10 +3,11 @@ import { useSelector } from "react-redux";
 import Preloader from "../common/preloader/Preloader";
 import { Users } from "./Users";
 import { getIsFetching } from "../../redux/selectors/users-selectores";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 
 type PropsType = {};
 
-export const UsersPage: FC<PropsType> = () => {
+const UsersPage: FC<PropsType> = () => {
     const isFetching = useSelector(getIsFetching);
 
     return (
@@ -16,3 +17,4 @@ export const UsersPage: FC<PropsType> = () => {
         </>
     );
 };
+export default withAuthRedirect(UsersPage);

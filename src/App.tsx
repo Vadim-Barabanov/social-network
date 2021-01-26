@@ -18,8 +18,7 @@ import Preloader from "./components/common/preloader/Preloader";
 import { Heading } from "./components/Heading/Heading";
 import { Login } from "./components/Login/Login";
 import ProfileContainer from "./components/Profile/ProfileContainer";
-import { Sidebar } from "./components/Sidebar/Sidebar";
-import { UsersPage } from "./components/Users/UsersPage";
+import UsersPage from "./components/Users/UsersPage";
 // Lazy loading components
 const Dialogs = React.lazy(() => import("./components/Dialogs/Dialogs"));
 
@@ -53,8 +52,8 @@ class App extends React.Component<StatePropsType & DispatchPropsType> {
 
         return (
             <div className="app-wrapper">
-                <Heading />
-                <Sidebar />
+                <Route path="/login" render={() => <Login />} />
+                {this.props.isAuth ? <Heading /> : null}
                 <div className="app-wrapper-content">
                     <Switch>
                         <Route
@@ -62,9 +61,9 @@ class App extends React.Component<StatePropsType & DispatchPropsType> {
                             path="/"
                             render={() => <Redirect to="/profile" />}
                         />
-                        <Route path="/login" render={() => <Login />} />
                         <Route
                             path="/profile/:userId?"
+                            //@ts-ignore
                             render={() => <ProfileContainer />}
                         />
                         <Route path="/users" render={() => <UsersPage />} />
@@ -78,10 +77,10 @@ class App extends React.Component<StatePropsType & DispatchPropsType> {
                                 );
                             }}
                         />
-                        <Route
-                            path="*"
-                            render={() => <div>404 NOT FOUND</div>}
-                        />
+                        {/* <Route */}
+                        {/*     path="*" */}
+                        {/*     render={() => <div>404 NOT FOUND</div>} */}
+                        {/* /> */}
                     </Switch>
                 </div>
             </div>
@@ -91,6 +90,7 @@ class App extends React.Component<StatePropsType & DispatchPropsType> {
 
 const mapStateToProps = (state: AppStateType) => ({
     initialized: state.app.initialized,
+    isAuth: state.auth.isAuth,
 });
 
 const AppContainer = compose<React.ComponentType>(

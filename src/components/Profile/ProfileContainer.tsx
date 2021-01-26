@@ -1,12 +1,14 @@
 import React, { FC, useEffect, memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import { compose } from "redux";
 // Importing ACs
 import { setUserProfile, setStatus } from "../../redux/profile-reducer";
 // Importing components
 import Profile from "./Profile";
 import Preloader from "../common/preloader/Preloader";
 import { AppStateType } from "../../redux/redux-store";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 
 type PropsType = {
     match: any;
@@ -16,7 +18,6 @@ const ProfileContainer: FC<PropsType> = memo((props) => {
     const authorizedUserId = useSelector(
         (state: AppStateType) => state.auth.userId
     );
-    const isAuth = useSelector((state: AppStateType) => state.auth.isAuth);
 
     const dispatch = useDispatch();
 
@@ -33,7 +34,7 @@ const ProfileContainer: FC<PropsType> = memo((props) => {
         (state: AppStateType) => state.profilePage.isFetching
     );
 
-    return isAuth ? (
+    return (
         <div>
             {isFetching ? (
                 <Preloader />
@@ -41,9 +42,7 @@ const ProfileContainer: FC<PropsType> = memo((props) => {
                 <Profile isOwner={!props.match.params.userId} />
             )}
         </div>
-    ) : (
-        <Redirect to={"/login"} />
     );
 });
 
-export default withRouter(ProfileContainer);
+export default compose(withAuthRedirect, withRouter)(ProfileContainer);

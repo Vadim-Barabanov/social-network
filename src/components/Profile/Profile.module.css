@@ -1,6 +1,5 @@
 .profile {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: left;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 2rem;
 }

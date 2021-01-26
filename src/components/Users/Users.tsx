@@ -17,7 +17,6 @@ import { follow, getUsers, unfollow } from "../../redux/users-reducer";
 import { FilterType } from "../../redux/users-reducer";
 import { UserType } from "../../types/types";
 // COMPONENTS
-import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
 import UsersSearchForm from "./UsersSearchForm";
 import style from "./UsersStyle.module.css";

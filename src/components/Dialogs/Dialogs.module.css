@@ -23,7 +23,7 @@
     text-decoration: none;
     outline: none;
     border-radius: 25px;
-    background-color: lightsteelblue;
+    background-color: var(--secondary-bg-color);
     min-width: 120px;
     margin-bottom: 15px;
     font-size: 1rem;
@@ -46,6 +46,13 @@
     color: white;
 }
 
+.messageItemsWrapper {
+    width: 555px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
 .messageItems {
     grid-area: messages;
     display: flex;
@@ -54,16 +61,15 @@
     align-items: flex-start;
     width: 500px;
     padding: 20px;
-    border-radius: 10px;
     margin: 0 2rem;
-    max-height: 400px;
+    height: 400px;
     overflow-y: auto;
-    background-color: #fff;
 }
 
 .messageForm {
     grid-area: form;
     justify-self: center;
+    align-items: center;
 }
 
 .message {
@@ -79,7 +85,7 @@
     flex-direction: column;
     padding: 10px;
     border-radius: 10px;
-    background-color: lightsteelblue;
+    background-color: var(--secondary-bg-color);
     max-width: 350px;
 }
 
