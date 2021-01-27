@@ -1,20 +1,73 @@
 import React, { FC } from "react";
 import ProfileStatus from "./ProfileStatus";
 import s from "./ProfileData.module.css";
+// Icons importing
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import InstagramIcon from "@material-ui/icons/Instagram";
+import FacebookIcon from "@material-ui/icons/Facebook";
+import TwitterIcon from "@material-ui/icons/Twitter";
+import YouTubeIcon from "@material-ui/icons/YouTube";
+import LinkIcon from "@material-ui/icons/Link";
+import LanguageIcon from "@material-ui/icons/Language";
 
 type ContactPropsType = {
     contactTitle: string;
     contactValue: string;
 };
 
-const Contact: FC<ContactPropsType> = (props) => {
+const Contact: FC<ContactPropsType> = ({ contactTitle, contactValue }) => {
+    const iconSize = "large";
+    let icon: any;
+    switch (contactTitle) {
+        case "github": {
+            icon = <GitHubIcon fontSize={iconSize} />;
+            break;
+        }
+        case "facebook": {
+            icon = <FacebookIcon fontSize={iconSize} />;
+            break;
+        }
+        case "instagram": {
+            icon = <InstagramIcon fontSize={iconSize} />;
+            break;
+        }
+        case "twitter": {
+            icon = <TwitterIcon fontSize={iconSize} />;
+            break;
+        }
+        case "youtube": {
+            icon = <YouTubeIcon fontSize={iconSize} />;
+            break;
+        }
+        case "vk": {
+            icon = "VK";
+            break;
+        }
+        case "mainLink": {
+            icon = <LinkIcon fontSize={iconSize} />;
+            break;
+        }
+        case "website": {
+            icon = <LanguageIcon fontSize={iconSize} />;
+            break;
+        }
+        default: {
+            icon = "External link";
+        }
+    }
     return (
         <p className={s.contactLink}>
-            <a href={props.contactValue} title={props.contactValue}>
-                {props.contactTitle}{" "}
-                <i className="fas fa-external-link-alt"></i>
+            <a
+                href={contactValue}
+                title={contactValue}
+                style={
+                    icon === "VK"
+                        ? { fontSize: "30px", color: "#f50057" }
+                        : { color: "#f50057" }
+                }>
+                {icon}
             </a>
         </p>
     );
@@ -52,14 +105,7 @@ const ProfileData: FC<ProfileDataType> = (props) => {
                 />
             </div>
             <div className={s.userInfo}>
-                <p className={s.userInfoItem}>
-                    <b>About me: </b>
-                    {props.profile.aboutMe || "No data"}
-                </p>
-
-                <p
-                    style={{ display: "flex", alignItems: "center" }}
-                    className={s.userInfoItem}>
+                <p style={{ display: "flex", alignItems: "center" }}>
                     <b style={{ marginRight: "10px" }}>Looking for a job: </b>
                     {props.profile.lookingForAJob ? (
                         <CheckCircleIcon />
@@ -68,12 +114,18 @@ const ProfileData: FC<ProfileDataType> = (props) => {
                     )}
                 </p>
 
+                <b className={s.userDataTopic}>About me: </b>
                 <p className={s.userInfoItem}>
-                    <b>My skills: </b>
+                    {props.profile.aboutMe || "No data"}
+                </p>
+
+                <b className={s.userDataTopic}>My skills: </b>
+                <p className={s.userInfoItem}>
                     {props.profile.lookingForAJobDescription || "No data"}
                 </p>
+
+                <b className={s.userDataTopic}>Contacts:</b>
                 <p className={s.contactBox}>
-                    <b>Contacts:</b>
                     {props.profile.contacts && contactsArr}
                 </p>
             </div>

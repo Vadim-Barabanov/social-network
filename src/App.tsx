@@ -21,6 +21,7 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import UsersPage from "./components/Users/UsersPage";
 // Lazy loading components
 const Dialogs = React.lazy(() => import("./components/Dialogs/Dialogs"));
+const ChatPage = React.lazy(() => import("./pages/Chat/ChatPage"));
 
 type StatePropsType = ReturnType<typeof mapStateToProps>;
 type DispatchPropsType = {
@@ -67,6 +68,14 @@ class App extends React.Component<StatePropsType & DispatchPropsType> {
                             render={() => <ProfileContainer />}
                         />
                         <Route path="/users" render={() => <UsersPage />} />
+                        <Route
+                            path="/chat"
+                            render={() => (
+                                <React.Suspense fallback={<Preloader />}>
+                                    <ChatPage />
+                                </React.Suspense>
+                            )}
+                        />
                         <Route
                             path="/dialogs"
                             render={() => {

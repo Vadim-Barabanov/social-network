@@ -41,12 +41,19 @@
 
 .userDataForm {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     padding: 20px;
 }
 
 .contactsBox {
-    justify-self: flex-end;
+    justify-self: flex-start;
+}
+
+.userFormDataBtns {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .inputHeader {

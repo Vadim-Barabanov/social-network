@@ -8,6 +8,13 @@
 }
 
 .userInfoItem {
+    padding: 10px;
+    border: 1px solid var(--secondary-bg-color);
+    border-radius: 10px;
+}
+
+.userDataTopic {
+    display: inline-block;
     margin: 10px 0;
 }
 

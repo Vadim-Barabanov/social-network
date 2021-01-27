@@ -19,6 +19,7 @@ body {
 
 body > * {
     color: var(--primary-font-color);
+    line-height: 26px;
 }
 
 .app-wrapper {

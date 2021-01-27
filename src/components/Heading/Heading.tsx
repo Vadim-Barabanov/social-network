@@ -7,6 +7,7 @@ import PersonIcon from "@material-ui/icons/Person";
 import ChatIcon from "@material-ui/icons/Chat";
 import SearchIcon from "@material-ui/icons/Search";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import ForumIcon from "@material-ui/icons/Forum";
 import { useHistory } from "react-router-dom";
 
 type PropsType = {};
@@ -19,6 +20,10 @@ export const Heading: FC<PropsType> = () => {
         dispatch(logout());
     };
 
+    const btnStyle = {
+        marginRight: "15px",
+    };
+
     return (
         <header className={s.heading}>
             <div className={s.headingBox}>
@@ -27,18 +32,29 @@ export const Heading: FC<PropsType> = () => {
                         onClick={() => {
                             history.push({ pathname: "/profile" });
                         }}
+                        style={btnStyle}
                         endIcon={<PersonIcon />}>
                         Profile
                     </Button>
                     <Button
                         endIcon={<ChatIcon />}
+                        style={btnStyle}
                         onClick={() => {
                             history.push({ pathname: "/dialogs" });
                         }}>
                         Messages
                     </Button>
                     <Button
+                        endIcon={<ForumIcon />}
+                        style={btnStyle}
+                        onClick={() => {
+                            history.push({ pathname: "/chat" });
+                        }}>
+                        Chat
+                    </Button>
+                    <Button
                         endIcon={<SearchIcon />}
+                        style={btnStyle}
                         onClick={() => {
                             history.push({ pathname: "/users" });
                         }}>

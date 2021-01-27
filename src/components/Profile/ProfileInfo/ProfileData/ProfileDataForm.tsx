@@ -56,7 +56,7 @@ export const ProfileDataForm: FC<any> = ({
                     </div>
 
                     <div className={s.contactsBox}>
-                        <h4>Contacts:</h4>
+                        <h4 className={s.inputHeader}>Contacts:</h4>
 
                         {Object.keys(profile.contacts!).map((key) => {
                             return (
@@ -71,25 +71,30 @@ export const ProfileDataForm: FC<any> = ({
                         })}
                     </div>
 
-                    {isSubmitting ? <Preloader /> : null}
-                    <Button
-                        size="small"
-                        variant="contained"
-                        type="submit"
-                        endIcon={<SaveIcon />}
-                        style={{ justifySelf: "center", marginTop: "15px" }}
-                        disabled={isSubmitting}>
-                        Save
-                    </Button>
-                    <Button
-                        size="small"
-                        variant="contained"
-                        style={{ justifySelf: "center", marginTop: "15px" }}
-                        disabled={isSubmitting}
-                        endIcon={<CloseIcon />}
-                        onClick={() => setEditMode(false)}>
-                        Discard
-                    </Button>
+                    <div className={s.userFormDataBtns}>
+                        <Button
+                            size="small"
+                            variant="contained"
+                            type="submit"
+                            endIcon={<SaveIcon />}
+                            style={{ justifySelf: "center", marginTop: "15px" }}
+                            disabled={isSubmitting}>
+                            {isSubmitting ? (
+                                <Preloader size={"45px"} />
+                            ) : (
+                                "Save"
+                            )}
+                        </Button>
+                        <Button
+                            size="small"
+                            variant="contained"
+                            style={{ justifySelf: "center", marginTop: "15px" }}
+                            disabled={isSubmitting}
+                            endIcon={<CloseIcon />}
+                            onClick={() => setEditMode(false)}>
+                            Discard
+                        </Button>
+                    </div>
                 </Form>
             )}
         </Formik>
