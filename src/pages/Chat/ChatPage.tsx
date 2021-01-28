@@ -3,10 +3,6 @@ import { Form, Formik } from "formik";
 import React, { FC, useEffect, useState } from "react";
 import { CustomTextField } from "../../components/common/Forms/Forms";
 
-const ws = new WebSocket(
-    "wss://social-network.samuraijs.com/handlers/ChatHandler.ashx"
-);
-
 export type ChatMessageType = {
     userName: string;
     userId: number;
@@ -19,20 +15,60 @@ const ChatPage: FC = () => {
 };
 
 const Chat: FC = () => {
+    const [ws, setWs] = useState<WebSocket | null>(null);
+
+    useEffect(() => {
+        let ws: WebSocket;
+
+        const handleCloseChannel = () => {
+            setTimeout(createChannel, 3000);
+        };
+        function createChannel() {
+            ws?.removeEventListener("close", handleCloseChannel);
+            ws?.close();
+
+            ws = new WebSocket(
+                "wss://social-network.samuraijs.com/handlers/ChatHandler.ashx"
+            );
+            ws.addEventListener("close", handleCloseChannel);
+            setWs(ws);
+        }
+        createChannel();
+
+        return () => {
+            ws.removeEventListener("close", handleCloseChannel);
+            ws.close();
+        };
+    }, []);
+
     return (
         <div>
-            <Messages />
-            <MessagesForm />
+            <Messages ws={ws} />
+            <MessagesForm ws={ws} />
         </div>
     );
 };
 
-const MessagesForm: FC = () => {
+const MessagesForm: FC<{ ws: WebSocket | null }> = ({ ws }) => {
+    const [readyStatus, setReadyStatus] = useState<"pending" | "ready">(
+        "pending"
+    );
+
+    useEffect(() => {
+        let handleOpenChannel = () => {
+            setReadyStatus("ready");
+        };
+        ws?.addEventListener("open", handleOpenChannel);
+        return () => {
+            ws?.removeEventListener("close", handleOpenChannel);
+        };
+    }, [ws]);
+
     return (
         <Formik
             initialValues={{ messageText: "" }}
             onSubmit={(values, { setSubmitting, resetForm }) => {
-                ws.send(values.messageText);
+                ws?.send(values.messageText);
                 setSubmitting(false);
                 resetForm();
             }}>
@@ -51,7 +87,11 @@ const MessagesForm: FC = () => {
                     <Button
                         variant="contained"
                         type="submit"
-                        disabled={isSubmitting}>
+                        disabled={
+                            isSubmitting ||
+                            readyStatus !== "ready" ||
+                            ws === null
+                        }>
                         Send
                     </Button>
                 </Form>
@@ -60,15 +100,18 @@ const MessagesForm: FC = () => {
     );
 };
 
-const Messages: FC = () => {
+const Messages: FC<{ ws: WebSocket | null }> = ({ ws }) => {
     const [messages, setMessages] = useState<ChatMessageType[]>([]);
 
     useEffect(() => {
-        ws.addEventListener("message", (e) => {
+        const handleMessageChannel = (e: any) => {
             let newMessages = JSON.parse(e.data);
             setMessages((prevMessages) => [...prevMessages, ...newMessages]);
-        });
-    }, []);
+        };
+
+        ws?.addEventListener("message", handleMessageChannel);
+        return () => ws?.removeEventListener("message", handleMessageChannel);
+    }, [ws]);
 
     return (
         <div
@@ -92,7 +135,7 @@ const Message: FC<any> = ({ data }) => {
             style={{
                 margin: "10px 0",
                 backgroundColor: "var(--secondary-bg-color)",
-                padding: "10px",
+                padding: "10px 20px",
                 borderRadius: "10px",
             }}>
             <img

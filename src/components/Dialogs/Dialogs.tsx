@@ -46,11 +46,17 @@ const MessagesForm = () => {
             validate={validation}
             onSubmit={submit}>
             {({ isSubmitting }) => (
-                <Form className={s.messageForm}>
+                <Form
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                    }}
+                    className={s.messageForm}>
                     <CustomTextField
                         multiline
                         name="messageText"
-                        style={{ width: "300px" }}
+                        style={{ width: "300px", margin: "20px 0" }}
                     />
                     <Button
                         variant="contained"
@@ -84,7 +90,7 @@ const Dialogs: FC<PropsType> = () => {
     ));
     return (
         <div className={s.wrapper}>
-            <div className={s.dialogItems}>{dialogElements}</div>
+            {/* <div className={s.dialogItems}>{dialogElements}</div> */}
             <div className={s.messageItemsWrapper}>
                 <div className={s.messageItems}>{messagesElements}</div>
                 <p

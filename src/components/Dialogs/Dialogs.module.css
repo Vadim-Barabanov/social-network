@@ -1,9 +1,9 @@
 .wrapper {
     font-size: 1.2rem;
     display: grid;
-    grid-template-columns: 1fr 6fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 500px 1fr;
-    grid-template-areas: "dialogs messages" "form form";
+    grid-template-areas: "messages messages" "form form";
 }
 
 .dialogItems {
@@ -51,13 +51,14 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    justify-self: center;
 }
 
 .messageItems {
     grid-area: messages;
     display: flex;
     flex-direction: column;
-    justify-self: flex-start;
+    justify-self: center;
     align-items: flex-start;
     width: 500px;
     padding: 20px;
