@@ -1,18 +1,51 @@
-import React, { FC } from "react";
-import s from "./Heading.module.css";
-import { logout } from "../../redux/auth-reducer";
-import { Button } from "@material-ui/core";
-import { useDispatch } from "react-redux";
-import PersonIcon from "@material-ui/icons/Person";
-import ChatIcon from "@material-ui/icons/Chat";
-import SearchIcon from "@material-ui/icons/Search";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import ForumIcon from "@material-ui/icons/Forum";
-import { useHistory } from "react-router-dom";
+import React, { FC } from 'react';
+import { logout } from '../../redux/auth-reducer';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+// Material
+import Switch from '@material-ui/core/Switch';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import { Box, Button } from '@material-ui/core';
+// Icons
+import PersonIcon from '@material-ui/icons/Person';
+import ChatIcon from '@material-ui/icons/Chat';
+import SearchIcon from '@material-ui/icons/Search';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ForumIcon from '@material-ui/icons/Forum';
 
-type PropsType = {};
+const useStyles = makeStyles((theme: Theme) => ({
+    root: {
+        flexGrow: 1,
+        position: 'fixed',
+        zIndex: 1100,
+        width: '100%',
+        backgroundColor: theme.palette.background.paper,
+        display: 'flex',
+        justifyContent: 'center',
+        gridArea: 'heading',
+    },
+    navbar: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '1280px',
+        height: '70px',
+    },
+    links: {
+        width: '500px',
+        display: 'flex',
+        justifyContent: 'space-between',
+    },
+}));
 
-export const Heading: FC<PropsType> = () => {
+type PropsType = {
+    toggleTheme: () => void;
+    theme: boolean;
+};
+
+export const Heading: FC<PropsType> = ({ toggleTheme, theme }) => {
+    const classes = useStyles();
+
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -21,16 +54,16 @@ export const Heading: FC<PropsType> = () => {
     };
 
     const btnStyle = {
-        marginRight: "15px",
+        marginRight: '15px',
     };
 
     return (
-        <header className={s.heading}>
-            <div className={s.headingBox}>
-                <div className={s.navigation}>
+        <div className={classes.root}>
+            <Box className={classes.navbar}>
+                <Box className={classes.links}>
                     <Button
                         onClick={() => {
-                            history.push({ pathname: "/profile" });
+                            history.push({ pathname: '/profile' });
                         }}
                         style={btnStyle}
                         endIcon={<PersonIcon />}>
@@ -40,7 +73,7 @@ export const Heading: FC<PropsType> = () => {
                         endIcon={<ChatIcon />}
                         style={btnStyle}
                         onClick={() => {
-                            history.push({ pathname: "/dialogs" });
+                            history.push({ pathname: '/dialogs' });
                         }}>
                         Messages
                     </Button>
@@ -48,7 +81,7 @@ export const Heading: FC<PropsType> = () => {
                         endIcon={<ForumIcon />}
                         style={btnStyle}
                         onClick={() => {
-                            history.push({ pathname: "/chat" });
+                            history.push({ pathname: '/chat' });
                         }}>
                         Chat
                     </Button>
@@ -56,12 +89,13 @@ export const Heading: FC<PropsType> = () => {
                         endIcon={<SearchIcon />}
                         style={btnStyle}
                         onClick={() => {
-                            history.push({ pathname: "/users" });
+                            history.push({ pathname: '/users' });
                         }}>
                         Search
                     </Button>
-                </div>
-                <div className={s.account}>
+                </Box>
+                <div>
+                    <Switch checked={!theme} onChange={toggleTheme} />
                     <Button
                         color="secondary"
                         onClick={handleLogout}
@@ -69,7 +103,7 @@ export const Heading: FC<PropsType> = () => {
                         Logout
                     </Button>
                 </div>
-            </div>
-        </header>
+            </Box>
+        </div>
     );
 };

@@ -1,120 +1,144 @@
-import React from "react";
-import { connect } from "react-redux";
-import { compose } from "redux";
-import { initializeApp } from "./redux/app-reducer";
-import "./App.css";
 import {
-    Route,
-    withRouter,
+    Box,
+    Container,
+    createMuiTheme,
+    CssBaseline,
+    ThemeProvider,
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import React, { FC, useEffect, useState } from 'react';
+import { Provider, useDispatch, useSelector } from 'react-redux';
+import {
     BrowserRouter,
-    Switch,
     Redirect,
-} from "react-router-dom";
-import store from "./redux/redux-store";
-import { AppStateType } from "./redux/redux-store";
-import { Provider } from "react-redux";
-// Importing components
-import Preloader from "./components/common/preloader/Preloader";
-import { Heading } from "./components/Heading/Heading";
-import { Login } from "./components/Login/Login";
-import ProfileContainer from "./components/Profile/ProfileContainer";
-import UsersPage from "./components/Users/UsersPage";
+    Route,
+    Switch,
+    withRouter,
+} from 'react-router-dom';
+import './App.css';
+import Preloader from './components/common/preloader/Preloader';
+import { Heading } from './components/Heading/Heading';
+import { Login } from './components/Login/Login';
+import ProfileContainer from './components/Profile/ProfileContainer';
+import UsersPage from './components/Users/UsersPage';
+import { initializeApp } from './redux/app-reducer';
+import store, { AppStateType } from './redux/redux-store';
+import { dark, light } from './themes/default';
 // Lazy loading components
-const Dialogs = React.lazy(() => import("./components/Dialogs/Dialogs"));
-const ChatPage = React.lazy(() => import("./pages/Chat/ChatPage"));
+const Dialogs = React.lazy(() => import('./components/Dialogs/Dialogs'));
+const ChatPage = React.lazy(() => import('./pages/Chat/ChatPage'));
 
-type StatePropsType = ReturnType<typeof mapStateToProps>;
-type DispatchPropsType = {
-    initializeApp: () => void;
+const useStyles = makeStyles(() => ({
+    root: {
+        minHeight: '100vh',
+    },
+    header: {
+        display: 'grid',
+        gridTemplateColumns: '1fr 900px 1fr',
+        gridTemplateRows: '100px 1fr',
+        gridTemplateAreas: `
+                    'heading heading heading'
+                    '. cont .'`,
+    },
+}));
+
+type PropsType = {
+    theme: boolean;
+    toggleTheme: () => void;
 };
 
-class App extends React.Component<StatePropsType & DispatchPropsType> {
-    catchAllUnhandledErrors = (promiseRejectionEvent: any) => {
-        console.error(promiseRejectionEvent);
-    };
+const App: FC<PropsType> = ({ theme, toggleTheme }) => {
+    const classes = useStyles();
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(initializeApp());
+    }, []);
 
-    componentDidMount() {
-        this.props.initializeApp();
-        window.addEventListener(
-            "unhandledrejection",
-            this.catchAllUnhandledErrors
-        );
-    }
+    const initialized = useSelector(
+        (state: AppStateType) => state.app.initialized
+    );
+    const isAuth = useSelector((state: AppStateType) => state.auth.isAuth);
 
-    componentWillUnmount() {
-        window.removeEventListener(
-            "unhandledrejection",
-            this.catchAllUnhandledErrors
-        );
-    }
+    return (
+        <>
+            {initialized ? (
+                <>
+                    <Box className={classes.header}>
+                        {isAuth ? (
+                            <Heading theme={theme} toggleTheme={toggleTheme} />
+                        ) : null}
+                    </Box>
+                    <Container maxWidth="md" className={classes.root}>
+                        <Box style={{ gridArea: 'cont' }}>
+                            <RouteSwitcherWR />
+                        </Box>
+                    </Container>
+                </>
+            ) : (
+                <Preloader />
+            )}
+        </>
+    );
+};
 
-    render() {
-        if (!this.props.initialized) return <Preloader />;
+const RouteSwitcher = () => {
+    return (
+        <Switch>
+            <Route exact path="/" render={() => <Redirect to="/profile" />} />
+            <Route path="/login" render={() => <Login />} />
+            <Route
+                path="/profile/:userId?"
+                //@ts-ignore
+                render={() => <ProfileContainer />}
+            />
+            <Route path="/users" render={() => <UsersPage />} />
+            <Route
+                path="/chat"
+                render={() => (
+                    <React.Suspense fallback={<Preloader />}>
+                        <ChatPage />
+                    </React.Suspense>
+                )}
+            />
+            <Route
+                path="/dialogs"
+                render={() => {
+                    return (
+                        <React.Suspense fallback={<Preloader />}>
+                            <Dialogs />
+                        </React.Suspense>
+                    );
+                }}
+            />
+            {/* <Route path="*" render={() => <div>404 NOT FOUND</div>} /> */}
+        </Switch>
+    );
+};
 
-        return (
-            <div className="app-wrapper">
-                <Route path="/login" render={() => <Login />} />
-                {this.props.isAuth ? <Heading /> : null}
-                <div className="app-wrapper-content">
-                    <Switch>
-                        <Route
-                            exact
-                            path="/"
-                            render={() => <Redirect to="/profile" />}
-                        />
-                        <Route
-                            path="/profile/:userId?"
-                            //@ts-ignore
-                            render={() => <ProfileContainer />}
-                        />
-                        <Route path="/users" render={() => <UsersPage />} />
-                        <Route
-                            path="/chat"
-                            render={() => (
-                                <React.Suspense fallback={<Preloader />}>
-                                    <ChatPage />
-                                </React.Suspense>
-                            )}
-                        />
-                        <Route
-                            path="/dialogs"
-                            render={() => {
-                                return (
-                                    <React.Suspense fallback={<Preloader />}>
-                                        <Dialogs />
-                                    </React.Suspense>
-                                );
-                            }}
-                        />
-                        {/* <Route */}
-                        {/*     path="*" */}
-                        {/*     render={() => <div>404 NOT FOUND</div>} */}
-                        {/* /> */}
-                    </Switch>
-                </div>
-            </div>
-        );
-    }
-}
-
-const mapStateToProps = (state: AppStateType) => ({
-    initialized: state.app.initialized,
-    isAuth: state.auth.isAuth,
-});
-
-const AppContainer = compose<React.ComponentType>(
-    withRouter,
-    connect(mapStateToProps, { initializeApp })
-)(App);
+const RouteSwitcherWR = withRouter(RouteSwitcher);
 
 const AppMain = () => {
+    //  localStorage for saving theme between page reloading
+    const toggler = localStorage.getItem('Theme');
+    const [theme, setTheme] = useState(toggler === 'dark' ? false : true);
+
+    const appliedTheme = createMuiTheme(theme ? light : dark);
+
+    const toggleTheme = () => {
+        localStorage.setItem('Theme', theme ? 'dark' : 'light');
+        setTheme(!theme);
+    };
+
     return (
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
-            {/*<HashRouter></HashRouter> for GitHub pages (without basename)*/}
-            <Provider store={store}>
-                <AppContainer />
-            </Provider>
-        </BrowserRouter>
+        <ThemeProvider theme={appliedTheme}>
+            <BrowserRouter basename={process.env.PUBLIC_URL}>
+                {/*<HashRouter></HashRouter> for GitHub pages (without basename)*/}
+                <Provider store={store}>
+                    <CssBaseline />
+                    <App toggleTheme={toggleTheme} theme={theme} />
+                </Provider>
+            </BrowserRouter>
+        </ThemeProvider>
     );
 };
 

@@ -1,16 +1,17 @@
-import React, { FC } from "react";
-import ProfileStatus from "./ProfileStatus";
-import s from "./ProfileData.module.css";
+import { Typography } from '@material-ui/core';
+import CancelIcon from '@material-ui/icons/Cancel';
 // Icons importing
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import CancelIcon from "@material-ui/icons/Cancel";
-import GitHubIcon from "@material-ui/icons/GitHub";
-import InstagramIcon from "@material-ui/icons/Instagram";
-import FacebookIcon from "@material-ui/icons/Facebook";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import YouTubeIcon from "@material-ui/icons/YouTube";
-import LinkIcon from "@material-ui/icons/Link";
-import LanguageIcon from "@material-ui/icons/Language";
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import LanguageIcon from '@material-ui/icons/Language';
+import LinkIcon from '@material-ui/icons/Link';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import YouTubeIcon from '@material-ui/icons/YouTube';
+import React, { FC } from 'react';
+import s from './ProfileData.module.css';
+import ProfileStatus from './ProfileStatus';
 
 type ContactPropsType = {
     contactTitle: string;
@@ -18,43 +19,43 @@ type ContactPropsType = {
 };
 
 const Contact: FC<ContactPropsType> = ({ contactTitle, contactValue }) => {
-    const iconSize = "large";
+    const iconSize = 'large';
     let icon: any;
     switch (contactTitle) {
-        case "github": {
+        case 'github': {
             icon = <GitHubIcon fontSize={iconSize} />;
             break;
         }
-        case "facebook": {
+        case 'facebook': {
             icon = <FacebookIcon fontSize={iconSize} />;
             break;
         }
-        case "instagram": {
+        case 'instagram': {
             icon = <InstagramIcon fontSize={iconSize} />;
             break;
         }
-        case "twitter": {
+        case 'twitter': {
             icon = <TwitterIcon fontSize={iconSize} />;
             break;
         }
-        case "youtube": {
+        case 'youtube': {
             icon = <YouTubeIcon fontSize={iconSize} />;
             break;
         }
-        case "vk": {
-            icon = "VK";
+        case 'vk': {
+            icon = 'VK';
             break;
         }
-        case "mainLink": {
+        case 'mainLink': {
             icon = <LinkIcon fontSize={iconSize} />;
             break;
         }
-        case "website": {
+        case 'website': {
             icon = <LanguageIcon fontSize={iconSize} />;
             break;
         }
         default: {
-            icon = "External link";
+            icon = 'External link';
         }
     }
     return (
@@ -63,9 +64,9 @@ const Contact: FC<ContactPropsType> = ({ contactTitle, contactValue }) => {
                 href={contactValue}
                 title={contactValue}
                 style={
-                    icon === "VK"
-                        ? { fontSize: "30px", color: "#f50057" }
-                        : { color: "#f50057" }
+                    icon === 'VK'
+                        ? { fontSize: '30px', color: '#f50057' }
+                        : { color: '#f50057' }
                 }>
                 {icon}
             </a>
@@ -97,7 +98,7 @@ const ProfileData: FC<ProfileDataType> = (props) => {
     return (
         <div className={s.userDescription}>
             <div className={s.userTitle}>
-                <h2 className={s.userName}>{props.profile.fullName}</h2>
+                <Typography variant="h4">{props.profile.fullName}</Typography>
                 <ProfileStatus
                     status={props.status}
                     updateStatus={props.updateStatus}
@@ -105,8 +106,8 @@ const ProfileData: FC<ProfileDataType> = (props) => {
                 />
             </div>
             <div className={s.userInfo}>
-                <p style={{ display: "flex", alignItems: "center" }}>
-                    <b style={{ marginRight: "10px" }}>Looking for a job: </b>
+                <p style={{ display: 'flex', alignItems: 'center' }}>
+                    <b style={{ marginRight: '10px' }}>Looking for a job: </b>
                     {props.profile.lookingForAJob ? (
                         <CheckCircleIcon />
                     ) : (
@@ -116,12 +117,12 @@ const ProfileData: FC<ProfileDataType> = (props) => {
 
                 <b className={s.userDataTopic}>About me: </b>
                 <p className={s.userInfoItem}>
-                    {props.profile.aboutMe || "No data"}
+                    {props.profile.aboutMe || 'No data'}
                 </p>
 
                 <b className={s.userDataTopic}>My skills: </b>
                 <p className={s.userInfoItem}>
-                    {props.profile.lookingForAJobDescription || "No data"}
+                    {props.profile.lookingForAJobDescription || 'No data'}
                 </p>
 
                 <b className={s.userDataTopic}>Contacts:</b>

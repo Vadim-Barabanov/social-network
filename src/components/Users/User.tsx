@@ -1,13 +1,13 @@
-import React, { FC } from "react";
-import { NavLink } from "react-router-dom";
-import userMalePhoto from "../../assets/images/userMale.png";
-import style from "./UsersStyle.module.css";
+import React, { FC } from 'react';
+import { NavLink } from 'react-router-dom';
+import userMalePhoto from '../../assets/images/userMale.png';
+import style from './UsersStyle.module.css';
 // import userFemalePhoto from "../../assets/images/userFemale.png";
-import { UserType } from "../../types/types";
-import loader from "../../assets/images/svg-loaders/three-dots.svg";
-import { Button } from "@material-ui/core";
-import PersonAddIcon from "@material-ui/icons/PersonAdd";
-import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
+import { UserType } from '../../types/types';
+import loader from '../../assets/images/svg-loaders/three-dots.svg';
+import { Button } from '@material-ui/core';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 
 type PropsType = {
     user: UserType;
@@ -24,7 +24,7 @@ const User: FC<PropsType> = ({
 }) => {
     return (
         <div className={style.item}>
-            <NavLink to={"/profile/" + user.id} className={style.userNavLink}>
+            <NavLink to={'/profile/' + user.id} className={style.userNavLink}>
                 <img
                     alt=""
                     className={style.userPhoto}
@@ -48,13 +48,13 @@ const User: FC<PropsType> = ({
                     {/* </div> */}
                     <div className={style.status}>
                         {user.status && user.status.length > 50
-                            ? "Check status inside profile!"
+                            ? 'Check status inside profile!'
                             : user.status}
                     </div>
                 </div>
                 {user.followed ? (
                     <Button
-                        style={{ marginTop: "10px", justifySelf: "flex-end" }}
+                        style={{ marginTop: '10px', justifySelf: 'flex-start' }}
                         size="small"
                         disabled={followingInProgress.some(
                             (item) => item === user.id
@@ -70,7 +70,7 @@ const User: FC<PropsType> = ({
                             <img
                                 src={loader}
                                 alt="loading..."
-                                style={{ width: "50px" }}
+                                style={{ width: '50px' }}
                             />
                         ) : (
                             <PersonAddDisabledIcon />
@@ -78,7 +78,7 @@ const User: FC<PropsType> = ({
                     </Button>
                 ) : (
                     <Button
-                        style={{ marginTop: "10px", justifySelf: "flex-end" }}
+                        style={{ marginTop: '10px', justifySelf: 'flex-start' }}
                         size="small"
                         disabled={followingInProgress.some(
                             (item) => item === user.id
@@ -92,7 +92,7 @@ const User: FC<PropsType> = ({
                             <img
                                 src={loader}
                                 alt="loading..."
-                                style={{ width: "50px" }}
+                                style={{ width: '50px' }}
                             />
                         ) : (
                             <PersonAddIcon />

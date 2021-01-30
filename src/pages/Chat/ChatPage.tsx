@@ -1,97 +1,76 @@
-import { Button } from "@material-ui/core";
-import { Form, Formik } from "formik";
-import React, { FC, useEffect, useState } from "react";
-import { CustomTextField } from "../../components/common/Forms/Forms";
+import { Button, Container } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import SendIcon from '@material-ui/icons/Send';
+import { Form, Formik } from 'formik';
+import React, { FC, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { CustomTextField } from '../../components/common/Forms/Forms';
+import {
+    sendMessage,
+    startMessagesListening,
+    stopMessagesListening,
+} from '../../redux/chat-reducer';
+import { AppStateType } from '../../redux/redux-store';
 
-export type ChatMessageType = {
-    userName: string;
-    userId: number;
-    photo: string;
-    message: string;
-};
+const useStyles = makeStyles(() => ({
+    messages: {
+        height: '600px',
+        overflowY: 'auto',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+    },
+}));
 
 const ChatPage: FC = () => {
     return <Chat />;
 };
 
 const Chat: FC = () => {
-    const [ws, setWs] = useState<WebSocket | null>(null);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        let ws: WebSocket;
-
-        const handleCloseChannel = () => {
-            setTimeout(createChannel, 3000);
-        };
-        function createChannel() {
-            ws?.removeEventListener("close", handleCloseChannel);
-            ws?.close();
-
-            ws = new WebSocket(
-                "wss://social-network.samuraijs.com/handlers/ChatHandler.ashx"
-            );
-            ws.addEventListener("close", handleCloseChannel);
-            setWs(ws);
-        }
-        createChannel();
-
+        dispatch(startMessagesListening());
         return () => {
-            ws.removeEventListener("close", handleCloseChannel);
-            ws.close();
+            dispatch(stopMessagesListening());
         };
     }, []);
 
     return (
         <div>
-            <Messages ws={ws} />
-            <MessagesForm ws={ws} />
+            <Messages />
+            <MessagesForm />
         </div>
     );
 };
 
-const MessagesForm: FC<{ ws: WebSocket | null }> = ({ ws }) => {
-    const [readyStatus, setReadyStatus] = useState<"pending" | "ready">(
-        "pending"
-    );
-
-    useEffect(() => {
-        let handleOpenChannel = () => {
-            setReadyStatus("ready");
-        };
-        ws?.addEventListener("open", handleOpenChannel);
-        return () => {
-            ws?.removeEventListener("close", handleOpenChannel);
-        };
-    }, [ws]);
+const MessagesForm: FC = () => {
+    const dispatch = useDispatch();
 
     return (
         <Formik
-            initialValues={{ messageText: "" }}
+            initialValues={{ messageText: '' }}
             onSubmit={(values, { setSubmitting, resetForm }) => {
-                ws?.send(values.messageText);
+                dispatch(sendMessage(values.messageText));
                 setSubmitting(false);
                 resetForm();
             }}>
             {({ isSubmitting }) => (
                 <Form
                     style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
                     }}>
                     <CustomTextField
-                        style={{ margin: "20px 0" }}
                         name="messageText"
-                        variant="outlined"
+                        style={{ width: '300px', margin: '20px 0' }}
                     />
                     <Button
                         variant="contained"
                         type="submit"
-                        disabled={
-                            isSubmitting ||
-                            readyStatus !== "ready" ||
-                            ws === null
-                        }>
+                        endIcon={<SendIcon />}
+                        disabled={isSubmitting}>
                         Send
                     </Button>
                 </Form>
@@ -100,32 +79,17 @@ const MessagesForm: FC<{ ws: WebSocket | null }> = ({ ws }) => {
     );
 };
 
-const Messages: FC<{ ws: WebSocket | null }> = ({ ws }) => {
-    const [messages, setMessages] = useState<ChatMessageType[]>([]);
+const Messages: FC = () => {
+    const classes = useStyles();
+    const messages = useSelector((state: AppStateType) => state.chat.messages);
 
-    useEffect(() => {
-        const handleMessageChannel = (e: any) => {
-            let newMessages = JSON.parse(e.data);
-            setMessages((prevMessages) => [...prevMessages, ...newMessages]);
-        };
-
-        ws?.addEventListener("message", handleMessageChannel);
-        return () => ws?.removeEventListener("message", handleMessageChannel);
-    }, [ws]);
-
+    // TODO: change key value to smth more stable than [index]
     return (
-        <div
-            style={{
-                height: "600px",
-                overflowY: "auto",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-start",
-            }}>
+        <Container maxWidth="sm" className={classes.messages}>
             {messages.map((data: any, index: number) => (
                 <Message data={data} key={index} />
             ))}
-        </div>
+        </Container>
     );
 };
 
@@ -133,15 +97,16 @@ const Message: FC<any> = ({ data }) => {
     return (
         <div
             style={{
-                margin: "10px 0",
-                backgroundColor: "var(--secondary-bg-color)",
-                padding: "10px 20px",
-                borderRadius: "10px",
+                margin: '10px 0',
+                backgroundColor: 'var(--secondary-bg-color)',
+                padding: '10px 20px',
+                borderRadius: '10px',
             }}>
             <img
-                style={{ width: "50px", borderRadius: "50%" }}
+                style={{ width: '50px', borderRadius: '50%' }}
                 src={data.photo}
-            />{" "}
+                alt="user"
+            />{' '}
             <b>{data.userName} </b>
             <b>#{data.userId}</b>
             <div>{data.message}</div>

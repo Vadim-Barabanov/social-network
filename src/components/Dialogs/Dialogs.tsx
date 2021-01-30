@@ -1,16 +1,14 @@
-import React, { FC } from "react";
-import s from "./Dialogs.module.css";
-import DialogItem from "./DialogItem/DialogItem";
-import Message from "./Message/Message";
-import { Formik, Form, FormikErrors } from "formik";
-import { AppStateType } from "../../redux/redux-store";
-import { useSelector, useDispatch } from "react-redux";
-import { actions } from "./../../redux/dialogs-reducer";
-import { Button } from "@material-ui/core";
-import { CustomTextField } from "../common/Forms/Forms";
-import { withAuthRedirect } from "../../hoc/withAuthRedirect";
-import SendIcon from "@material-ui/icons/Send";
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import React, { FC } from 'react';
+import s from './Dialogs.module.css';
+import Message from './Message/Message';
+import { Formik, Form, FormikErrors } from 'formik';
+import { AppStateType } from '../../redux/redux-store';
+import { useSelector, useDispatch } from 'react-redux';
+import { actions } from './../../redux/dialogs-reducer';
+import { Button } from '@material-ui/core';
+import { CustomTextField } from '../common/Forms/Forms';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import SendIcon from '@material-ui/icons/Send';
 
 type FormValues = {
     messageText: string;
@@ -21,7 +19,7 @@ const validation = (values: FormValues) => {
 
     if (!values.messageText) {
         if (/[ \t]/.test(values.messageText)) {
-            errors.messageText = "error";
+            errors.messageText = 'error';
         }
     }
 
@@ -42,21 +40,20 @@ const MessagesForm = () => {
 
     return (
         <Formik
-            initialValues={{ messageText: "" }}
+            initialValues={{ messageText: '' }}
             validate={validation}
             onSubmit={submit}>
             {({ isSubmitting }) => (
                 <Form
                     style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
                     }}
                     className={s.messageForm}>
                     <CustomTextField
-                        multiline
                         name="messageText"
-                        style={{ width: "300px", margin: "20px 0" }}
+                        style={{ width: '300px', margin: '20px 0' }}
                     />
                     <Button
                         variant="contained"
@@ -76,10 +73,6 @@ type PropsType = {};
 const Dialogs: FC<PropsType> = () => {
     const dialogsPage = useSelector((state: AppStateType) => state.dialogsPage);
 
-    let dialogElements = dialogsPage.dialogs.map((item: any) => (
-        <DialogItem name={item.name} id={item.id} key={item.id} />
-    ));
-
     let messagesElements = dialogsPage.messages.map((item: any) => (
         <Message
             from={item.from}
@@ -90,19 +83,7 @@ const Dialogs: FC<PropsType> = () => {
     ));
     return (
         <div className={s.wrapper}>
-            {/* <div className={s.dialogItems}>{dialogElements}</div> */}
-            <div className={s.messageItemsWrapper}>
-                <div className={s.messageItems}>{messagesElements}</div>
-                <p
-                    style={{
-                        textAlign: "center",
-                        marginTop: "20px",
-                        fontSize: "14px",
-                    }}>
-                    Scroll down
-                </p>
-                <KeyboardArrowDownIcon style={{ alignSelf: "center" }} />
-            </div>
+            <div className={s.messageItems}>{messagesElements}</div>
             <MessagesForm />
         </div>
     );

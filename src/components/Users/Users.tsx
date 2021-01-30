@@ -1,7 +1,7 @@
-import React, { FC, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import * as queryString from "querystring";
+import React, { FC, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import * as queryString from 'querystring';
 // SELECTORS
 import {
     getCurrentPage,
@@ -10,20 +10,35 @@ import {
     getTotalUsersCount,
     getUsersArray,
     getUsersFilter,
-} from "../../redux/selectors/users-selectores";
+} from '../../redux/selectors/users-selectores';
 // AC's
-import { follow, getUsers, unfollow } from "../../redux/users-reducer";
+import { follow, getUsers, unfollow } from '../../redux/users-reducer';
 // TYPES
-import { FilterType } from "../../redux/users-reducer";
-import { UserType } from "../../types/types";
+import { FilterType } from '../../redux/users-reducer';
+import { UserType } from '../../types/types';
 // COMPONENTS
-import User from "./User";
-import UsersSearchForm from "./UsersSearchForm";
-import style from "./UsersStyle.module.css";
-import Pagination from "@material-ui/lab/Pagination";
+import User from './User';
+import UsersSearchForm from './UsersSearchForm';
+import Pagination from '@material-ui/lab/Pagination';
+import { Container, makeStyles, Theme } from '@material-ui/core';
 
 type PropsType = {};
 type QueryParamsType = { term?: string; page?: string; friend?: string };
+
+const useStyles = makeStyles((theme: Theme) => ({
+    users: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    list: {
+        width: '100%',
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gridTemplateRows: 'auto',
+        justifyContent: 'center',
+    },
+}));
 
 export const Users: FC<PropsType> = () => {
     const totalUsersCount = useSelector(getTotalUsersCount);
@@ -51,9 +66,9 @@ export const Users: FC<PropsType> = () => {
             actualFilter = {
                 ...actualFilter,
                 friend:
-                    parsed.friend === "null"
+                    parsed.friend === 'null'
                         ? null
-                        : parsed.friend === "true"
+                        : parsed.friend === 'true'
                         ? true
                         : false,
             };
@@ -68,7 +83,7 @@ export const Users: FC<PropsType> = () => {
         if (currentPage !== 1) query.page = String(currentPage);
 
         history.push({
-            pathname: "/users",
+            pathname: '/users',
             search: queryString.stringify(query),
         });
     }, [filter, currentPage]);
@@ -87,10 +102,12 @@ export const Users: FC<PropsType> = () => {
         dispatch(unfollow(userId));
     };
 
+    const classes = useStyles();
+
     return (
-        <div className={style.wrapper}>
+        <Container maxWidth="md" className={classes.users}>
             <UsersSearchForm onFilterChange={onFilterChange} />
-            <div className={style.usersList}>
+            <div className={classes.list}>
                 {users.map((user: UserType) => (
                     <User
                         user={user}
@@ -101,18 +118,12 @@ export const Users: FC<PropsType> = () => {
                     />
                 ))}
             </div>
-            {/* <Paginator */}
-            {/*     currentPage={currentPage} */}
-            {/*     onPageChange={onPageChange} */}
-            {/*     totalItemsCount={totalUsersCount} */}
-            {/*     pageSize={pageSize} */}
-            {/* /> */}
             <Pagination
-                style={{ marginTop: "20px" }}
+                style={{ marginTop: '20px' }}
                 onChange={handlePageChange}
                 count={Math.ceil(totalUsersCount / pageSize)}
                 page={currentPage}
             />
-        </div>
+        </Container>
     );
 };

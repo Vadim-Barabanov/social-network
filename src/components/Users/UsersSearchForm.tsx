@@ -1,17 +1,17 @@
-import React, { FC, memo } from "react";
-import { Formik, Form, Field } from "formik";
-import { FilterType } from "../../redux/users-reducer";
-import { useSelector } from "react-redux";
-import { getUsersFilter } from "../../redux/selectors/users-selectores";
-import { CustomTextField } from "../common/Forms/Forms";
-import { Button, Select, MenuItem } from "@material-ui/core";
+import { Button, Select } from '@material-ui/core';
+import { Field, Form, Formik } from 'formik';
+import React, { FC, memo } from 'react';
+import { useSelector } from 'react-redux';
+import { getUsersFilter } from '../../redux/selectors/users-selectores';
+import { FilterType } from '../../redux/users-reducer';
+import { CustomTextField } from '../common/Forms/Forms';
 
 const usersSearchFormValidate = () => {
     const errors = {};
     return errors;
 };
 
-type FriendFormType = "true" | "false" | "null";
+type FriendFormType = 'true' | 'false' | 'null';
 type FormType = {
     term: string;
     friend: FriendFormType;
@@ -29,9 +29,9 @@ const UsersSearchForm: FC<PropsType> = memo((props) => {
         const filter: FilterType = {
             term: values.term,
             friend:
-                values.friend === "null"
+                values.friend === 'null'
                     ? null
-                    : values.friend === "true"
+                    : values.friend === 'true'
                     ? true
                     : false,
         };
@@ -55,9 +55,9 @@ const UsersSearchForm: FC<PropsType> = memo((props) => {
                 {({ isSubmitting }) => (
                     <Form
                         style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
                         }}>
                         <div>
                             <CustomTextField
@@ -77,7 +77,7 @@ const UsersSearchForm: FC<PropsType> = memo((props) => {
                             variant="contained"
                             type="submit"
                             disabled={isSubmitting}
-                            style={{ margin: "20px 0 12px 0" }}>
+                            style={{ margin: '20px 0 12px 0' }}>
                             Find
                         </Button>
                     </Form>

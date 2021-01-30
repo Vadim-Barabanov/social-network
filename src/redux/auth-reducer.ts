@@ -1,7 +1,7 @@
-import { authAPI } from "../api/auth-api";
-import { securityAPI } from "../api/security-api";
-import { ResultCodes, CaptchaResultCode } from "../api/api";
-import { InferActionsType, BaseThunkType } from "./redux-store";
+import { authAPI } from '../api/auth-api';
+import { securityAPI } from '../api/security-api';
+import { ResultCodes, CaptchaResultCode } from '../api/api';
+import { InferActionsType, BaseThunkType } from './redux-store';
 
 let initialState = {
     userId: null as number | null,
@@ -18,17 +18,17 @@ const authReducer = (
     action: ActionsType
 ): InitialStateType => {
     switch (action.type) {
-        case "AUTH/SET_AUTH_USER_DATA":
+        case 'AUTH/SET_AUTH_USER_DATA':
             return {
                 ...state,
                 ...action.payload,
             };
-        case "AUTH/TOGGLE_IS_FETCHING":
+        case 'AUTH/TOGGLE_IS_FETCHING':
             return {
                 ...state,
                 isFetching: action.isFetching,
             };
-        case "AUTH/SET_CAPTCHA_URL":
+        case 'AUTH/SET_CAPTCHA_URL':
             return {
                 ...state,
                 captchaUrl: action.captchaUrl,
@@ -49,19 +49,19 @@ export const actions = {
         isAuth: boolean
     ) =>
         ({
-            type: "AUTH/SET_AUTH_USER_DATA",
+            type: 'AUTH/SET_AUTH_USER_DATA',
             payload: { userId, email, login, isAuth },
         } as const),
 
     toggleIsFetching: (isFetching: boolean) =>
         ({
-            type: "AUTH/TOGGLE_IS_FETCHING",
+            type: 'AUTH/TOGGLE_IS_FETCHING',
             isFetching,
         } as const),
 
     setCaptchaUrl: (captchaUrl: string) =>
         ({
-            type: "AUTH/SET_CAPTCHA_URL",
+            type: 'AUTH/SET_CAPTCHA_URL',
             captchaUrl,
         } as const),
 };
