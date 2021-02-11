@@ -1,0 +1,121 @@
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.028  000.028: --- NVIM STARTING ---
+042.055  042.027: locale set
+042.605  000.550: inits 1
+042.914  000.308: window checked
+043.076  000.163: parsing arguments
+043.200  000.123: expanding arguments
+043.285  000.086: inits 2
+048.657  005.372: init highlight
+048.925  000.267: waiting for UI
+061.018  012.094: done waiting for UI
+061.091  000.073: initialized screen early for UI
+064.416  002.529  002.529: sourcing C:\Users\Jisatsu\AppData\Local\nvim\autoload\plug.vim
+097.067  000.154  000.154: sourcing C:\Users\Jisatsu\.config\nvim\plugged\vim-haml\ftdetect\haml.vim
+097.645  000.097  000.097: sourcing C:\Users\Jisatsu\.config\nvim\plugged\vim-fugitive\ftdetect\fugitive.vim
+098.341  000.123  000.123: sourcing C:\Users\Jisatsu\.config\nvim\plugged\typescript-vim\ftdetect\typescript.vim
+098.835  000.118  000.118: sourcing C:\Users\Jisatsu\.config\nvim\plugged\vim-jsx-typescript\ftdetect\typescript.vim
+099.416  000.098  000.098: sourcing C:\Users\Jisatsu\.config\nvim\plugged\vim-javascript\ftdetect\flow.vim
+099.780  000.149  000.149: sourcing C:\Users\Jisatsu\.config\nvim\plugged\vim-javascript\ftdetect\javascript.vim
+100.641  023.241  022.502: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\filetype.vim
+101.987  000.157  000.157: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\ftplugin.vim
+103.011  000.138  000.138: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\indent.vim
+106.385  000.959  000.959: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\syntax\syncolor.vim
+106.744  002.263  001.305: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\syntax\synload.vim
+106.814  003.396  001.133: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\syntax\syntax.vim
+113.934  000.712  000.712: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\syntax\syncolor.vim
+115.811  000.382  000.382: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\syntax\syncolor.vim
+121.253  013.675  012.581: sourcing C:\Users\Jisatsu\.config\nvim\plugged\ayu-vim\colors\ayu.vim
+121.957  060.429  017.293: sourcing C:\Users\Jisatsu\AppData\Local\nvim\init.vim
+121.975  000.455: sourcing vimrc file(s)
+123.261  000.302  000.302: sourcing C:\Users\Jisatsu\.config\nvim\plugged\lightline.vim\plugin\lightline.vim
+125.006  000.509  000.509: sourcing C:\Users\Jisatsu\.config\nvim\plugged\colorizer\autoload\colorizer.vim
+125.573  001.705  001.196: sourcing C:\Users\Jisatsu\.config\nvim\plugged\colorizer\plugin\colorizer.vim
+127.080  000.305  000.305: sourcing C:\Users\Jisatsu\.config\nvim\plugged\coc.nvim\autoload\coc\rpc.vim
+128.564  001.061  001.061: sourcing C:\Users\Jisatsu\.config\nvim\plugged\coc.nvim\autoload\coc\util.vim
+133.015  000.451  000.451: sourcing C:\Users\Jisatsu\.config\nvim\plugged\coc.nvim\autoload\coc\client.vim
+151.832  025.699  023.883: sourcing C:\Users\Jisatsu\.config\nvim\plugged\coc.nvim\plugin\coc.vim
+153.857  000.453  000.453: sourcing C:\Users\Jisatsu\.config\nvim\plugged\ctrlp.vim\autoload\ctrlp\mrufiles.vim
+154.425  001.895  001.442: sourcing C:\Users\Jisatsu\.config\nvim\plugged\ctrlp.vim\plugin\ctrlp.vim
+156.137  000.872  000.872: sourcing C:\Users\Jisatsu\.config\nvim\plugged\auto-pairs\plugin\auto-pairs.vim
+157.410  000.517  000.517: sourcing C:\Users\Jisatsu\.config\nvim\plugged\vim-commentary\plugin\commentary.vim
+159.749  001.314  001.314: sourcing C:\Users\Jisatsu\.config\nvim\plugged\vim-surround\plugin\surround.vim
+167.383  006.964  006.964: sourcing C:\Users\Jisatsu\.config\nvim\plugged\vim-fugitive\plugin\fugitive.vim
+169.612  000.395  000.395: sourcing C:\Users\Jisatsu\.config\nvim\plugged\vim-gitgutter\autoload\gitgutter\utility.vim
+183.806  000.554  000.554: sourcing C:\Users\Jisatsu\.config\nvim\plugged\vim-gitgutter\autoload\gitgutter\highlight.vim
+186.253  000.436  000.436: sourcing C:\Users\Jisatsu\.config\nvim\plugged\vim-gitgutter\autoload\gitgutter\async.vim
+188.627  020.439  019.054: sourcing C:\Users\Jisatsu\.config\nvim\plugged\vim-gitgutter\plugin\gitgutter.vim
+194.008  001.229  001.229: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree\autoload\nerdtree.vim
+198.754  002.017  002.017: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree\lib\nerdtree\path.vim
+199.840  000.315  000.315: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree\lib\nerdtree\menu_controller.vim
+200.837  000.314  000.314: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree\lib\nerdtree\menu_item.vim
+201.870  000.334  000.334: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree\lib\nerdtree\key_map.vim
+203.049  000.477  000.477: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree\lib\nerdtree\bookmark.vim
+204.270  000.458  000.458: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree\lib\nerdtree\tree_file_node.vim
+205.941  000.875  000.875: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree\lib\nerdtree\tree_dir_node.vim
+207.126  000.419  000.419: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree\lib\nerdtree\opener.vim
+208.253  000.467  000.467: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree\lib\nerdtree\creator.vim
+209.196  000.211  000.211: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree\lib\nerdtree\flag_set.vim
+210.534  000.677  000.677: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree\lib\nerdtree\nerdtree.vim
+212.434  001.247  001.247: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree\lib\nerdtree\ui.vim
+213.369  000.216  000.216: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree\lib\nerdtree\event.vim
+214.486  000.368  000.368: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree\lib\nerdtree\notifier.vim
+218.071  002.516  002.516: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree\autoload\nerdtree\ui_glue.vim
+226.923  000.351  000.351: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree\nerdtree_plugin\exec_menuitem.vim
+255.040  019.544  019.544: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\autoload\provider\clipboard.vim
+255.636  028.486  008.942: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree\nerdtree_plugin\fs_menu.vim
+256.134  000.250  000.250: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree\nerdtree_plugin\vcs.vim
+257.832  000.242  000.242: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree-git-plugin\autoload\gitstatus.vim
+260.070  000.335  000.335: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree-git-plugin\autoload\gitstatus\log.vim
+266.776  000.396  000.396: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree-git-plugin\autoload\gitstatus\listener.vim
+267.122  010.343  009.369: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree-git-plugin\nerdtree_plugin\git_status.vim
+269.136  001.075  001.075: sourcing C:\Users\Jisatsu\.config\nvim\plugged\vim-devicons\nerdtree_plugin\webdevicons.vim
+270.697  080.334  027.688: sourcing C:\Users\Jisatsu\.config\nvim\plugged\nerdtree\plugin\NERD_tree.vim
+276.639  000.176  000.176: sourcing C:\Users\Jisatsu\.config\nvim\plugged\vim-devicons\autoload\devicons\plugins\ctrlp.vim
+276.754  005.061  004.885: sourcing C:\Users\Jisatsu\.config\nvim\plugged\vim-devicons\plugin\webdevicons.vim
+277.643  000.187  000.187: sourcing C:\Users\Jisatsu\.config\nvim\plugged\goyo.vim\plugin\goyo.vim
+281.302  000.718  000.718: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\plugin\gzip.vim
+281.633  000.122  000.122: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\plugin\health.vim
+282.114  000.291  000.291: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\plugin\man.vim
+286.722  000.966  000.966: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\pack\dist\opt\matchit\plugin\matchit.vim
+286.892  004.581  003.616: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\plugin\matchit.vim
+287.535  000.439  000.439: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\plugin\matchparen.vim
+289.202  001.458  001.458: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\plugin\netrwPlugin.vim
+291.746  000.395  000.395: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\autoload\remote\host.vim
+293.206  000.396  000.396: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\autoload\remote\define.vim
+293.433  003.136  002.345: sourcing C:\Users\Jisatsu\AppData\Local\nvim-data/rplugin.vim
+293.459  003.934  000.798: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\plugin\rplugin.vim
+294.041  000.354  000.354: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\plugin\shada.vim
+294.418  000.155  000.155: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\plugin\spellfile.vim
+295.102  000.479  000.479: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\plugin\tarPlugin.vim
+295.639  000.321  000.321: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\plugin\tohtml.vim
+296.000  000.153  000.153: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\plugin\tutor.vim
+296.662  000.461  000.461: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\plugin\zipPlugin.vim
+296.687  015.955: loading plugins
+296.996  000.308: loading packages
+298.789  001.104  001.104: sourcing C:\Users\Jisatsu\.config\nvim\plugged\indentLine\after\plugin\indentLine.vim
+299.186  001.086: loading after plugins
+299.253  000.067: inits 3
+309.417  010.164: reading ShaDa
+321.395  001.532  001.532: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\scripts.vim
+340.904  000.256  000.256: sourcing C:\tools\neovim\Neovim\share\nvim\runtime\ftplugin\text.vim
+348.247  037.042: opening buffers
+349.581  000.772  000.772: sourcing C:\Users\Jisatsu\.config\nvim\plugged\lightline.vim\autoload\lightline.vim
+358.764  007.282  007.282: sourcing C:\Users\Jisatsu\.config\nvim\plugged\vim-fugitive\autoload\fugitive.vim
+360.967  000.234  000.234: sourcing C:\Users\Jisatsu\.config\nvim\plugged\lightline.vim\autoload\lightline\tab.vim
+362.613  000.471  000.471: sourcing C:\Users\Jisatsu\.config\nvim\plugged\lightline.vim\autoload\lightline\colorscheme.vim
+367.470  005.973  005.501: sourcing C:\Users\Jisatsu\.config\nvim\plugged\lightline.vim\autoload\lightline\colorscheme\ayu_mirage.vim
+377.463  000.379  000.379: sourcing C:\Users\Jisatsu\.config\nvim\plugged\vim-gitgutter\autoload\gitgutter.vim
+378.264  015.377: BufEnter autocommands
+378.274  000.010: editing files in windows
+378.697  000.422: VimEnter autocommands
+378.705  000.008: UIEnter autocommands
+378.712  000.008: before starting main loop
+380.879  001.618  001.618: sourcing C:\Users\Jisatsu\.config\nvim\plugged\coc.nvim\autoload\coc\float.vim
+388.753  008.423: first screen update
+388.766  000.013: --- NVIM STARTED ---

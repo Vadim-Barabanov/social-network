@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import ProfileStyle from './Profile.module.css';
+import s from './Profile.module.css';
 import { ProfileContent } from './ProfileContent/ProfileContent';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
@@ -9,9 +9,9 @@ type PropsType = {
 
 const Profile: FC<PropsType> = (props) => {
     return (
-        <div className={ProfileStyle.profile}>
+        <div className={s.profile}>
             <ProfileInfo isOwner={props.isOwner} />
-            <ProfileContent />
+            {/* <ProfileContent /> */}
         </div>
     );
 };

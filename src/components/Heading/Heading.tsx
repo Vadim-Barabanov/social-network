@@ -10,8 +10,11 @@ import { Box, Button } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 import ChatIcon from '@material-ui/icons/Chat';
 import SearchIcon from '@material-ui/icons/Search';
+
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ForumIcon from '@material-ui/icons/Forum';
+import WbSunnyIcon from '@material-ui/icons/WbSunny';
+import Brightness3Icon from '@material-ui/icons/Brightness3';
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -94,10 +97,13 @@ export const Heading: FC<PropsType> = ({ toggleTheme, theme }) => {
                         Search
                     </Button>
                 </Box>
-                <div>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <WbSunnyIcon />
                     <Switch checked={!theme} onChange={toggleTheme} />
+                    <Brightness3Icon />
                     <Button
                         color="secondary"
+                        style={{ marginLeft: '2rem' }}
                         onClick={handleLogout}
                         endIcon={<ExitToAppIcon />}>
                         Logout

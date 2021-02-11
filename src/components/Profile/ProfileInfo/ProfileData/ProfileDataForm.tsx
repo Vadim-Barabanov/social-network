@@ -1,18 +1,18 @@
-import React, { FC } from "react";
-import { Formik, Form } from "formik";
-import s from "../ProfileInfo.module.css";
-import Preloader from "../../../common/preloader/Preloader";
-import { CustomTextField, CustomCheckbox } from "../../../common/Forms/Forms";
-import { Button } from "@material-ui/core";
-import SaveIcon from "@material-ui/icons/Save";
-import CloseIcon from "@material-ui/icons/Close";
+import React, { FC } from 'react';
+import { Formik, Form } from 'formik';
+import s from '../ProfileInfo.module.css';
+import Preloader from '../../../common/preloader/Preloader';
+import { CustomTextField, CustomCheckbox } from '../../../common/Forms/Forms';
+import { Button } from '@material-ui/core';
+import SaveIcon from '@material-ui/icons/Save';
+import CloseIcon from '@material-ui/icons/Close';
 
 export const ProfileDataForm: FC<any> = ({
     profile,
     updateProfile,
     setEditMode,
 }) => {
-    const submit = (values: any, { setSubmitting }: any) => {
+    const submit = (values: InitialValuesType, { setSubmitting }: any) => {
         updateProfile(values).then(() => {
             setEditMode(false);
             setSubmitting(false);
@@ -26,6 +26,8 @@ export const ProfileDataForm: FC<any> = ({
         lookingForAJobDescription: profile.lookingForAJobDescription,
         contacts: { ...profile.contacts },
     };
+
+    type InitialValuesType = typeof initialValues;
 
     return (
         <Formik initialValues={initialValues} onSubmit={submit}>
@@ -62,7 +64,7 @@ export const ProfileDataForm: FC<any> = ({
                             return (
                                 <div key={key}>
                                     <CustomTextField
-                                        style={{ marginBottom: "10px" }}
+                                        style={{ marginBottom: '10px' }}
                                         name={`contacts.${key}`}
                                         placeholder={`https://${key}.com`}
                                     />
@@ -77,18 +79,18 @@ export const ProfileDataForm: FC<any> = ({
                             variant="contained"
                             type="submit"
                             endIcon={<SaveIcon />}
-                            style={{ justifySelf: "center", marginTop: "15px" }}
+                            style={{ justifySelf: 'center', marginTop: '15px' }}
                             disabled={isSubmitting}>
                             {isSubmitting ? (
-                                <Preloader size={"45px"} />
+                                <Preloader size={'45px'} />
                             ) : (
-                                "Save"
+                                'Save'
                             )}
                         </Button>
                         <Button
                             size="small"
                             variant="contained"
-                            style={{ justifySelf: "center", marginTop: "15px" }}
+                            style={{ justifySelf: 'center', marginTop: '15px' }}
                             disabled={isSubmitting}
                             endIcon={<CloseIcon />}
                             onClick={() => setEditMode(false)}>

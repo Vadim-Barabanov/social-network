@@ -1,22 +1,22 @@
-import React, { useState, FC } from "react";
-import styles from "./ProfileInfo.module.css";
-import userMale from "../../../assets/images/userMale.png";
+import React, { useState, FC } from 'react';
+import styles from './ProfileInfo.module.css';
+import userMale from '../../../assets/images/userMale.png';
 // import { ProfileType } from "../../../types/types";
 
 // Importing components
-import Preloader from "../../common/preloader/Preloader";
-import ProfileData from "./ProfileData/ProfileData";
-import { ProfileDataForm } from "./ProfileData/ProfileDataForm";
-import { useSelector, useDispatch } from "react-redux";
-import { AppStateType } from "../../../redux/redux-store";
+import Preloader from '../../common/preloader/Preloader';
+import ProfileData from './ProfileData/ProfileData';
+import { ProfileDataForm } from './ProfileData/ProfileDataForm';
+import { useSelector, useDispatch } from 'react-redux';
+import { AppStateType } from '../../../redux/redux-store';
 import {
     updateStatus,
     updateProfile,
     savePhoto,
-} from "../../../redux/profile-reducer";
-import { ProfileType } from "../../../types/types";
-import EditIcon from "@material-ui/icons/Edit";
-import { Button } from "@material-ui/core";
+} from '../../../redux/profile-reducer';
+import { ProfileType } from '../../../types/types';
+import EditIcon from '@material-ui/icons/Edit';
+import { Button } from '@material-ui/core';
 
 type PropsType = {
     isOwner: boolean;
@@ -63,7 +63,7 @@ const ProfileInfo: FC<PropsType> = (props) => {
                 {props.isOwner ? (
                     <input
                         className={styles.inputFile}
-                        type={"file"}
+                        type={'file'}
                         onChange={onMainPhotoSelected}
                     />
                 ) : null}
@@ -87,6 +87,7 @@ const ProfileInfo: FC<PropsType> = (props) => {
                     <Button
                         size="small"
                         endIcon={<EditIcon />}
+                        style={{ alignSelf: 'center' }}
                         onClick={() => setEditMode(true)}>
                         Edit
                     </Button>

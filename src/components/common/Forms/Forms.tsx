@@ -1,9 +1,9 @@
-import React, { FC } from "react";
-import { useField, FieldAttributes } from "formik";
-import { TextField, Checkbox, FormControlLabel } from "@material-ui/core";
+import React, { FC } from 'react';
+import { useField, FieldAttributes } from 'formik';
+import { TextField, Checkbox, FormControlLabel } from '@material-ui/core';
 
 type CustomTextFieldPropsType = {
-    variant?: "filled" | "outlined";
+    variant?: 'filled' | 'outlined';
     multiline?: boolean;
     placeholder?: string;
     type?: string;
@@ -22,7 +22,7 @@ export const CustomTextField: FC<FieldAttributes<CustomTextFieldPropsType>> = ({
     ...props
 }) => {
     const [field, meta] = useField<CustomTextFieldPropsType>(props);
-    const errorText = meta.error && meta.touched ? meta.error : "";
+    const errorText = meta.error && meta.touched ? meta.error : '';
     return (
         <TextField
             {...field}

@@ -29,16 +29,14 @@ const Dialogs = React.lazy(() => import('./components/Dialogs/Dialogs'));
 const ChatPage = React.lazy(() => import('./pages/Chat/ChatPage'));
 
 const useStyles = makeStyles(() => ({
-    root: {
-        minHeight: '100vh',
-    },
     header: {
         display: 'grid',
-        gridTemplateColumns: '1fr 900px 1fr',
-        gridTemplateRows: '100px 1fr',
-        gridTemplateAreas: `
-                    'heading heading heading'
-                    '. cont .'`,
+        gridTemplateColumns: '1fr 300px 1fr',
+        gridTemplateRows: '70px',
+    },
+    contentBox: {
+        gridArea: 'cont',
+        padding: '2rem',
     },
 }));
 
@@ -48,17 +46,17 @@ type PropsType = {
 };
 
 const App: FC<PropsType> = ({ theme, toggleTheme }) => {
-    const classes = useStyles();
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(initializeApp());
-    }, []);
-
     const initialized = useSelector(
         (state: AppStateType) => state.app.initialized
     );
     const isAuth = useSelector((state: AppStateType) => state.auth.isAuth);
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(initializeApp());
+    }, []);
+
+    const classes = useStyles();
     return (
         <>
             {initialized ? (
@@ -68,8 +66,8 @@ const App: FC<PropsType> = ({ theme, toggleTheme }) => {
                             <Heading theme={theme} toggleTheme={toggleTheme} />
                         ) : null}
                     </Box>
-                    <Container maxWidth="md" className={classes.root}>
-                        <Box style={{ gridArea: 'cont' }}>
+                    <Container maxWidth="md">
+                        <Box className={classes.contentBox}>
                             <RouteSwitcherWR />
                         </Box>
                     </Container>
@@ -110,7 +108,7 @@ const RouteSwitcher = () => {
                     );
                 }}
             />
-            {/* <Route path="*" render={() => <div>404 NOT FOUND</div>} /> */}
+            <Route path="*" render={() => <div>404 NOT FOUND</div>} />
         </Switch>
     );
 };

@@ -1,10 +1,7 @@
 .userTitle {
     display: flex;
     flex-direction: column;
-}
-
-.userInfo {
-    padding-top: 20px;
+    align-items: center;
 }
 
 .userInfoItem {

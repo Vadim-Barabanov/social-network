@@ -46,6 +46,7 @@ const Chat: FC = () => {
 
 const MessagesForm: FC = () => {
     const dispatch = useDispatch();
+    const status = useSelector((state: AppStateType) => state.chat.status);
 
     return (
         <Formik
@@ -70,7 +71,7 @@ const MessagesForm: FC = () => {
                         variant="contained"
                         type="submit"
                         endIcon={<SendIcon />}
-                        disabled={isSubmitting}>
+                        disabled={isSubmitting || status !== 'ready'}>
                         Send
                     </Button>
                 </Form>

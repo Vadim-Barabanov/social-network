@@ -1,3 +1,10 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .imageBox {
     position: relative;
 }
@@ -5,6 +12,10 @@
 .profileData {
     grid-area: data;
     max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .userImage {

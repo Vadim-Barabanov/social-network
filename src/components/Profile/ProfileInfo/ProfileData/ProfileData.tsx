@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core';
+import { makeStyles, Theme, Typography } from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
 // Icons importing
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
@@ -74,6 +74,18 @@ const Contact: FC<ContactPropsType> = ({ contactTitle, contactValue }) => {
     );
 };
 
+const useStyles = makeStyles((theme: Theme) => ({
+    userinfo: {
+        border: `1px solid ${theme.palette.primary.main}`,
+        borderRadius: '10px',
+        padding: '20px',
+        marginTop: '20px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+}));
+
 type ProfileDataType = {
     profile: any;
     status: string;
@@ -82,6 +94,7 @@ type ProfileDataType = {
 };
 
 const ProfileData: FC<ProfileDataType> = (props) => {
+    const classes = useStyles();
     const contactsArr = Object.keys(props.profile.contacts).map((key) => {
         if (props.profile.contacts[key]) {
             return (
@@ -105,7 +118,7 @@ const ProfileData: FC<ProfileDataType> = (props) => {
                     isOwner={props.isOwner}
                 />
             </div>
-            <div className={s.userInfo}>
+            <div className={classes.userinfo}>
                 <p style={{ display: 'flex', alignItems: 'center' }}>
                     <b style={{ marginRight: '10px' }}>Looking for a job: </b>
                     {props.profile.lookingForAJob ? (
@@ -116,12 +129,10 @@ const ProfileData: FC<ProfileDataType> = (props) => {
                 </p>
 
                 <b className={s.userDataTopic}>About me: </b>
-                <p className={s.userInfoItem}>
-                    {props.profile.aboutMe || 'No data'}
-                </p>
+                <p>{props.profile.aboutMe || 'No data'}</p>
 
                 <b className={s.userDataTopic}>My skills: </b>
-                <p className={s.userInfoItem}>
+                <p style={{ textAlign: 'center' }}>
                     {props.profile.lookingForAJobDescription || 'No data'}
                 </p>
 
